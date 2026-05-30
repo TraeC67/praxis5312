@@ -248,7 +248,8 @@
             </div>
             <div style="display:flex; align-items:center; gap:12px;">
                 <div class="timer" id="ui-timer">01:15</div>
-                <button class="btn btn-exit" id="btn-exit" onclick="pauseAndExit()">⏸ Save &amp; Exit</button>
+                <button class="btn btn-exit" id="btn-pause" onclick="togglePause()">⏸ Pause</button>
+                <button class="btn btn-exit" id="btn-exit" onclick="pauseAndExit()">🚪 Save &amp; Exit</button>
             </div>
         </div>
 
@@ -267,6 +268,13 @@
             <button class="btn btn-ghost" id="btn-prev" onclick="prevQuestion()">← Prev</button>
             <button class="btn btn-research" id="btn-reveal" onclick="revealStudyAnswer()">👁 Reveal Answer</button>
             <button class="btn btn-primary" id="btn-study-next" onclick="nextStudy()">Next →</button>
+        </div>
+
+        <div id="pause-panel" style="display:none; text-align:center; padding:34px 0;">
+            <div style="font-size:3rem;">⏸️</div>
+            <h2 style="margin:6px 0;">Paused</h2>
+            <p style="color:#94a3b8; margin-bottom:18px;">The timer is frozen and the question is hidden. Take your time, then resume.</p>
+            <button class="btn btn-primary" onclick="togglePause()">▶ Resume</button>
         </div>
 
         <div class="feedback-area" id="ui-feedback">
@@ -457,7 +465,7 @@
     ],
     "explanation": "A, B, and C map directly onto the MUSTIE criteria (Misleading/inaccurate, worn condition, lack of use + irrelevance to curriculum). D and E are convenience and personal preference, which are never valid weeding rationales.",
     "deepDive": "ISCI 706 Concept: Deselection (weeding) is taught through the CREW method and the MUSTIE acronym. The course frames weeding as objective collection maintenance — currency, condition, and use drive decisions, not aesthetics or shelving convenience. Recognizing the three legitimate MUSTIE-aligned reasons is core to defensible collection management.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 3
   },
   {
@@ -679,7 +687,7 @@
     "correctIndex": 1,
     "explanation": "B treats inventory as a data-quality and management process. It corrects records and looks for causes such as missed scans, classroom loans, or inconsistent procedures. A could remove items that are still owned; C and D reduce access without addressing the actual issue.",
     "deepDive": "ISCI 742 frames inventory as continuous quality control of the catalog as a management database, not a one-time count. The course teaches root-cause analysis of workflow breakdowns (missed scans, untracked classroom loans) so procedures, not access, get corrected.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
     "difficulty": 2
   },
   {
@@ -695,7 +703,7 @@
     "correctIndex": 1,
     "explanation": "B protects student privacy and keeps volunteer work within appropriate limits. Volunteers may see student names, book choices, and account records, so confidentiality matters. A, C, and D involve decisions or access that should be handled by trained staff under district policy.",
     "deepDive": "ISCI 742 emphasizes that managing personnel, including volunteers, means safeguarding the confidentiality of borrower records, a duty that intersects with FERPA and the profession's privacy ethics. Training volunteers on boundaries and referral protects both the student and the program's legal standing.",
-    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations",
+    "researchUrl": "https://studentprivacy.ed.gov/ferpa",
     "difficulty": 2
   },
   {
@@ -823,7 +831,7 @@
     "correctIndex": 1,
     "explanation": "B follows policy and protects student privacy. A and C are risky because consent and context matter. D is inequitable and does not address privacy requirements.",
     "deepDive": "ISCI 742 ties promotional and public-relations activity to FERPA-driven media-release procedures, ensuring marketing never overrides privacy. The course frames consent verification and data minimization as administrative compliance obligations, not optional courtesies.",
-    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations",
+    "researchUrl": "https://studentprivacy.ed.gov/ferpa",
     "difficulty": 2
   },
   {
@@ -839,7 +847,7 @@
     "correctIndex": 1,
     "explanation": "B balances stewardship of resources with the library's service mission. A overlimits access, while C and D weaken collection accountability.",
     "deepDive": "ISCI 742 teaches administrators to resolve the tension between accountability tasks and the access mission through process redesign, such as rolling inventory. Option B reflects the course's principle that operational duties should be engineered around continued service, not at its expense.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 3
   },
   {
@@ -871,7 +879,7 @@
     "correctIndex": 1,
     "explanation": "B supports safety, consistency, and ethical practice. A is unclear, C gives students inappropriate system authority, and D may exclude students who could benefit from leadership opportunities.",
     "deepDive": "ISCI 742 applies personnel-management principles, clear roles, supervision, confidentiality, and recognition, even to student workers. The course emphasizes that delegating tasks still requires safeguarding catalog integrity and borrower privacy, which is why students should not edit records.",
-    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations",
+    "researchUrl": "https://studentprivacy.ed.gov/ferpa",
     "difficulty": 2
   },
   {
@@ -887,7 +895,7 @@
     "correctIndex": 1,
     "explanation": "B recognizes both privacy and lawful access procedures. A and D risk unauthorized disclosure. C is too absolute; in schools, parent access rights and district procedures must be considered carefully.",
     "deepDive": "ISCI 742 examines the nuanced intersection of FERPA's parental-access rights and the library profession's confidentiality ethic. The course teaches identity verification and procedural compliance rather than reflexive disclosure or absolute refusal, the balanced posture of option B.",
-    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations",
+    "researchUrl": "https://studentprivacy.ed.gov/ferpa",
     "difficulty": 3
   },
   {
@@ -919,7 +927,7 @@
     "correctIndex": 2,
     "explanation": "C is professional and practical. It keeps accountability while making the workload visible and aligning with district systems. A and D create gaps; B hides the true resource need.",
     "deepDive": "ISCI 742 teaches that expanded asset-management duties must be negotiated transparently through documentation and district systems so instruction is protected. Making workload visible to administration is the course's strategy for resourcing the program rather than silently absorbing scope creep.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 3
   },
   {
@@ -999,8 +1007,8 @@
     "correctIndex": 3,
     "explanation": "D reflects professional weeding criteria. A, B, and C focus on personal preference or convenience rather than collection quality and learner needs.",
     "deepDive": "ISCI 706 teaches systematic deselection using objective criteria like accuracy, currency, and use rather than personal taste. Option D maps directly onto the CREW/MUSTIE methodology the course uses to keep collections relevant and reliable.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
-    "difficulty": 2
+    "researchUrl": "https://standards.aasl.org/framework/",
+    "difficulty": 3
   },
   {
     "domain": "Organization and Access",
@@ -1015,7 +1023,7 @@
     "correctIndex": 1,
     "explanation": "B is correct because the 500s are the natural sciences and mathematics. The 200s are religion, the 700s are arts and recreation, and the 900s are history and geography. Even when catalogs do the searching, a school librarian should understand classification patterns.",
     "deepDive": "ISCI 720 teaches the structure of Dewey Decimal Classification as a knowledge-organization scheme, including the meaning of each main class. Understanding that the 500s house natural sciences reflects the course's expectation that librarians grasp the conceptual logic of classification, not just rely on copy cataloging.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
     "difficulty": 1
   },
   {
@@ -1031,7 +1039,7 @@
     "correctIndex": 0,
     "explanation": "A is correct because MARC 245 is the title statement field. Barcodes are item-level data, not the 245 title field. Borrower names should not appear in bibliographic records, and shelving location is handled elsewhere in the catalog record or item record.",
     "deepDive": "ISCI 720 covers MARC encoding in depth, including the distinction between bibliographic-level fields (like 245 title) and item-level data (barcodes, location). Knowing the 245 holds the title statement is foundational to the metadata literacy the course builds.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
     "difficulty": 1
   },
   {
@@ -1047,7 +1055,7 @@
     "correctIndex": 2,
     "explanation": "C improves intellectual access while respecting cataloging practice. A and D make students dependent on chance or staff. B removes a major discovery tool.",
     "deepDive": "ISCI 720 frames subject analysis and authority control as the levers of intellectual access, with inclusive, current terminology improving discovery. Option C reflects the course's dual aim of maintaining standards-compliant records while teaching users multiple access points.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 3
   },
   {
@@ -1063,7 +1071,7 @@
     "correctIndex": 1,
     "explanation": "B treats genrefication as a local access decision that must be implemented carefully and evaluated. A and C are false; cataloging and shelving procedures still matter. D is too absolute.",
     "deepDive": "ISCI 720 treats genrefication as a local classification decision that trades formal call-number order for browsability, requiring updated catalog locations and evaluation. Option B captures the course's insistence that reorganization still depends on accurate metadata and assessment.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
     "difficulty": 3
   },
   {
@@ -1079,7 +1087,7 @@
     "correctIndex": 2,
     "explanation": "C expands access beyond the physical library while protecting accounts through approved systems. A and B limit access, and D creates barriers.",
     "deepDive": "ISCI 706 addresses building hybrid print/digital collections that extend access beyond the building's hours and walls. Option C reflects the course's model of remote discovery through web catalogs and secure authentication as a core equity strategy.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 3
   },
   {
@@ -1127,7 +1135,7 @@
     "correctIndex": 2,
     "explanation": "C is essential because digital resources may have one-user or simultaneous-use limits, platform requirements, privacy terms, and accessibility implications. A and B are secondary, and D applies to print organization rather than digital access.",
     "deepDive": "ISCI 706 teaches that digital acquisition is governed by licensing models (one-user vs. simultaneous), privacy terms, and accessibility, not ownership. Option C reflects the course's emphasis on total-cost and rights analysis unique to e-resource collection management.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 2
   },
   {
@@ -1143,7 +1151,7 @@
     "correctIndex": 0,
     "explanation": "A examines both who is represented and how well the collection meets real learner needs. B, C, and D are too shallow and can miss gaps, stereotypes, or inaccessible formats.",
     "deepDive": "ISCI 706 teaches diversity audits as structured collection analysis examining representation, format, and gaps against community needs. Option A is the comprehensive, data-driven audit the course contrasts with tokenistic 'one book per holiday' thinking.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 3
   },
   {
@@ -1159,7 +1167,7 @@
     "correctIndex": 1,
     "explanation": "B recognizes inventory as a verification process. A and D can make the catalog inaccurate, while C leaves problems unresolved.",
     "deepDive": "ISCI 720 treats inventory as a reconciliation of the catalog database against the physical collection, where exception reports drive investigation. Option B reflects the course's data-integrity discipline: verify, correct, and document rather than delete prematurely.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 3
   },
   {
@@ -1175,7 +1183,7 @@
     "correctIndex": 3,
     "explanation": "D supports access for users with varied physical, developmental, and learning needs. A, B, and C prioritize storage or appearance over usability.",
     "deepDive": "ISCI 706 connects facilities planning to universal access, prioritizing reach, sight lines, and flexible zones over maximizing storage. Option D applies the course's understanding that physical organization is itself an access decision for users with diverse needs.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 2
   },
   {
@@ -1191,7 +1199,7 @@
     "correctIndex": 0,
     "explanation": "A is correct because authority control improves discovery by standardizing access points. B, C, and D misunderstand the purpose of cataloging standards.",
     "deepDive": "ISCI 720 makes authority control a centerpiece, teaching that standardized access points collocate works by the same author or subject for reliable retrieval. Option A states the core purpose the course drills: consistency enables discovery.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 1
   },
   {
@@ -1207,7 +1215,7 @@
     "correctIndex": 1,
     "explanation": "B describes improved discoverability. Local enhancements can help users, but they do not replace item records, instruction, or quality control.",
     "deepDive": "ISCI 720 teaches that local enhancements (genre labels, vernacular subject terms) layer onto, rather than replace, standard metadata to improve discoverability. Option B reflects the course's balance between national standards and user-centered local access points.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 2
   },
   {
@@ -1223,7 +1231,7 @@
     "correctIndex": 2,
     "explanation": "C uses management strategies to distribute access fairly across classes. A creates inequity, B blocks use, and D ignores available print and curated resources.",
     "deepDive": "ISCI 706 addresses resource sharing and access management under high-demand conditions, using reserves, loan-period adjustments, and curated lists. Option C is the course's equitable-distribution toolkit for spreading a finite collection across competing classes.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 3
   },
   {
@@ -1239,7 +1247,7 @@
     "correctIndex": 1,
     "explanation": "B meets users where they are and connects resources to needs. A is passive, C delays access, and D narrows the collection unfairly.",
     "deepDive": "ISCI 706 treats promotion as the final step of collection management, ensuring acquired materials actually circulate through targeted, curriculum-connected marketing. Option B reflects the course's active-dissemination model rather than passive availability.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 2
   },
   {
@@ -1255,7 +1263,7 @@
     "correctIndex": 2,
     "explanation": "C investigates whether the issue is value, awareness, training, access, or alignment. A and B are unsupported extremes, and D reduces access.",
     "deepDive": "ISCI 706 teaches evidence-based collection decisions using usage statistics interpreted in context, since low use may signal access or awareness barriers rather than low value. Option C is the course's diagnostic process before any cancellation.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 3
   },
   {
@@ -1271,7 +1279,7 @@
     "correctIndex": 1,
     "explanation": "B applies professional judgment by topic. A is too rigid, C ignores accuracy, and D is not necessarily true.",
     "deepDive": "ISCI 706 teaches that currency standards are subject-dependent, with STEM and law demanding recency while literature ages well. Option B reflects the professional judgment the course substitutes for rigid age-based weeding rules.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 2
   },
   {
@@ -1287,7 +1295,7 @@
     "correctIndex": 0,
     "explanation": "A correctly summarizes MUSTIE as a memory aid for weeding concerns. It is not a command to discard automatically, but it supports professional review. B, C, and D are unrelated.",
     "deepDive": "ISCI 706 introduces MUSTIE (Misleading, Ugly, Superseded, Trivial, Irrelevant, Elsewhere) as the standard CREW deselection heuristic. Option A reproduces the course's mnemonic for triggering, but not automating, professional weeding review.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 1
   },
   {
@@ -1303,7 +1311,7 @@
     "correctIndex": 2,
     "explanation": "C explains how item-level data supports access and accountability. A and D are not true, and B confuses item management with bibliographic discovery.",
     "deepDive": "ISCI 720 distinguishes item-level records (the physical copy's identity and status) from bibliographic records (the intellectual work), with barcodes enabling circulation and inventory analytics. Option C reflects the course's model of the item record as the backbone of operational accountability.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 1
   },
   {
@@ -1431,7 +1439,7 @@
     "correctIndex": 1,
     "explanation": "B protects student privacy while preserving the learning objective. A, C, and D do not adequately protect personally identifiable student information.",
     "deepDive": "ISCI 761 teaches data minimization and de-identification as practical applications of FERPA's protection of personally identifiable information. Option B preserves the analytical learning goal while stripping the PII the course flags as a disclosure risk.",
-    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations",
+    "researchUrl": "https://studentprivacy.ed.gov/ferpa",
     "difficulty": 2
   },
   {
@@ -1464,7 +1472,7 @@
     "explanation": "B is correct because BY requires attribution and NC limits use to noncommercial purposes. A omits attribution, C violates the noncommercial term, and D misuses the creator's identity.",
     "deepDive": "ISCI 761 covers Creative Commons as a layer atop copyright, teaching that BY mandates attribution and NC restricts to noncommercial use. Option B decodes the license correctly, reflecting the course's emphasis on reading and honoring license terms.",
     "researchUrl": "https://www.copyright.gov/fair-use/",
-    "difficulty": 1
+    "difficulty": 2
   },
   {
     "domain": "Information Access",
@@ -1495,7 +1503,7 @@
     "correctIndex": 0,
     "explanation": "A balances access and licensing obligations. B and C can violate license agreements. D undermines equitable access to digital resources.",
     "deepDive": "ISCI 761 teaches that authentication methods must honor licensing terms while enabling equitable remote access. Option A reflects the course's balance between contractual obligations to vendors and the access mission, ruling out public password posting.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 2
   },
   {
@@ -1544,7 +1552,7 @@
     "explanation": "C teaches students to leave the page, verify context, and triangulate evidence. A, B, and D are common evaluation mistakes.",
     "deepDive": "ISCI 761 teaches lateral reading, the fact-checker move of leaving a page to verify its source, as superior to on-page evaluation. Option C combines lateral reading with triangulation, countering the confirmation-bias and ranking-trust errors the course names.",
     "researchUrl": "https://standards.aasl.org/framework/",
-    "difficulty": 2
+    "difficulty": 3
   },
   {
     "domain": "Information Access",
@@ -1559,7 +1567,7 @@
     "correctIndex": 1,
     "explanation": "B supports authentic publishing while managing privacy, safety, and copyright. A and C create risks, and D eliminates a useful learning opportunity instead of teaching safe practice.",
     "deepDive": "ISCI 761 frames student publishing as an exercise in privacy protection and copyright compliance, not avoidance. Option B reflects the course's risk-management approach: permissions, data minimization, and licensed media enable safe authentic creation.",
-    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations",
+    "researchUrl": "https://studentprivacy.ed.gov/ferpa",
     "difficulty": 2
   },
   {
@@ -1607,7 +1615,7 @@
     "correctIndex": 2,
     "explanation": "C is the safest and most professional approach. Student data should be limited, protected, and reviewed through district processes. A, B, and D ignore privacy responsibilities.",
     "deepDive": "ISCI 761 teaches vendor vetting and data-minimization as the librarian's gatekeeping role over student data privacy under FERPA and COPPA. Option C applies the course's procedural safeguard, district review before approval, rather than trusting vendor self-regulation.",
-    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations",
+    "researchUrl": "https://studentprivacy.ed.gov/ferpa",
     "difficulty": 2
   },
   {
@@ -1623,7 +1631,7 @@
     "correctIndex": 0,
     "explanation": "A removes access barriers without lowering the research objective. B and C may unnecessarily reduce expectations, and D confuses sameness with equity.",
     "deepDive": "ISCI 761 distinguishes accommodation (changing access) from modification (changing the goal), aligned with Section 504's mandate. Option A supplies assistive supports that preserve the research objective, the access-not-rigor principle the course teaches.",
-    "researchUrl": "https://www.ed.gov/laws-and-policy/civil-rights-laws/disability-discrimination/section-504",
+    "researchUrl": "https://www.ed.gov/laws-and-policy/civil-rights-laws/disability-discrimination",
     "difficulty": 2
   },
   {
@@ -1655,7 +1663,7 @@
     "correctIndex": 1,
     "explanation": "B addresses practical access barriers. A, C, and D make access harder, especially for families with language, schedule, device, or internet constraints.",
     "deepDive": "ISCI 761 treats equitable remote access as a design problem, addressing login friction, language, and connectivity barriers proactively. Option B reflects the course's user-centered approach to extending digital services into homes with varied resources.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 3
   },
   {
@@ -1783,7 +1791,7 @@
     "correctIndex": 1,
     "explanation": "B is correct because accommodations support access without changing the learning target. A violates the student's plan, C may lower expectations unnecessarily, and D is inappropriate.",
     "deepDive": "ISCI 782 teaches that 504 accommodations are legally binding in every instructional setting, including the library, and provide access without altering the standard. Option B reflects the course's compliance expectation and the access-versus-modification distinction.",
-    "researchUrl": "https://www.ed.gov/laws-and-policy/civil-rights-laws/disability-discrimination/section-504",
+    "researchUrl": "https://www.ed.gov/laws-and-policy/civil-rights-laws/disability-discrimination",
     "difficulty": 3
   },
   {
@@ -1799,7 +1807,7 @@
     "correctIndex": 2,
     "explanation": "C supports inclusion and legal compliance. A and D may isolate the student or lower access. B ignores the librarian's role in providing instruction within the library setting.",
     "deepDive": "ISCI 782 positions the librarian as a co-implementer of IEP accommodations through collaboration with special-education staff, not a bystander. Option C reflects the course's inclusion model where accessible materials are co-planned to keep the student in the shared objective.",
-    "researchUrl": "https://www.ed.gov/laws-and-policy/civil-rights-laws/disability-discrimination/section-504",
+    "researchUrl": "https://www.ed.gov/laws-and-policy/civil-rights-laws/disability-discrimination",
     "difficulty": 3
   },
   {
@@ -1976,7 +1984,7 @@
     "explanation": "B is station teaching because students rotate through instructional stations led or supported by educators. A would have one educator primarily observing. C is incorrect because the lesson is jointly structured, and D does not describe the model.",
     "deepDive": "ISCI 782 catalogs the co-teaching models (one teach-one observe, parallel, station, team), and station teaching is defined by rotation through educator-supported centers. Option B matches that definition, demonstrating the course's vocabulary for structuring collaboration.",
     "researchUrl": "https://aasl.ala.org/standards/frameworks/",
-    "difficulty": 1
+    "difficulty": 2
   },
   {
     "domain": "Teaching and Learning",
@@ -2343,7 +2351,7 @@
     "correctIndex": 1,
     "explanation": "B reflects ethical practice and privacy. A assumes access that may not be justified. C and D are clear breaches of confidentiality.",
     "deepDive": "ISCI 742 ties professional ethics to FERPA's 'legitimate educational interest' standard, which staff employment alone does not satisfy. Option B reflects the course's insistence on authorized, need-based disclosure of confidential reading records.",
-    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations",
+    "researchUrl": "https://studentprivacy.ed.gov/ferpa",
     "difficulty": 3
   },
   {
@@ -2376,7 +2384,7 @@
     "explanation": "A covers major areas that affect school library services, technology, privacy, access, and instruction. B, C, and D are incomplete.",
     "deepDive": "ISCI 742 maps the legal landscape, copyright, FERPA, CIPA, accessibility, and intellectual freedom, that the librarian must monitor as a policy professional. Option A is the comprehensive compliance portfolio the course holds the school librarian responsible for tracking.",
     "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf",
-    "difficulty": 1
+    "difficulty": 2
   },
   {
     "domain": "Professional Development",
@@ -2423,7 +2431,7 @@
     "correctIndex": 0,
     "explanation": "A turns equity data into solutions and advocacy. B may reduce harm temporarily but does not address the barrier. C and D ignore the librarian's role in equitable access.",
     "deepDive": "ISCI 742 teaches data-driven equity advocacy, translating the digital divide into concrete proposals like hotspot lending and district-level action. Option A reflects the course's leadership model of converting equity data into systemic solutions.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 2
   },
   {
@@ -2472,7 +2480,7 @@
     "explanation": "D builds shared understanding and consistent practice. A, B, and C restrict access or create arbitrary decisions outside policy.",
     "deepDive": "ISCI 742 casts intellectual-freedom leadership as building shared, policy-based understanding across staff, rooted in the Library Bill of Rights and students' right to read. Option D reflects the course's emphasis on training and consistent practice over ad hoc restriction.",
     "researchUrl": "https://www.ala.org/advocacy/intfreedom/librarybill",
-    "difficulty": 2
+    "difficulty": 3
   },
   {
     "domain": "Professional Development",
@@ -2569,7 +2577,7 @@
     ],
     "explanation": "A, B, and C are the licensing, usability, and privacy considerations unique to digital acquisition. D and E apply to print display and physical organization, not e-book access.",
     "deepDive": "ISCI 706 teaches that digital acquisition is governed by licensing models, platform accessibility, and privacy terms rather than ownership. The three correct options reflect the course's total-cost-and-rights analysis for e-resources, which has no print-shelving equivalent.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 3
   },
   {
@@ -2605,7 +2613,7 @@
     "correctIndex": 2,
     "explanation": "The 800s are literature and rhetoric. The 600s are technology/applied sciences, the 700s are the arts and recreation, and the 900s are history and geography.",
     "deepDive": "ISCI 720 frames classification as a logical knowledge map, not arbitrary numbering. The ethnographic read: a librarian who internalizes the ten main classes can guide a lost browser to the 800s instinctively, modeling the system rather than depending on the catalog to think for them.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
     "difficulty": 1
   },
   {
@@ -2621,7 +2629,7 @@
     "correctIndex": 3,
     "explanation": "History and geography live in the 900s (with U.S. history around 973). The 300s are social sciences, the 500s natural sciences, and the 700s the arts.",
     "deepDive": "ISCI 720 treats call-number fluency as a service skill: knowing that 973 sits in the 900s lets the librarian shorten the distance between a student's question and the shelf. The consequence of weak classification knowledge is a media center where only the catalog, never the professional, can navigate.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
     "difficulty": 1
   },
   {
@@ -2637,7 +2645,7 @@
     "correctIndex": 0,
     "explanation": "The 100 field is the main entry for a personal name (the author). The 245 is the title statement, the 300 is physical description, and the 650 is a topical subject heading.",
     "deepDive": "ISCI 720 drills MARC anatomy because each tag is a deliberate access point. The field-note observation: a librarian who knows the 100 controls author retrieval can fix a miscredited record instead of shrugging at a vendor's import — metadata literacy is editorial power over the catalog.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 1
   },
   {
@@ -2653,7 +2661,7 @@
     "correctIndex": 1,
     "explanation": "The 264 field (formerly 260) records production, publication, distribution, and copyright details. The 100 is the author, the 500 is a general note, and the 650 is a subject.",
     "deepDive": "ISCI 720 connects fields like the 264 to currency decisions: the publication date a librarian later uses to weed or evaluate a title lives here. The ethnographic stake — sloppy date data quietly corrupts every future collection-analysis report built on top of it.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 1
   },
   {
@@ -2669,7 +2677,7 @@
     "correctIndex": 1,
     "explanation": "Copy cataloging imports an existing standardized record and adapts it locally, which is efficient and consistent. Original cataloging is reserved for items with no available record.",
     "deepDive": "ISCI 720 teaches copy cataloging as resource stewardship — leveraging shared bibliographic networks so a solo school librarian isn't reinventing records. The consequence of ignoring it is hours lost to original cataloging that could have funded instruction.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 2
   },
   {
@@ -2685,7 +2693,7 @@
     "correctIndex": 1,
     "explanation": "Fiction is typically shelved with a FIC or F label and ordered alphabetically by author surname, which matches how students browse for 'another book by the same author.'",
     "deepDive": "ISCI 706/720 frame shelving as a user-behavior decision: alphabetical-by-author fiction supports the reader who finished one title and wants the next. The field note — arrangement is an access choice, and the right one is the one that matches how patrons actually search.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
     "difficulty": 1
   },
   {
@@ -2717,7 +2725,7 @@
     "correctIndex": 1,
     "explanation": "The International Standard Book Number identifies a particular edition/format of a title, which supports accurate ordering, cataloging, and inventory.",
     "deepDive": "ISCI 720 ties identifiers like the ISBN to acquisition accuracy — order the wrong ISBN and you receive the wrong edition. The field note: precise bibliographic identity prevents the quiet chaos of mismatched copies and broken records.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 1
   },
   {
@@ -2733,7 +2741,7 @@
     "correctIndex": 1,
     "explanation": "Curriculum mapping plus analysis of currency, accuracy, and gaps produces an evidence-based picture of how well the collection serves instruction.",
     "deepDive": "ISCI 706 frames collection evaluation as alignment work between the shelves and the curriculum. The ethnographic consequence of skipping it: budget spent on titles no class will ever use, while genuine instructional gaps go unfilled.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 3
   },
   {
@@ -2766,7 +2774,7 @@
     "explanation": "A collection development policy establishes the criteria and procedures that make selection and reconsideration consistent, transparent, and defensible.",
     "deepDive": "ISCI 742/706 position the policy as the librarian's shield and compass. The ethnographic stake during a challenge: with a board-approved policy, the decision rests on criteria and due process; without one, it collapses into one person's judgment versus another's outrage.",
     "researchUrl": "https://www.ala.org/tools/challengesupport/selectionpolicytoolkit",
-    "difficulty": 1
+    "difficulty": 2
   },
   {
     "domain": "Program Administration",
@@ -2813,8 +2821,8 @@
     "correctIndex": 1,
     "explanation": "Inventory reconciles the physical collection with the catalog, surfacing losses and errors so collection data and planning stay reliable.",
     "deepDive": "ISCI 742 treats inventory as data hygiene for the management system. The field note: accurate holdings data is what every later decision—weeding, budgeting, advocacy—silently depends on.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
-    "difficulty": 1
+    "researchUrl": "https://standards.aasl.org/framework/",
+    "difficulty": 2
   },
   {
     "domain": "Program Administration",
@@ -2941,7 +2949,7 @@
     "correctIndex": 1,
     "explanation": "Directory information includes non-sensitive items (like name or grade level) that districts may designate and disclose unless parents opt out. Sensitive records and library borrowing data are protected.",
     "deepDive": "ISCI 761 maps FERPA's categories so librarians know what they can and cannot share. The field note: borrowing records are not directory information—treating a child's reading history as casually disclosable is exactly the privacy breach the profession guards against.",
-    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations",
+    "researchUrl": "https://studentprivacy.ed.gov/ferpa",
     "difficulty": 2
   },
   {
@@ -2974,7 +2982,7 @@
     "explanation": "CIPA requires an internet safety policy plus filtering of certain obscene/harmful visual content as a condition of specific federal funding—not a total ban on access.",
     "deepDive": "ISCI 761 pairs CIPA compliance with digital-citizenship instruction. The field note: filtering is a funding condition, not the whole strategy—teaching safe, ethical use is the part that actually protects students.",
     "researchUrl": "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-B/part-54/subpart-F/section-54.520",
-    "difficulty": 1
+    "difficulty": 2
   },
   {
     "domain": "Information Access",
@@ -3278,7 +3286,7 @@
     "explanation": "Action research is a cycle of studying one's own practice with data to improve it—an evidence-based form of professional reflection.",
     "deepDive": "ISCI 742 promotes reflective, data-informed practice. The ethnographic resonance for a narrative researcher: action research treats the librarian's own program as the field site, turning daily work into evidence for improvement.",
     "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf",
-    "difficulty": 1
+    "difficulty": 2
   },
   {
     "domain": "Professional Development",
@@ -3342,7 +3350,7 @@
     "explanation": "School librarians must track the cluster of laws and policies—copyright, privacy, filtering, accessibility, and intellectual freedom—that govern services, technology, and access.",
     "deepDive": "ISCI 742 frames legal literacy as continuous, since these frameworks shift. The ethnographic consequence of falling behind: yesterday's compliant practice quietly becomes today's liability, and the librarian is the one expected to know.",
     "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf",
-    "difficulty": 1
+    "difficulty": 2
   },
   {
     "domain": "Teaching and Learning",
@@ -3374,7 +3382,7 @@
     "explanation": "The ZPD is the range where a learner can succeed with support; scaffolding within it, then fading support, moves students toward independence.",
     "deepDive": "ISCI 782 connects the ZPD to scaffolding and gradual release. The ethnographic stake: pitch a task too low and learners disengage; too high and they shut down—the productive zone is where well-timed support lives.",
     "researchUrl": "https://standards.aasl.org/framework/",
-    "difficulty": 1
+    "difficulty": 2
   },
   {
     "domain": "Teaching and Learning",
@@ -3726,7 +3734,7 @@
     "explanation": "OER must be vetted like any instructional material—quality, alignment, accessibility, and license terms—because 'open' is not the same as 'good' or 'unrestricted.'",
     "deepDive": "ISCI 761 treats OER evaluation with the same rigor as paid resources. The ethnographic consequence of skipping it: a free resource adopted for convenience that is inaccurate, inaccessible, or used outside its license.",
     "researchUrl": "https://standards.aasl.org/framework/",
-    "difficulty": 1
+    "difficulty": 2
   },
   {
     "domain": "Information Access",
@@ -3742,7 +3750,7 @@
     "explanation": "Tools collecting data from under-13 users require district vetting for COPPA and privacy compliance; faking data and ad hoc approval create risk.",
     "deepDive": "ISCI 761 casts the librarian as privacy gatekeeper. The field note: the engaging interface is the bait—the data terms are the hook, and only a vetting process catches it before students are exposed.",
     "researchUrl": "https://www.ftc.gov/business-guidance/privacy-security/childrens-privacy",
-    "difficulty": 2
+    "difficulty": 3
   },
   {
     "domain": "Information Access",
@@ -3821,7 +3829,7 @@
     "correctIndex": 1,
     "explanation": "CREW (Continuous Review, Evaluation, and Weeding) treats deselection as an ongoing, routine part of collection maintenance.",
     "deepDive": "ISCI 706 frames weeding as continuous gardening, not a crisis event. The ethnographic consequence of the once-a-decade purge: a collection that drifts into irrelevance between purges and shocks the community when finally pruned.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 1
   },
   {
@@ -3853,7 +3861,7 @@
     "correctIndex": 1,
     "explanation": "Effective supervision provides clear roles, confidentiality training, and support, while reserving professional judgments for the librarian.",
     "deepDive": "ISCI 742 includes personnel management as core administration. The ethnographic stake: clear roles and privacy training let support staff extend the program safely, while undefined expectations breed errors and privacy breaches.",
-    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations",
+    "researchUrl": "https://studentprivacy.ed.gov/ferpa",
     "difficulty": 2
   },
   {
@@ -3885,7 +3893,7 @@
     "correctIndex": 1,
     "explanation": "Procurement decisions weigh licensing models, long-term cost, privacy, accessibility, and compatibility—not surface impressions or raw title counts.",
     "deepDive": "ISCI 742/706 connect acquisitions to fiscal and privacy stewardship. The ethnographic consequence: a flashy platform with a punishing access model can drain the budget while quietly exposing student data.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 2
   },
   {
@@ -3933,7 +3941,7 @@
     "correctIndex": 1,
     "explanation": "Genrefication is a local access decision that can aid browsing only if supported by accurate catalog data, signage, instruction, and evaluation.",
     "deepDive": "ISCI 720 treats genrefication as trading strict call-number order for browsability. The field note: the browsing gain is real, but only if the catalog still tells the truth about where each book now lives.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 2
   },
   {
@@ -3949,7 +3957,7 @@
     "correctIndex": 1,
     "explanation": "Authority control standardizes access points so that all works by an author or on a subject gather together and retrieve consistently.",
     "deepDive": "ISCI 720 centers authority control as the discipline that makes discovery reliable. The ethnographic stake: without it, the same author spelled three ways scatters their works, and the student concludes the library 'doesn't have it.'",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 1
   },
   {
@@ -3965,7 +3973,7 @@
     "correctIndex": 1,
     "explanation": "In MUSTIE, S = Superseded: a more current edition or a better resource has replaced the item.",
     "deepDive": "ISCI 706 uses MUSTIE as a structured prompt for deselection judgment. The field note: 'superseded' guards against the quiet harm of an outdated edition sitting beside its accurate replacement, confusing students about which to trust.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 1
   },
   {
@@ -3981,8 +3989,8 @@
     "correctIndex": 1,
     "explanation": "Resource sharing through interlibrary loan or partner libraries extends access beyond the local collection.",
     "deepDive": "ISCI 706 frames the collection as a gateway, not a wall. The ethnographic insight: a librarian who reaches beyond the building's shelves teaches students that information access is a network, not a fixed inventory.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
-    "difficulty": 1
+    "researchUrl": "https://standards.aasl.org/framework/",
+    "difficulty": 2
   },
   {
     "domain": "Organization and Access",
@@ -4013,7 +4021,7 @@
     "correctIndex": 1,
     "explanation": "Local terms layered onto standard headings bridge formal vocabulary and patron language, improving discovery without abandoning standards.",
     "deepDive": "ISCI 720 balances national standards with local user behavior. The ethnographic stake: a kindergartner searches 'trucks,' not the formal heading—local terms meet the user where their language actually is.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 2
   },
   {
@@ -4029,7 +4037,7 @@
     "correctIndex": 1,
     "explanation": "Jobbers consolidate ordering and can provide shelf-ready processing and records, improving acquisition efficiency.",
     "deepDive": "ISCI 706 covers acquisitions logistics, including vendor services. The field note: shelf-ready processing trades a small per-item cost for hours of staff time—an efficiency a solo librarian can reinvest in instruction.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 1
   },
   {
@@ -4045,7 +4053,7 @@
     "correctIndex": 1,
     "explanation": "Accessible pathways, reachable shelving, flexible seating, and clear signage serve users with diverse physical and developmental needs.",
     "deepDive": "ISCI 706 treats physical layout as an access decision governed by universal design. The ethnographic consequence: a wheelchair user or a small child confronting tall shelves and narrow aisles receives a clear, unwelcoming message about who the space was built for.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
     "difficulty": 2
   },
   {
@@ -4093,7 +4101,7 @@
     "correctIndex": 1,
     "explanation": "Library records are confidential; staff status alone is not a legitimate educational interest, and disclosure requires proper authorization.",
     "deepDive": "ISCI 742/761 ground confidentiality in professional ethics and FERPA. The ethnographic stake: the freedom to read freely depends on the assurance that what one borrows stays private—casual disclosure quietly erodes that trust for every student.",
-    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations",
+    "researchUrl": "https://studentprivacy.ed.gov/ferpa",
     "difficulty": 2
   },
   {
@@ -4145,7 +4153,7 @@
     ],
     "explanation": "Authority control standardizes access points—names and subjects—so related works gather and retrieve consistently. It does not hide materials, block searching, or strip notes.",
     "deepDive": "ISCI 720 frames authority control as the discipline that makes discovery trustworthy. The field note: one author spelled three ways scatters their work, and the student wrongly concludes the library doesn't own it—standardization is quiet, essential service.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 2
   },
   {
@@ -4165,7 +4173,7 @@
     ],
     "explanation": "Local natural-language terms plus consistent authority control both improve discovery. Removing headings, gatekeeping searches, or hiding records reduces access.",
     "deepDive": "ISCI 720 balances national standards with local user language. The ethnographic stake: a kindergartner searches 'trucks,' not a formal heading—layering local terms onto controlled ones meets users where their words actually are.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 2
   },
   {
@@ -4205,7 +4213,7 @@
     ],
     "explanation": "Wide accessible pathways and reachable materials/seating serve users of all abilities; maximizing storage with tall shelves and narrow aisles, or freezing the layout, undermines access.",
     "deepDive": "ISCI 706 treats layout as an access decision under universal design. The ethnographic consequence: tall shelves and narrow aisles silently tell a wheelchair user or small child who the space was built for.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
     "difficulty": 3
   },
   {
@@ -4523,7 +4531,7 @@
     ],
     "explanation": "Volunteers need confidentiality, circulation basics, and clear referral boundaries. Selection judgments and original cataloging are professional responsibilities.",
     "deepDive": "ISCI 742 treats volunteer management as protecting both service and privacy. The field note: a volunteer who sees a child's checkout history must understand confidentiality before anything else—trust is the first lesson.",
-    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations",
+    "researchUrl": "https://studentprivacy.ed.gov/ferpa",
     "difficulty": 3
   },
   {
@@ -4543,7 +4551,7 @@
     "explanation": "Flexible scheduling enables just-in-time, integrated instruction. It neither empties the library nor eliminates collaboration—it increases it.",
     "deepDive": "ISCI 742 frames scheduling as a structural lever for the instructional role. The ethnographic insight: fixed schedules can trap a librarian in coverage duty; flexible access positions them as a just-in-time teaching partner.",
     "researchUrl": "https://standards.aasl.org/framework/",
-    "difficulty": 2
+    "difficulty": 3
   },
   {
     "domain": "Professional Development",
@@ -4562,7 +4570,7 @@
     "explanation": "Associations/conferences and PLC/reflective practice sustain growth in a changing field; static reliance on prior knowledge or vendor ads does not.",
     "deepDive": "ISCI 742 frames growth as a career-long obligation, vital for an often-solo role. The field note: a connected librarian imports the field's best thinking instead of slowly drifting out of date.",
     "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf",
-    "difficulty": 2
+    "difficulty": 3
   },
   {
     "domain": "Professional Development",
@@ -4599,7 +4607,7 @@
     ],
     "explanation": "Confidentiality by default and authorized, need-based disclosure are ethical; casual sharing or public posting breaches privacy.",
     "deepDive": "ISCI 742/761 ground confidentiality in professional ethics and FERPA. The field note: the freedom to read freely depends on the assurance that what one borrows stays private—casual disclosure erodes that trust for everyone.",
-    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations",
+    "researchUrl": "https://studentprivacy.ed.gov/ferpa",
     "difficulty": 3
   },
   {
@@ -4615,7 +4623,7 @@
     "correctIndex": 1,
     "explanation": "The 200s cover religion. The 100s are philosophy/psychology, the 300s social sciences, and the 400s language.",
     "deepDive": "ISCI 720 expects fluency with the ten main classes. The field note: knowing the 200s house religion lets a librarian guide a comparative-religions project to the right shelf without leaning on the catalog to think for them.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
     "difficulty": 1
   },
   {
@@ -4631,7 +4639,7 @@
     "correctIndex": 1,
     "explanation": "398.2 (folklore) sits in the 300s, the social sciences (which include customs and folklore). Many are surprised fairy tales are not in fiction.",
     "deepDive": "ISCI 720 highlights counterintuitive placements like 398.2. The ethnographic insight: a teacher hunting for Cinderella variants in fiction comes up empty—the librarian who knows folklore lives in the 300s saves the lesson.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
     "difficulty": 1
   },
   {
@@ -4647,7 +4655,7 @@
     "correctIndex": 1,
     "explanation": "Individual biographies are usually arranged by the subject's (biographee's) last name, so all books about one person sit together.",
     "deepDive": "ISCI 720 ties arrangement to user behavior. The field note: a student wanting books about Harriet Tubman expects them under 'T' for Tubman, not the various authors—arrangement should match how patrons think.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
     "difficulty": 1
   },
   {
@@ -4663,7 +4671,7 @@
     "correctIndex": 1,
     "explanation": "Reference materials are kept in-library so that frequently consulted works remain available to all users rather than being checked out by one.",
     "deepDive": "ISCI 706 frames the reference designation as an access-equity choice. The ethnographic stake: a single atlas circulating to one student denies thirty others—non-circulating status spreads a scarce resource fairly.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 1
   },
   {
@@ -4679,7 +4687,7 @@
     "correctIndex": 2,
     "explanation": "The 520 field contains the summary/annotation. The 100 is the author, the 245 the title, and the 650 a topical subject heading.",
     "deepDive": "ISCI 720 maps MARC tags to discovery features. The field note: a populated 520 is what lets a student preview a book in the catalog before walking to the shelf—metadata that markets the collection.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 1
   },
   {
@@ -4695,7 +4703,7 @@
     "correctIndex": 1,
     "explanation": "The Cutter number alphabetically subarranges items that share the same class number, keeping order precise on the shelf.",
     "deepDive": "ISCI 720 treats the Cutter as fine-grained shelf order. The ethnographic insight: without it, dozens of books at the same Dewey number would have no defined sequence, and browsing would dissolve into guesswork.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
     "difficulty": 1
   },
   {
@@ -4711,7 +4719,7 @@
     "correctIndex": 1,
     "explanation": "Shelf-ready items arrive processed (spine labels, protective covers, and bibliographic records), saving local processing time.",
     "deepDive": "ISCI 706 weighs shelf-ready services as an efficiency tradeoff. The field note: a small per-item fee buys back hours a solo librarian can redirect from processing to teaching—stewardship of time, not just money.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 1
   },
   {
@@ -4727,7 +4735,7 @@
     "correctIndex": 1,
     "explanation": "Current periodicals are usually displayed, may have limited circulation, and their article content is best accessed through indexed databases.",
     "deepDive": "ISCI 706 distinguishes serials management from monographs. The ethnographic stake: students rarely browse old print issues, so the librarian routes them to databases where articles are searchable and citable.",
-    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/",
+    "researchUrl": "https://standards.aasl.org/framework/",
     "difficulty": 2
   },
   {
@@ -4791,7 +4799,7 @@
     "correctIndex": 1,
     "explanation": "Disclosure must be limited to legitimate educational interest with confidentiality protected; neither free sharing nor blanket refusal is correct.",
     "deepDive": "ISCI 742 balances data use with FERPA-grounded confidentiality. The ethnographic stake: aggregated, de-identified reading data can inform instruction without exposing any individual child's choices.",
-    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations",
+    "researchUrl": "https://studentprivacy.ed.gov/ferpa",
     "difficulty": 2
   },
   {
@@ -4824,7 +4832,7 @@
     "explanation": "A pilot reduces perceived risk and produces local outcome data, making it easier for administrators to support a broader change.",
     "deepDive": "ISCI 742 teaches incremental, evidence-building advocacy. The ethnographic insight: a pilot reframes a scary permanent commitment as a low-stakes experiment—and the data it yields becomes the argument.",
     "researchUrl": "https://standards.aasl.org/framework/",
-    "difficulty": 1
+    "difficulty": 2
   },
   {
     "domain": "Program Administration",
@@ -4872,7 +4880,7 @@
     "explanation": "Installing on many devices typically requires a site/volume license authorizing that scale; a single-user license does not cover 30 machines.",
     "deepDive": "ISCI 761 extends licensing literacy to software. The field note: 'we bought it once' is a common, costly misunderstanding—licenses, not purchases, define how many students may lawfully use a tool.",
     "researchUrl": "https://www.copyright.gov/fair-use/",
-    "difficulty": 1
+    "difficulty": 2
   },
   {
     "domain": "Information Access",
@@ -5096,7 +5104,7 @@
     "explanation": "Series offer familiarity and momentum that build reading confidence and habit, a proven engagement strategy for reluctant readers.",
     "deepDive": "ISCI 782 leverages series for reading volume and identity. The field note: a reader who finishes book one and reaches for book two has tasted success—series turn a single win into a streak.",
     "researchUrl": "https://standards.aasl.org/framework/",
-    "difficulty": 1
+    "difficulty": 2
   },
   {
     "domain": "Teaching and Learning",
@@ -5192,7 +5200,7 @@
     "explanation": "The profession's ethics center on confidentiality/privacy and equitable, unbiased access to information, among other principles.",
     "deepDive": "ISCI 742 roots professional identity in the ALA ethics. The field note: confidentiality and equitable access aren't preferences—they're the commitments that distinguish a librarian from a bookkeeper of materials.",
     "researchUrl": "https://www.ala.org/advocacy/intfreedom/librarybill",
-    "difficulty": 1
+    "difficulty": 2
   },
   {
     "domain": "Professional Development",
@@ -5224,7 +5232,7 @@
     "explanation": "Ongoing, documented professional learning keeps practice current and provides evidence of growth for evaluation and renewal.",
     "deepDive": "ISCI 742 treats continuing education as professional upkeep in a shifting field. The field note: documented learning is both genuine growth and the receipt that proves it when certification or evaluation comes due.",
     "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf",
-    "difficulty": 1
+    "difficulty": 2
   },
   {
     "domain": "Professional Development",
@@ -5256,6 +5264,406 @@
     "explanation": "Action research is an iterative plan-act-observe-reflect cycle that studies one's own practice with data to improve it.",
     "deepDive": "ISCI 742 promotes action research as practitioner inquiry. The ethnographic resonance for a narrative researcher: the librarian's own program becomes the field site, and daily practice becomes evidence for principled improvement.",
     "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "In a MARC bibliographic record, which field holds the International Standard Book Number (ISBN)?",
+    "options": [
+      "The 020 field",
+      "The 100 field",
+      "The 245 field",
+      "The 650 field"
+    ],
+    "correctIndex": 0,
+    "explanation": "The 020 field stores the ISBN. The 100 is the author (main entry), the 245 the title, and the 650 a topical subject.",
+    "deepDive": "ISCI 720 treats the 020 as the hook that links a record to ordering and matching systems. The field note: a correct ISBN in the 020 is what lets a vendor's record snap onto the right edition during copy cataloging—garbage here, mismatched copies everywhere.",
+    "researchUrl": "https://www.loc.gov/marc/bibliographic/",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Which MARC field is used for the main entry when a work's primary responsibility belongs to an organization (e.g., a report issued by an association)?",
+    "options": [
+      "The 100 (personal name)",
+      "The 110 (corporate name)",
+      "The 245 (title)",
+      "The 300 (physical description)"
+    ],
+    "correctIndex": 1,
+    "explanation": "The 110 field is the main entry for a corporate (organizational) name. The 100 is for a personal author; 245 and 300 are title and physical description.",
+    "deepDive": "ISCI 720 distinguishes 1XX main-entry fields by the kind of author: 100 personal, 110 corporate, 111 meeting. The ethnographic stake: a government report mis-entered as a personal author scatters an agency's publications and frustrates the researcher hunting for all of them.",
+    "researchUrl": "https://www.loc.gov/marc/bibliographic/",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "In the MARC 245 title field, what does subfield $c typically contain?",
+    "options": [
+      "The ISBN",
+      "The statement of responsibility (e.g., 'by Jane Doe ; illustrated by John Smith')",
+      "The number of pages",
+      "The call number"
+    ],
+    "correctIndex": 1,
+    "explanation": "Within the 245, $a is the title proper, $b is the remainder/subtitle, and $c is the statement of responsibility (who created the work, as stated on the item).",
+    "deepDive": "ISCI 720 teaches subfield structure as the grammar of a record. The field note: the $c captures authorship exactly as the item presents it, preserving the distinction between who wrote, illustrated, or edited a work—data a single 'author' box would flatten.",
+    "researchUrl": "https://www.loc.gov/marc/bibliographic/",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Which MARC field records the edition statement (e.g., '2nd edition, revised')?",
+    "options": [
+      "The 250 field",
+      "The 300 field",
+      "The 490 field",
+      "The 700 field"
+    ],
+    "correctIndex": 0,
+    "explanation": "The 250 field holds the edition statement. The 300 is physical description, 490 the series statement, and 700 an added entry.",
+    "deepDive": "ISCI 720 ties the 250 to currency and matching decisions. The ethnographic consequence: ignoring the edition statement during weeding can leave an outdated 1st edition on the shelf beside its corrected revision, quietly misleading students.",
+    "researchUrl": "https://www.loc.gov/marc/bibliographic/",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "What information is recorded in the MARC 300 field?",
+    "options": [
+      "The author's name",
+      "Physical description—extent (pages), other details (illustrations), and dimensions",
+      "The subject headings",
+      "The publication date"
+    ],
+    "correctIndex": 1,
+    "explanation": "The 300 field is the physical description: extent (e.g., pages or discs), illustration details, and dimensions of the item.",
+    "deepDive": "ISCI 720 frames the 300 as a tangible snapshot of the item. The field note: extent and format data here help a user know whether they're retrieving a 24-page picture book or a 600-page reference tome before they ever leave the catalog.",
+    "researchUrl": "https://www.loc.gov/marc/bibliographic/",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Which MARC field carries the series statement (the series a title belongs to, as named on the item)?",
+    "options": [
+      "The 250 field",
+      "The 300 field",
+      "The 490 field",
+      "The 520 field"
+    ],
+    "correctIndex": 2,
+    "explanation": "The 490 field records the series statement. The 250 is edition, 300 physical description, and 520 the summary.",
+    "deepDive": "ISCI 720 connects the 490 to how readers chase a series. The ethnographic insight: accurate series data is what lets a student who loved book three find books four and five—series metadata is reader-retention infrastructure.",
+    "researchUrl": "https://www.loc.gov/marc/bibliographic/",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "A cataloger needs to add a free-text note such as 'Includes index.' Which MARC field is appropriate?",
+    "options": [
+      "The 100 field",
+      "The 245 field",
+      "The 500 (general note) field",
+      "The 020 field"
+    ],
+    "correctIndex": 2,
+    "explanation": "The 500 field is the general note used for assorted descriptive information (e.g., 'Includes bibliographical references and index').",
+    "deepDive": "ISCI 720 treats 5XX notes as the catalog's annotations. The field note: a well-placed 500 note ('includes index') signals research usefulness, helping a student judge a source's fit without opening it.",
+    "researchUrl": "https://www.loc.gov/marc/bibliographic/",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Which MARC field most commonly holds a topical subject heading?",
+    "options": [
+      "The 100 field",
+      "The 300 field",
+      "The 650 field",
+      "The 856 field"
+    ],
+    "correctIndex": 2,
+    "explanation": "The 650 field holds topical subject headings (what the work is about). The 100 is author, 300 physical description, and 856 an electronic link.",
+    "deepDive": "ISCI 720 makes the 6XX block the engine of subject discovery. The ethnographic stake: thin or biased 650s mean a relevant book never surfaces in a subject search—the catalog 'doesn't have it,' even when it sits on the shelf.",
+    "researchUrl": "https://www.loc.gov/marc/bibliographic/",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "An illustrator who is not the main author should be recorded in which kind of MARC field?",
+    "options": [
+      "A 700 added entry (added personal name)",
+      "The 020 field",
+      "The 300 field",
+      "The 250 field"
+    ],
+    "correctIndex": 0,
+    "explanation": "The 700 field records added entries for additional contributors (illustrators, co-authors, editors) who deserve access points beyond the main entry.",
+    "deepDive": "ISCI 720 uses 7XX added entries to credit every searchable contributor. The field note: a child who loves a particular illustrator can only find their books if the catalog gave that illustrator a 700—added entries widen the doors into the collection.",
+    "researchUrl": "https://www.loc.gov/marc/bibliographic/",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Which MARC field stores an electronic location and access point, such as a URL to an online resource?",
+    "options": [
+      "The 245 field",
+      "The 520 field",
+      "The 650 field",
+      "The 856 field"
+    ],
+    "correctIndex": 3,
+    "explanation": "The 856 field holds electronic location and access information (commonly a URL or link to the digital resource).",
+    "deepDive": "ISCI 720 links the 856 to hybrid print/digital collections. The ethnographic insight: a working 856 turns a catalog record into a doorway to the e-book or database—broken links here quietly sever remote access.",
+    "researchUrl": "https://www.loc.gov/marc/bibliographic/",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "In MARC, the 6XX block of fields (600, 610, 650, 651) is dedicated primarily to:",
+    "options": [
+      "Subject access points (what the work is about)",
+      "Physical description",
+      "Publication information",
+      "The title statement"
+    ],
+    "correctIndex": 0,
+    "explanation": "The 6XX fields are subject access points: 600 personal-name subjects, 610 corporate, 650 topical, 651 geographic.",
+    "deepDive": "ISCI 720 teaches the tag 'blocks' as a map: 1XX main entry, 2XX title/edition/imprint, 3XX physical, 4XX series, 5XX notes, 6XX subjects, 7XX added entries, 8XX series/holdings. The field note: knowing the blocks lets a librarian read any record at a glance.",
+    "researchUrl": "https://www.loc.gov/marc/bibliographic/",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "What is the difference between a MARC main entry (1XX) and an added entry (7XX)?",
+    "options": [
+      "There is no difference",
+      "The 1XX is the primary access point for the work's chief responsibility; 7XX fields provide additional access points for other contributors",
+      "The 7XX holds the title and the 1XX holds the price",
+      "Only 7XX fields are searchable"
+    ],
+    "correctIndex": 1,
+    "explanation": "The 1XX main entry is the principal author/creator access point; 7XX added entries give extra retrieval points for co-authors, illustrators, editors, etc.",
+    "deepDive": "ISCI 720 frames main vs. added entries as a hierarchy of access. The ethnographic stake: both are searchable, but the distinction preserves who bears primary responsibility—useful when a researcher must cite or evaluate authority.",
+    "researchUrl": "https://www.loc.gov/marc/bibliographic/",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Within a MARC field, what does a subfield code such as $a or $b identify?",
+    "options": [
+      "The due date of the item",
+      "A distinct data element inside that field (e.g., title proper vs. subtitle)",
+      "The student who borrowed the item",
+      "The shelf height"
+    ],
+    "correctIndex": 1,
+    "explanation": "Subfield codes (introduced by a delimiter, e.g., $a, $b, $c) break a field into labeled data elements so each piece can be processed and displayed correctly.",
+    "deepDive": "ISCI 720 teaches subfields as the fine structure that makes records machine-actionable. The field note: because $a, $b, and $c are separately coded, systems can index a subtitle differently from a title—structure is what turns text into searchable data.",
+    "researchUrl": "https://www.loc.gov/marc/bibliographic/",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "How does a bibliographic record differ from an authority record?",
+    "options": [
+      "They are identical",
+      "A bibliographic record describes a specific resource; an authority record establishes the standardized form of a name, subject, or title used as an access point",
+      "An authority record lists overdue fines",
+      "A bibliographic record only stores the barcode"
+    ],
+    "correctIndex": 1,
+    "explanation": "Bibliographic records describe items; authority records control the consistent, standardized form of names/subjects/titles so access points collocate reliably.",
+    "deepDive": "ISCI 720 pairs bibliographic and authority records as description plus control. The ethnographic insight: the authority file is the quiet rulebook that keeps every 'Mark Twain' and 'Samuel Clemens' pointing to one place—without it, discovery fragments.",
+    "researchUrl": "https://www.loc.gov/marc/bibliographic/",
+    "difficulty": 2
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "In the Dewey Decimal Classification, which main class (000s) covers computer science, information, and general works?",
+    "options": [
+      "The 000s",
+      "The 200s",
+      "The 400s",
+      "The 800s"
+    ],
+    "correctIndex": 0,
+    "explanation": "The 000s cover computer science, information, and general works (including encyclopedias and journalism). The 200s are religion, 400s language, 800s literature.",
+    "deepDive": "ISCI 720 starts Dewey fluency at the ten main classes. The field note: the 000s are easy to forget, yet they house exactly the computer-science and information-literacy titles a media specialist promotes most.",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Books about languages, grammar, and dictionaries are classed in which Dewey main class?",
+    "options": [
+      "The 300s",
+      "The 400s",
+      "The 600s",
+      "The 900s"
+    ],
+    "correctIndex": 1,
+    "explanation": "The 400s are language (linguistics, specific languages, grammar, dictionaries). The 300s are social sciences, 600s technology, 900s history/geography.",
+    "deepDive": "ISCI 720 anchors each main class to its concept. The ethnographic stake: a teacher seeking ESL or grammar resources is steered to the 400s—class knowledge turns a vague request into a precise shelf location.",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "A student wants books on cooking, medicine, or engineering. Which Dewey main class covers these applied/technology topics?",
+    "options": [
+      "The 400s",
+      "The 500s",
+      "The 600s",
+      "The 700s"
+    ],
+    "correctIndex": 2,
+    "explanation": "The 600s are technology/applied sciences (medicine, engineering, agriculture, cooking). The 500s are the pure natural sciences and mathematics.",
+    "deepDive": "ISCI 720 highlights the 500s/600s distinction (pure vs. applied science). The field note: chemistry sits in the 500s but cookbooks land in the 600s—knowing the pure/applied split prevents sending a budding chef to the wrong aisle.",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Books about sports, music, and other arts and recreation are found in which Dewey main class?",
+    "options": [
+      "The 500s",
+      "The 700s",
+      "The 800s",
+      "The 900s"
+    ],
+    "correctIndex": 1,
+    "explanation": "The 700s are the arts and recreation, which include music, visual arts, and sports (e.g., 796 for athletic sports).",
+    "deepDive": "ISCI 720 maps the 700s to arts and recreation. The ethnographic insight: students are often surprised sports live near painting and music—the 700s gather human creativity and play under one roof.",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Collective biographies (covering several people) are commonly classed in which Dewey range?",
+    "options": [
+      "The 920s",
+      "The 100s",
+      "The 400s",
+      "The 600s"
+    ],
+    "correctIndex": 0,
+    "explanation": "Collective biographies are often classed in the 920s, though many school libraries also shelve individual biographies separately under B or 92 by the subject's surname.",
+    "deepDive": "ISCI 720 notes the local flexibility around biography (920s, 92, or B). The field note: whatever the local choice, consistency is everything—mixing systems within one library is what sends students hunting in two places for the same kind of book.",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Within the 500s (natural sciences), where are books about mathematics generally classed?",
+    "options": [
+      "The 510s",
+      "The 530s",
+      "The 590s",
+      "The 610s"
+    ],
+    "correctIndex": 0,
+    "explanation": "Mathematics is in the 510s. Within the 500s, 520 is astronomy, 530 physics, 540 chemistry, 570 biology, and 590 animals.",
+    "deepDive": "ISCI 720 teaches that the second Dewey digit (the division) refines the main class. The field note: knowing 510 = mathematics inside the 500s lets a librarian guide a geometry project to the exact division, not just 'somewhere in science.'",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "A first grader wants books about animals. Within the 500s, animals (zoology) are generally found in which division?",
+    "options": [
+      "The 510s",
+      "The 550s",
+      "The 590s",
+      "The 520s"
+    ],
+    "correctIndex": 2,
+    "explanation": "Animals (zoology) are classed in the 590s. (510s mathematics, 550s earth sciences, 520s astronomy.)",
+    "deepDive": "ISCI 720 connects divisions to everyday K-2 requests. The ethnographic insight: 'I want animal books' is one of the most common young-reader asks—knowing the 590s instantly turns a wandering child into a successful one.",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "In a Dewey call number, what does the FIRST digit indicate?",
+    "options": [
+      "The author's last name",
+      "The broad main class (one of the ten Dewey classes)",
+      "The publication year",
+      "The number of copies owned"
+    ],
+    "correctIndex": 1,
+    "explanation": "The first digit signals the main class (the 'first summary' of ten classes); the second digit gives the division, and the third the section.",
+    "deepDive": "ISCI 720 teaches Dewey's three-summary logic: class, division, section. The field note: reading just the first digit lets a librarian place any number in its neighborhood instantly—the rest is zooming in.",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "When shelving nonfiction, which book comes first?",
+    "options": [
+      "636.8 before 636.7",
+      "636.7 before 636.8 (Dewey numbers shelve in ascending order, digit by digit, including decimals)",
+      "Order does not matter for decimals",
+      "Books are shelved by color"
+    ],
+    "correctIndex": 1,
+    "explanation": "Dewey numbers shelve in ascending order read digit by digit, so 636.7 precedes 636.8; decimals are compared place by place, not as whole numbers.",
+    "deepDive": "ISCI 720 drills decimal shelf order because it is where shelving errors hide. The ethnographic stake: a misread decimal buries a book one slot off—technically present, practically lost to the browser.",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
+    "difficulty": 2
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "What is the purpose of the decimal point and digits after it in a Dewey number (e.g., 636.7 vs. 636.8)?",
+    "options": [
+      "They indicate the price",
+      "They allow increasingly specific subdivision of a topic",
+      "They record the due date",
+      "They are decorative and can be ignored"
+    ],
+    "correctIndex": 1,
+    "explanation": "Digits after the decimal subdivide a topic into more specific subtopics (e.g., 636 animal husbandry → 636.7 dogs → 636.8 cats), enabling precise placement.",
+    "deepDive": "ISCI 720 frames the decimal as Dewey's zoom lens. The field note: the decimal is why a sprawling subject still lands related books side by side—precision in the number is precision on the shelf.",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
+    "difficulty": 1
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Books specifically about United States history are generally classed in which Dewey range within the 900s?",
+    "options": [
+      "Around 973",
+      "Around 510",
+      "Around 641",
+      "Around 796"
+    ],
+    "correctIndex": 0,
+    "explanation": "U.S. history is generally classed around 973 within the 900s (history and geography). 510 is math, 641 cooking, 796 sports.",
+    "deepDive": "ISCI 720 ties geographic history subdivisions (the 970s for North America, 973 for the U.S.) to curriculum support. The ethnographic insight: a teacher's American Revolution unit maps cleanly onto the 973s—class knowledge makes the librarian a curriculum partner, not just a shelver.",
+    "researchUrl": "https://www.oclc.org/en/dewey.html",
     "difficulty": 1
   }
 ];
@@ -5310,6 +5718,9 @@
     let timeLeft = TIME_PER_Q;
     let lastMissedIndices = [];
     let lastWeakestColor = null;
+    let paused = false;
+    let pauseSaved = null;
+    const PAUSE_HIDE = ['domain-indicator', 'ui-question', 'ui-multi-instruction', 'ui-options', 'btn-submit', 'study-nav', 'ui-feedback'];
 
     /* ---------------- Storage ---------------- */
     function loadSaved() { try { const r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : null; } catch (e) { return null; } }
@@ -5506,7 +5917,11 @@
 
         document.getElementById('score-wrap').style.display = study ? 'none' : 'block';
         document.getElementById('ui-timer').style.display = (!study && state.timed) ? 'block' : 'none';
-        document.getElementById('btn-exit').innerText = study ? '⏸ Exit Review' : '⏸ Save & Exit';
+        document.getElementById('btn-exit').innerText = study ? '🚪 Exit Review' : '🚪 Save & Exit';
+        paused = false;
+        document.getElementById('pause-panel').style.display = 'none';
+        document.getElementById('btn-pause').innerText = '⏸ Pause';
+        document.getElementById('btn-pause').style.display = 'inline-block';
         document.getElementById('btn-next').style.display = study ? 'none' : 'inline-block';
 
         const studyNav = document.getElementById('study-nav');
@@ -5634,12 +6049,15 @@
 
     /* ---------------- Timer ---------------- */
     function startTimer() {
+        if (state.mode !== 'exam' || !state.timed) { document.getElementById('ui-timer').style.display = 'none'; return; }
+        timeLeft = TIME_PER_Q;
+        runTimer();
+    }
+    function runTimer() {
         clearInterval(timerInterval);
         const tEl = document.getElementById('ui-timer');
-        if (state.mode !== 'exam' || !state.timed) { tEl.style.display = 'none'; return; }
         tEl.style.display = 'block';
-        timeLeft = TIME_PER_Q;
-        tEl.classList.remove('warning');
+        tEl.classList.toggle('warning', timeLeft <= 15);
         updateTimerDisplay();
         timerInterval = setInterval(() => {
             timeLeft--;
@@ -5670,6 +6088,24 @@
 
     /* ---------------- Misc actions ---------------- */
     function pauseAndExit() { clearInterval(timerInterval); saveSession(); init(); }
+    function togglePause() {
+        if (!state) return;
+        if (!paused) {
+            paused = true;
+            clearInterval(timerInterval); // freeze the countdown in place
+            pauseSaved = {};
+            PAUSE_HIDE.forEach(id => { const el = document.getElementById(id); pauseSaved[id] = el.style.display; el.style.display = 'none'; });
+            document.getElementById('pause-panel').style.display = 'block';
+            document.getElementById('btn-pause').innerText = '▶ Resume';
+        } else {
+            paused = false;
+            document.getElementById('pause-panel').style.display = 'none';
+            PAUSE_HIDE.forEach(id => { document.getElementById(id).style.display = (pauseSaved && pauseSaved[id]) || ''; });
+            document.getElementById('btn-pause').innerText = '⏸ Pause';
+            // Resume the countdown only if this is a timed exam question still in progress.
+            if (state.mode === 'exam' && state.timed && !isAnswered) runTimer();
+        }
+    }
     function toggleDeepDive() {
         const box = document.getElementById('deep-dive-box');
         const txt = document.getElementById('ui-deepdive');
