@@ -6198,6 +6198,13 @@
     window.addEventListener('beforeunload', saveSession);
     init();
 
+    // Offline support: register the service worker (no-op on file:// or unsupported browsers).
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+            navigator.serviceWorker.register('sw.js').catch(function () {});
+        });
+    }
+
 </script>
 
 </body>
