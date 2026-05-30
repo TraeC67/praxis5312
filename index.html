@@ -57,72 +57,28 @@
             gap: 12px;
             flex-wrap: wrap;
         }
-
         .header-left { display: flex; flex-direction: column; gap: 2px; }
-
         .progress-label { font-size: 0.8rem; color: #94a3b8; }
+        .score-board { font-size: 1.05rem; font-weight: bold; color: var(--primary); }
+        .timer { font-size: 1.4rem; font-weight: bold; color: #fbbf24; }
+        .timer.warning { color: var(--incorrect); animation: pulse 1s infinite; }
 
-        .score-board {
-            font-size: 1.05rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .timer {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #fbbf24;
-        }
-
-        .timer.warning {
-            color: var(--incorrect);
-            animation: pulse 1s infinite;
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: #334155;
-            border-radius: 99px;
-            overflow: hidden;
-            margin-bottom: 18px;
-        }
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--primary), #60a5fa);
-            transition: width 0.3s ease;
-        }
+        .progress-bar { height: 8px; background: #334155; border-radius: 99px; overflow: hidden; margin-bottom: 18px; }
+        .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), #60a5fa); transition: width 0.3s ease; }
 
         .domain-badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            display: inline-block; padding: 5px 12px; border-radius: 20px;
+            font-size: 0.85rem; font-weight: bold; margin-bottom: 15px;
+            text-transform: uppercase; letter-spacing: 0.05em;
         }
 
-        .question-text {
-            font-size: 1.25rem;
-            line-height: 1.6;
-            margin-bottom: 22px;
-        }
+        .question-text { font-size: 1.25rem; line-height: 1.6; margin-bottom: 22px; }
 
         .options-grid { display: grid; gap: 13px; }
-
         .option-btn {
-            background-color: #334155;
-            color: white;
-            border: 2px solid transparent;
-            padding: 15px 20px;
-            border-radius: 12px;
-            font-size: 1rem;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.2s ease;
-            line-height: 1.4;
+            background-color: #334155; color: white; border: 2px solid transparent;
+            padding: 15px 20px; border-radius: 12px; font-size: 1rem; cursor: pointer;
+            text-align: left; transition: all 0.2s ease; line-height: 1.4;
         }
         .option-btn:hover { background-color: #475569; transform: translateY(-2px); }
         .option-btn.correct { background-color: rgba(16, 185, 129, 0.2); border-color: var(--correct); }
@@ -130,47 +86,30 @@
         .option-btn.selected { background-color: rgba(59, 130, 246, 0.25); border-color: var(--primary); }
 
         .multi-instruction {
-            background-color: rgba(59, 130, 246, 0.12);
-            border: 1px dashed var(--primary);
-            color: #bfdbfe;
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 18px;
+            background-color: rgba(59, 130, 246, 0.12); border: 1px dashed var(--primary);
+            color: #bfdbfe; padding: 10px 14px; border-radius: 8px; font-size: 0.9rem;
+            font-weight: 600; margin-bottom: 18px;
         }
+
+        .study-nav { display: none; gap: 10px; margin-top: 16px; justify-content: space-between; flex-wrap: wrap; }
 
         .feedback-area {
-            margin-top: 22px;
-            padding: 20px;
-            border-radius: 12px;
-            display: none;
-            background-color: #0f172a;
-            border-left: 4px solid var(--primary);
+            margin-top: 22px; padding: 20px; border-radius: 12px; display: none;
+            background-color: #0f172a; border-left: 4px solid var(--primary);
         }
         .explanation { font-size: 1.02rem; line-height: 1.6; margin-bottom: 15px; }
-
         .deep-dive-box {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #1e293b;
-            border-radius: 8px;
-            border-left: 4px solid var(--domain-info);
+            display: none; margin-top: 15px; padding: 15px; background-color: #1e293b;
+            border-radius: 8px; border-left: 4px solid var(--domain-info);
         }
-
         .actions { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
 
         .btn {
-            padding: 12px 22px;
-            border-radius: 8px;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.15s;
-            font-size: 1rem;
+            padding: 12px 22px; border-radius: 8px; border: none; font-weight: bold;
+            cursor: pointer; transition: background 0.2s, transform 0.15s; font-size: 1rem;
         }
         .btn:active { transform: scale(0.97); }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
         .btn-primary { background-color: var(--primary); color: white; }
         .btn-primary:hover { background-color: var(--primary-hover); }
         .btn-research { background-color: transparent; border: 2px solid var(--primary); color: var(--primary); }
@@ -179,86 +118,77 @@
         .btn-ghost:hover { background: #334155; }
         .btn-exit { background: transparent; border: 2px solid #64748b; color: #cbd5e1; padding: 8px 14px; font-size: 0.85rem; }
         .btn-exit:hover { background: #334155; }
+        .btn-link { background: none; border: none; color: #64748b; text-decoration: underline; cursor: pointer; font-size: 0.8rem; padding: 10px 0 0; }
+        .btn-link:hover { color: #94a3b8; }
 
         /* ---------- Start screen ---------- */
         .start-screen { display: none; text-align: center; }
         .start-screen p.tagline { color: #94a3b8; font-size: 1.05rem; line-height: 1.6; }
+        .section-h { font-weight: bold; margin: 24px 0 12px; color: #e2e8f0; font-size: 1.05rem; }
+
         .resume-banner {
-            display: none;
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid var(--correct);
-            color: #a7f3d0;
-            padding: 14px;
-            border-radius: 10px;
-            margin: 18px 0;
-            font-weight: 600;
+            display: none; background: rgba(16, 185, 129, 0.12); border: 1px solid var(--correct);
+            color: #a7f3d0; padding: 14px; border-radius: 10px; margin: 18px 0; font-weight: 600;
         }
+
         .length-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 12px;
-            margin: 22px 0 10px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px; margin: 6px 0;
         }
         .length-btn {
-            background: #334155;
-            border: 2px solid transparent;
-            color: white;
-            padding: 18px 12px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: all 0.2s;
+            background: #334155; border: 2px solid transparent; color: white; padding: 18px 12px;
+            border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: all 0.2s;
         }
         .length-btn:hover { border-color: var(--primary); transform: translateY(-2px); }
         .length-btn small { display: block; font-weight: normal; color: #94a3b8; margin-top: 4px; font-size: 0.78rem; }
-        .toggle-row {
-            display: flex; align-items: center; justify-content: center;
-            gap: 10px; margin: 18px 0; font-size: 0.95rem; color: #cbd5e1;
-        }
+        .domain-pick { text-align: left; }
+
+        .toggle-wrap { display: flex; flex-direction: column; gap: 8px; align-items: center; margin: 20px 0 6px; }
+        .toggle-row { display: flex; align-items: center; gap: 10px; font-size: 0.95rem; color: #cbd5e1; }
         .toggle-row input { width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer; }
+
+        /* ---------- Progress / history card ---------- */
+        .stats-card { background: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 18px; margin: 18px 0; text-align: left; }
+        .stats-title { font-weight: bold; margin-bottom: 8px; }
+        .stats-summary { color: #cbd5e1; margin-bottom: 14px; font-size: 0.95rem; }
+        .trend-wrap { position: relative; height: 80px; background: #1e293b; border-radius: 8px; padding: 8px; }
+        .trend-target { position: absolute; left: 8px; right: 8px; top: 46%; border-top: 1px dashed #64748b; }
+        .trend-row { display: flex; align-items: flex-end; gap: 4px; height: 100%; }
+        .trend-bar { flex: 1; display: flex; align-items: flex-end; height: 100%; min-width: 6px; }
+        .trend-fill { width: 100%; border-radius: 3px 3px 0 0; }
+        .trend-caption { font-size: 0.75rem; color: #64748b; margin: 6px 0 14px; line-height: 1.4; }
+        .mini-row { display: flex; align-items: center; gap: 8px; margin: 6px 0; font-size: 0.82rem; }
+        .mini-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+        .mini-label { width: 140px; flex: none; color: #cbd5e1; }
+        .mini-track { flex: 1; height: 7px; background: #334155; border-radius: 99px; overflow: hidden; }
+        .mini-fill { display: block; height: 100%; }
+        .mini-pct { width: 36px; text-align: right; color: #94a3b8; flex: none; }
+
+        .disclaimer { font-size: 0.8rem; color: #64748b; text-align: center; margin-top: 10px; line-height: 1.5; }
 
         /* ---------- Results screen ---------- */
         .results-screen { display: none; }
-        .scaled-score {
-            font-size: 4rem; font-weight: bold; margin: 10px 0; text-align: center;
-            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-        }
+        .scaled-score { font-size: 4rem; font-weight: bold; margin: 10px 0; text-align: center; text-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
         .passing { color: var(--correct); }
         .failing { color: #fbbf24; }
         .res-headline { text-align: center; font-size: 1.3rem; font-weight: bold; margin-bottom: 6px; }
         .res-summary { text-align: center; color: #cbd5e1; margin-bottom: 22px; }
-
         .section-title { font-size: 1.1rem; font-weight: bold; margin: 24px 0 12px; color: #e2e8f0; }
-
         .domain-row { margin-bottom: 14px; }
         .domain-row-head { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; font-size: 0.95rem; }
-        .domain-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+        .domain-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; flex: none; }
         .domain-stat { margin-left: auto; color: #94a3b8; font-weight: bold; }
         .domain-bar { height: 10px; background: #334155; border-radius: 99px; overflow: hidden; }
         .domain-bar-fill { height: 100%; border-radius: 99px; transition: width 0.5s ease; }
-
-        .focus-box {
-            background: #334155; border-radius: 10px; padding: 16px;
-            margin: 18px 0; line-height: 1.6; border-left: 4px solid var(--domain-info);
-        }
-        .disclaimer { font-size: 0.8rem; color: #64748b; text-align: center; margin-top: 8px; line-height: 1.5; }
-
-        .review-item {
-            background: #0f172a; border-radius: 10px; padding: 16px;
-            margin-bottom: 14px; border-left: 4px solid var(--incorrect);
-        }
+        .focus-box { background: #334155; border-radius: 10px; padding: 16px; margin: 18px 0; line-height: 1.6; border-left: 4px solid var(--domain-info); }
+        .review-item { background: #0f172a; border-radius: 10px; padding: 16px; margin-bottom: 14px; border-left: 4px solid var(--incorrect); }
         .review-q { font-weight: 600; margin: 8px 0; line-height: 1.5; }
         .review-line { margin: 5px 0; font-size: 0.95rem; line-height: 1.5; }
         .review-x { color: var(--incorrect); font-weight: bold; }
         .review-ok { color: var(--correct); font-weight: bold; }
         .review-exp { font-size: 0.9rem; color: #94a3b8; margin-top: 8px; line-height: 1.5; }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
@@ -272,23 +202,41 @@
 
         <div id="resume-banner" class="resume-banner">
             <span id="resume-info"></span><br><br>
-            <button class="btn btn-primary" id="btn-resume" onclick="resumeSession()">▶ Resume Where I Left Off</button>
+            <button class="btn btn-primary" onclick="resumeSession()">▶ Resume Where I Left Off</button>
         </div>
 
-        <h2 style="margin-top: 26px; font-size: 1.1rem;">Start a new test</h2>
+        <div id="home-stats" class="stats-card" style="display:none;">
+            <div class="stats-title">📈 Your Progress</div>
+            <div id="stats-summary" class="stats-summary"></div>
+            <div class="trend-wrap"><div class="trend-target"></div><div id="stats-trend" class="trend-row"></div></div>
+            <div class="trend-caption">Estimated score per completed test (most recent on the right). Dashed line = 154 pass target.</div>
+            <div id="stats-domains"></div>
+            <button class="btn-link" onclick="clearHistory()">Clear progress history</button>
+        </div>
+
+        <div class="section-h">Start a new test</div>
         <div class="length-grid">
             <button class="length-btn" onclick="startNewTest(10)">Quick<small>10 questions</small></button>
             <button class="length-btn" onclick="startNewTest(25)">Short<small>25 questions</small></button>
             <button class="length-btn" onclick="startNewTest(50)">Half<small>50 questions</small></button>
-            <button class="length-btn" onclick="startNewTest('all')">Full Gauntlet<small>all questions</small></button>
+            <button class="length-btn" onclick="startNewTest('all')">Full Gauntlet<small id="full-count">all questions</small></button>
         </div>
 
-        <div class="toggle-row">
-            <input type="checkbox" id="opt-timed" checked>
-            <label for="opt-timed">⏱ Timed mode (75 seconds per question)</label>
+        <div class="section-h">Practice by domain</div>
+        <div class="length-grid" id="domain-grid"></div>
+
+        <div class="toggle-wrap">
+            <div class="toggle-row" id="timed-toggle-row">
+                <input type="checkbox" id="opt-timed" checked>
+                <label for="opt-timed">⏱ Timed mode (75 seconds per question)</label>
+            </div>
+            <div class="toggle-row">
+                <input type="checkbox" id="opt-study" onchange="onStudyToggle()">
+                <label for="opt-study">📖 Study mode — untimed, answers shown, no score</label>
+            </div>
         </div>
 
-        <p class="disclaimer">Your progress saves automatically on this device/browser, so you can close the page and resume anytime. Scores here are a study diagnostic, not an official ETS scaled score.</p>
+        <p class="disclaimer">Progress and score history save automatically on this device/browser, so you can close the page and resume anytime. Scores here are a study diagnostic, not an official ETS scaled score.</p>
     </div>
 
     <!-- ================= QUIZ SCREEN ================= -->
@@ -296,11 +244,11 @@
         <div class="header">
             <div class="header-left">
                 <span class="progress-label" id="ui-progress">Question 1 of 1</span>
-                <div class="score-board">Est. Praxis Score: <span id="ui-score">130</span> / 200</div>
+                <div class="score-board" id="score-wrap">Est. Praxis Score: <span id="ui-score">130</span> / 200</div>
             </div>
             <div style="display:flex; align-items:center; gap:12px;">
                 <div class="timer" id="ui-timer">01:15</div>
-                <button class="btn btn-exit" onclick="pauseAndExit()">⏸ Save &amp; Exit</button>
+                <button class="btn btn-exit" id="btn-exit" onclick="pauseAndExit()">⏸ Save &amp; Exit</button>
             </div>
         </div>
 
@@ -314,6 +262,12 @@
         <div class="options-grid" id="ui-options"></div>
 
         <button class="btn btn-primary" id="btn-submit" style="display:none; margin-top:18px;" onclick="submitMultiAnswer()">Submit Answer ✓</button>
+
+        <div id="study-nav" class="study-nav">
+            <button class="btn btn-ghost" id="btn-prev" onclick="prevQuestion()">← Prev</button>
+            <button class="btn btn-research" id="btn-reveal" onclick="revealStudyAnswer()">👁 Reveal Answer</button>
+            <button class="btn btn-primary" id="btn-study-next" onclick="nextStudy()">Next →</button>
+        </div>
 
         <div class="feedback-area" id="ui-feedback">
             <h3 id="feedback-title" style="margin-top: 0;"></h3>
@@ -334,24 +288,24 @@
 
     <!-- ================= RESULTS SCREEN ================= -->
     <div id="results-screen" class="results-screen">
-        <h2 style="text-align:center;">🏁 Test Complete</h2>
+        <h2 style="text-align:center;" id="res-title">🏁 Test Complete</h2>
         <div class="scaled-score" id="res-scaled">154</div>
         <div class="res-headline" id="res-headline"></div>
         <div class="res-summary" id="res-summary"></div>
         <p class="disclaimer">Estimated scaled score is a rough study diagnostic (100&ndash;200) based on your percent correct. It is NOT an official Praxis score. Always verify the qualifying score with SCDE and ETS.</p>
 
-        <div class="section-title">📊 Performance by Domain</div>
+        <div class="section-title">📊 Performance by Domain (this test)</div>
         <div id="res-domains"></div>
 
         <div class="focus-box" id="res-focus"></div>
 
         <div class="section-title">🔁 Review Missed Questions (<span id="res-missed-count">0</span>)</div>
-        <button class="btn btn-ghost" id="btn-toggle-review" onclick="toggleReview()" style="margin-bottom:14px;">Show / Hide Review</button>
+        <button class="btn btn-ghost" onclick="toggleReview()" style="margin-bottom:14px;">Show / Hide Review</button>
         <div id="res-review-list" style="display:none;"></div>
 
         <div class="actions" style="margin-top: 26px;">
-            <button class="btn btn-primary" onclick="goHomeNewTest()">🔄 New Test</button>
-            <button class="btn btn-ghost" onclick="clearAllData()">🗑 Clear Saved Data</button>
+            <button class="btn btn-primary" id="btn-retry" style="display:none;" onclick="startMissedRetry()">🔁 Retry Missed</button>
+            <button class="btn btn-ghost" onclick="goHome()">🏠 Home</button>
         </div>
     </div>
 
@@ -2501,8 +2455,9 @@
   }
 ];
 
-    /* ---------------- Config & state ---------------- */
-    const STORAGE_KEY = 'praxis5312_session_v2';
+    /* ---------------- Config ---------------- */
+    const STORAGE_KEY = 'praxis5312_session_v3';
+    const HISTORY_KEY = 'praxis5312_history_v1';
     const TIME_PER_Q = 75;
     const PASS_SCORE = 154;
 
@@ -2521,36 +2476,29 @@
         'var(--domain-prof)':   'Study leadership, PD design, intellectual freedom, and legal/policy monitoring.'
     };
 
-    let state = null;          // the saved/active session
+    /* ---------------- State ---------------- */
+    let state = null;          // active/saved session
     let currentQ = null;
     let isAnswered = false;
     let selectedAnswers = [];
     let timerInterval = null;
     let timeLeft = TIME_PER_Q;
+    let lastMissedIndices = [];
 
-    /* ---------------- Storage helpers ---------------- */
-    function loadSaved() {
-        try {
-            const raw = localStorage.getItem(STORAGE_KEY);
-            return raw ? JSON.parse(raw) : null;
-        } catch (e) { return null; }
-    }
-    function saveSession() {
-        if (!state) return;
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
-    }
-    function clearSession() {
-        try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
-        state = null;
-    }
+    /* ---------------- Storage ---------------- */
+    function loadSaved() { try { const r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : null; } catch (e) { return null; } }
+    function saveSession() { if (!state) return; try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {} }
+    function clearSession() { try { localStorage.removeItem(STORAGE_KEY); } catch (e) {} state = null; }
+
+    function loadHistory() { try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch (e) { return []; } }
+    function saveHistory(h) { try { localStorage.setItem(HISTORY_KEY, JSON.stringify(h)); } catch (e) {} }
+    function pushHistory(entry) { const h = loadHistory(); h.push(entry); while (h.length > 50) h.shift(); saveHistory(h); }
+    function clearHistory() { try { localStorage.removeItem(HISTORY_KEY); } catch (e) {} renderHome(); }
 
     /* ---------------- Utilities ---------------- */
     function shuffle(a) {
         const r = a.slice();
-        for (let i = r.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [r[i], r[j]] = [r[j], r[i]];
-        }
+        for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; }
         return r;
     }
     function showScreen(id) {
@@ -2559,31 +2507,125 @@
         });
         window.scrollTo(0, 0);
     }
+    function answeredCount() { return (state && state.mode === 'study') ? state.pos : (state ? state.results.length : 0); }
 
-    /* ---------------- Init / home ---------------- */
-    function init() {
+    /* ---------------- Home / start screen ---------------- */
+    function init() { renderHome(); showScreen('start-screen'); }
+
+    function onStudyToggle() {
+        const study = document.getElementById('opt-study').checked;
+        const t = document.getElementById('opt-timed');
+        t.disabled = study;
+        document.getElementById('timed-toggle-row').style.opacity = study ? 0.4 : 1;
+    }
+
+    function renderHome() {
+        // Resume banner
         const saved = loadSaved();
         const banner = document.getElementById('resume-banner');
-        if (saved && saved.order && !saved.finished && saved.results.length < saved.order.length) {
+        if (saved && saved.order && !saved.finished && (saved.mode === 'study' ? saved.pos : saved.results.length) < saved.order.length) {
             banner.style.display = 'block';
-            document.getElementById('resume-info').innerText =
-                `📌 Saved test in progress: ${saved.results.length} of ${saved.order.length} answered.`;
+            const done = (saved.mode === 'study' ? saved.pos : saved.results.length);
+            const verb = saved.mode === 'study' ? 'Saved review' : 'Saved test';
+            document.getElementById('resume-info').innerText = `📌 ${verb} in progress (${saved.scopeLabel}): ${done} of ${saved.order.length} done.`;
         } else {
             banner.style.display = 'none';
         }
-        showScreen('start-screen');
+
+        // Domain buttons with live counts
+        const counts = {};
+        questionBank.forEach(q => { counts[q.color] = (counts[q.color] || 0) + 1; });
+        document.getElementById('domain-grid').innerHTML = Object.keys(DOMAIN_LABELS).map(color => {
+            const n = counts[color] || 0;
+            return '<button class="length-btn domain-pick" style="border-left:5px solid ' + color + '" onclick="startScoped(\'' + color + '\')">' +
+                DOMAIN_LABELS[color] + '<small>' + n + ' questions</small></button>';
+        }).join('');
+        document.getElementById('full-count').innerText = questionBank.length + ' questions';
+
+        renderHomeStats();
+        onStudyToggle();
     }
 
-    function startNewTest(length) {
-        const timed = document.getElementById('opt-timed').checked;
-        const allIdx = shuffle(questionBank.map((_, i) => i));
-        const order = (length === 'all') ? allIdx : allIdx.slice(0, Math.min(length, allIdx.length));
-        state = { order, results: [], timed, scaled: 130, startedAt: Date.now(), finished: false };
+    function renderHomeStats() {
+        const h = loadHistory();
+        const card = document.getElementById('home-stats');
+        if (!h.length) { card.style.display = 'none'; return; }
+        card.style.display = 'block';
+
+        const best = Math.max.apply(null, h.map(e => e.estScaled));
+        const latest = h[h.length - 1].estScaled;
+        const cls = v => v >= PASS_SCORE ? 'passing' : 'failing';
+        document.getElementById('stats-summary').innerHTML =
+            'Tests completed: <strong>' + h.length + '</strong> &nbsp;•&nbsp; ' +
+            'Best: <strong class="' + cls(best) + '">' + best + '</strong> &nbsp;•&nbsp; ' +
+            'Latest: <strong class="' + cls(latest) + '">' + latest + '</strong>' +
+            (best >= PASS_SCORE ? ' &nbsp;🏅' : '');
+
+        // Trend (last 12)
+        const recent = h.slice(-12);
+        document.getElementById('stats-trend').innerHTML = recent.map(e => {
+            const ht = Math.max(4, Math.round((e.estScaled - 100) / 100 * 100));
+            const col = e.estScaled >= PASS_SCORE ? 'var(--correct)' : '#fbbf24';
+            const d = new Date(e.date);
+            const label = (d.getMonth() + 1) + '/' + d.getDate() + ': ' + e.estScaled + ' (' + e.scopeLabel + ')';
+            return '<div class="trend-bar" title="' + label + '"><div class="trend-fill" style="height:' + ht + '%;background:' + col + '"></div></div>';
+        }).join('');
+
+        // Cumulative per-domain mastery across all history
+        const agg = {};
+        h.forEach(e => {
+            Object.keys(e.byDomain || {}).forEach(c => {
+                if (!agg[c]) agg[c] = { c: 0, t: 0 };
+                agg[c].c += e.byDomain[c].c; agg[c].t += e.byDomain[c].t;
+            });
+        });
+        document.getElementById('stats-domains').innerHTML = Object.keys(DOMAIN_LABELS).map(c => {
+            const g = agg[c];
+            if (!g || !g.t) return '';
+            const p = Math.round(g.c / g.t * 100);
+            return '<div class="mini-row"><span class="mini-dot" style="background:' + c + '"></span>' +
+                '<span class="mini-label">' + DOMAIN_LABELS[c] + '</span>' +
+                '<span class="mini-track"><span class="mini-fill" style="width:' + p + '%;background:' + c + '"></span></span>' +
+                '<span class="mini-pct">' + p + '%</span></div>';
+        }).join('');
+    }
+
+    /* ---------------- Session builders ---------------- */
+    function startSession(opts) {
+        const study = (opts.mode === 'study');
+        const timed = study ? false : document.getElementById('opt-timed').checked;
+        state = {
+            mode: study ? 'study' : 'exam',
+            scopeLabel: opts.scopeLabel || 'All domains',
+            order: opts.indices,
+            pos: 0,
+            results: [],
+            timed: timed,
+            scaled: 130,
+            startedAt: Date.now(),
+            finished: false
+        };
         saveSession();
         showScreen('quiz-screen');
         loadCurrent();
     }
 
+    function currentMode() { return document.getElementById('opt-study').checked ? 'study' : 'exam'; }
+
+    function startNewTest(length) {
+        const all = shuffle(questionBank.map((_, i) => i));
+        const idx = (length === 'all') ? all : all.slice(0, Math.min(length, all.length));
+        const label = (length === 'all') ? 'Full Gauntlet' : (idx.length + '-question test');
+        startSession({ mode: currentMode(), indices: idx, scopeLabel: label });
+    }
+    function startScoped(color) {
+        const idx = shuffle(questionBank.map((_, i) => i).filter(i => questionBank[i].color === color));
+        startSession({ mode: currentMode(), indices: idx, scopeLabel: DOMAIN_LABELS[color] });
+    }
+    function startMissedRetry() {
+        if (!lastMissedIndices.length) return;
+        startSession({ mode: 'exam', indices: shuffle(lastMissedIndices.slice()), scopeLabel: 'Retry missed' });
+    }
     function resumeSession() {
         state = loadSaved();
         if (!state) { init(); return; }
@@ -2591,13 +2633,14 @@
         loadCurrent();
     }
 
-    /* ---------------- Question flow ---------------- */
+    /* ---------------- Question rendering ---------------- */
     function loadCurrent() {
         isAnswered = false;
         selectedAnswers = [];
-        const pos = state.results.length;
+        const study = (state.mode === 'study');
+        const pos = study ? state.pos : state.results.length;
 
-        if (pos >= state.order.length) { showResults(); return; }
+        if (pos >= state.order.length) { study ? endStudy() : showResults(); return; }
 
         currentQ = questionBank[state.order[pos]];
         const isMulti = Array.isArray(currentQ.correctIndices);
@@ -2608,7 +2651,24 @@
         document.getElementById('btn-submit').style.display = 'none';
         document.getElementById('ui-multi-instruction').style.display = 'none';
 
-        document.getElementById('ui-progress').innerText = `Question ${pos + 1} of ${state.order.length}`;
+        // Header mode differences
+        document.getElementById('score-wrap').style.display = study ? 'none' : 'block';
+        document.getElementById('ui-timer').style.display = (!study && state.timed) ? 'block' : 'none';
+        document.getElementById('btn-exit').innerText = study ? '⏸ Exit Review' : '⏸ Save & Exit';
+        document.getElementById('btn-next').style.display = study ? 'none' : 'inline-block';
+
+        const studyNav = document.getElementById('study-nav');
+        studyNav.style.display = study ? 'flex' : 'none';
+        if (study) {
+            document.getElementById('btn-prev').disabled = (pos === 0);
+            document.getElementById('btn-reveal').style.display = 'inline-block';
+            document.getElementById('btn-reveal').innerText = '👁 Reveal Answer';
+            document.getElementById('btn-study-next').innerText = (pos === state.order.length - 1) ? 'Finish Review ✓' : 'Next →';
+        }
+
+        document.getElementById('ui-progress').innerText =
+            (study ? 'Study • ' : 'Question ') + (pos + 1) + ' of ' + state.order.length +
+            (study ? '  (' + state.scopeLabel + ')' : '');
         document.getElementById('ui-score').innerText = state.scaled;
         document.getElementById('domain-indicator').innerText = currentQ.domain;
         document.getElementById('domain-indicator').style.backgroundColor = currentQ.color;
@@ -2628,7 +2688,7 @@
             const count = currentQ.correctIndices.length;
             const word = count === 2 ? 'TWO' : count === 3 ? 'THREE' : String(count);
             const instr = document.getElementById('ui-multi-instruction');
-            instr.innerText = `📌 Multiple Answer — Select ${word}. You must pick every correct choice and no incorrect ones to earn the point (no partial credit, just like the real exam).`;
+            instr.innerText = '📌 Multiple Answer — Select ' + word + '. You must pick every correct choice and no incorrect ones to earn the point (no partial credit, just like the real exam).';
             instr.style.display = 'block';
             document.getElementById('btn-submit').style.display = 'inline-block';
         }
@@ -2642,12 +2702,8 @@
             ? currentQ.correctIndices.map(i => currentQ.options[i]).join('  •  ')
             : currentQ.options[currentQ.correctIndex];
         state.results.push({
-            i: state.order[pos],
-            color: currentQ.color,
-            domain: currentQ.domain,
-            correct: correct,
-            userText: userText,
-            correctText: correctText
+            i: state.order[pos], color: currentQ.color, domain: currentQ.domain,
+            correct: correct, userText: userText, correctText: correctText
         });
         state.scaled = correct ? Math.min(200, state.scaled + 6) : Math.max(100, state.scaled - 3);
         document.getElementById('ui-score').innerText = state.scaled;
@@ -2659,24 +2715,21 @@
         if (isAnswered) return;
         isAnswered = true;
         clearInterval(timerInterval);
-
         const buttons = document.querySelectorAll('.option-btn');
         const isCorrect = selectedIndex === currentQ.correctIndex;
         buttons[currentQ.correctIndex].classList.add('correct');
         if (!isCorrect) btnElement.classList.add('incorrect');
-
-        recordResult(isCorrect, currentQ.options[selectedIndex]);
+        if (state.mode === 'exam') recordResult(isCorrect, currentQ.options[selectedIndex]);
         revealFeedback(isCorrect);
     }
 
     /* ----- Multi-select ----- */
     function toggleSelection(index, btnElement) {
         if (isAnswered) return;
-        const pos = selectedAnswers.indexOf(index);
-        if (pos === -1) { selectedAnswers.push(index); btnElement.classList.add('selected'); }
-        else { selectedAnswers.splice(pos, 1); btnElement.classList.remove('selected'); }
+        const p = selectedAnswers.indexOf(index);
+        if (p === -1) { selectedAnswers.push(index); btnElement.classList.add('selected'); }
+        else { selectedAnswers.splice(p, 1); btnElement.classList.remove('selected'); }
     }
-
     function submitMultiAnswer() {
         if (isAnswered) return;
         if (selectedAnswers.length === 0) {
@@ -2685,7 +2738,6 @@
         }
         isAnswered = true;
         clearInterval(timerInterval);
-
         const buttons = document.querySelectorAll('.option-btn');
         const correctSet = currentQ.correctIndices;
         buttons.forEach((btn, index) => {
@@ -2693,33 +2745,60 @@
             if (correctSet.includes(index)) btn.classList.add('correct');
             else if (selectedAnswers.includes(index)) btn.classList.add('incorrect');
         });
-
-        const allCorrect = correctSet.length === selectedAnswers.length &&
-            correctSet.every(i => selectedAnswers.includes(i));
+        const allCorrect = correctSet.length === selectedAnswers.length && correctSet.every(i => selectedAnswers.includes(i));
         const userText = selectedAnswers.map(i => currentQ.options[i]).join('  •  ');
-
         document.getElementById('btn-submit').style.display = 'none';
         document.getElementById('ui-multi-instruction').style.display = 'none';
-        recordResult(allCorrect, userText);
+        if (state.mode === 'exam') recordResult(allCorrect, userText);
         revealFeedback(allCorrect);
     }
 
     function revealFeedback(correct) {
         const t = document.getElementById('feedback-title');
-        if (correct) { t.innerText = '✅ Correct!'; t.style.color = 'var(--correct)'; }
-        else { t.innerText = '❌ Incorrect — green = correct, red = your pick'; t.style.color = 'var(--incorrect)'; }
+        if (state.mode === 'study') {
+            t.innerText = correct ? '✅ You got it right' : 'ℹ️ Answer shown (green = correct)';
+            t.style.color = correct ? 'var(--correct)' : 'var(--primary)';
+        } else if (correct) {
+            t.innerText = '✅ Correct!'; t.style.color = 'var(--correct)';
+        } else {
+            t.innerText = '❌ Incorrect — green = correct, red = your pick'; t.style.color = 'var(--incorrect)';
+        }
         document.getElementById('ui-explanation').innerHTML = currentQ.explanation;
         document.getElementById('ui-feedback').style.display = 'block';
-        document.getElementById('progress-fill').style.width = (state.results.length / state.order.length * 100) + '%';
+
+        if (state.mode === 'exam') {
+            document.getElementById('progress-fill').style.width = (state.results.length / state.order.length * 100) + '%';
+            document.getElementById('btn-next').innerText = (state.results.length >= state.order.length) ? 'See Results ➔' : 'Next Question ➔';
+        }
+        if (state.mode === 'study') document.getElementById('btn-reveal').style.display = 'none';
     }
 
-    function nextQuestion() { loadCurrent(); }
+    /* ----- Study reveal without guessing ----- */
+    function revealStudyAnswer() {
+        if (isAnswered) return;
+        isAnswered = true;
+        clearInterval(timerInterval);
+        const buttons = document.querySelectorAll('.option-btn');
+        if (Array.isArray(currentQ.correctIndices)) currentQ.correctIndices.forEach(i => buttons[i].classList.add('correct'));
+        else buttons[currentQ.correctIndex].classList.add('correct');
+        document.getElementById('btn-submit').style.display = 'none';
+        document.getElementById('ui-multi-instruction').style.display = 'none';
+        revealFeedback(true);
+        document.getElementById('feedback-title').innerText = 'ℹ️ Answer (green = correct)';
+        document.getElementById('feedback-title').style.color = 'var(--primary)';
+    }
+
+    /* ---------------- Navigation ---------------- */
+    function nextQuestion() { loadCurrent(); }            // exam
+    function nextStudy() { state.pos++; saveSession(); loadCurrent(); }
+    function prevQuestion() { if (state.pos > 0) { state.pos--; saveSession(); loadCurrent(); } }
+    function endStudy() { state.finished = true; saveSession(); init(); }
 
     /* ---------------- Timer ---------------- */
     function startTimer() {
         clearInterval(timerInterval);
         const tEl = document.getElementById('ui-timer');
-        if (!state.timed) { tEl.style.display = 'none'; return; }
+        if (state.mode !== 'exam' || !state.timed) { tEl.style.display = 'none'; return; }
         tEl.style.display = 'block';
         timeLeft = TIME_PER_Q;
         tEl.classList.remove('warning');
@@ -2733,7 +2812,7 @@
     }
     function updateTimerDisplay() {
         const m = Math.floor(timeLeft / 60), s = timeLeft % 60;
-        document.getElementById('ui-timer').innerText = `0${m}:${s < 10 ? '0' : ''}${s}`;
+        document.getElementById('ui-timer').innerText = '0' + m + ':' + (s < 10 ? '0' : '') + s;
     }
     function timeOut() {
         if (isAnswered) return;
@@ -2745,96 +2824,96 @@
         document.getElementById('ui-multi-instruction').style.display = 'none';
         recordResult(false, '(time expired — no answer)');
         const t = document.getElementById('feedback-title');
-        t.innerText = "⏰ Time's Up!";
-        t.style.color = 'var(--incorrect)';
+        t.innerText = "⏰ Time's Up!"; t.style.color = 'var(--incorrect)';
         document.getElementById('ui-explanation').innerHTML = currentQ.explanation;
         document.getElementById('ui-feedback').style.display = 'block';
+        document.getElementById('btn-next').innerText = (state.results.length >= state.order.length) ? 'See Results ➔' : 'Next Question ➔';
     }
 
-    /* ---------------- Pause ---------------- */
-    function pauseAndExit() {
-        clearInterval(timerInterval);
-        saveSession();
-        init();
-    }
-
-    /* ---------------- Deep dive / source ---------------- */
+    /* ---------------- Pause / deep dive ---------------- */
+    function pauseAndExit() { clearInterval(timerInterval); saveSession(); init(); }
     function toggleDeepDive() {
         const box = document.getElementById('deep-dive-box');
         const txt = document.getElementById('ui-deepdive');
         if (box.style.display === 'none' || box.style.display === '') {
             txt.innerText = currentQ.deepDive || 'No deeper concept breakdown available for this question.';
             box.style.display = 'block';
-        } else {
-            box.style.display = 'none';
-        }
+        } else { box.style.display = 'none'; }
     }
-    function openResearch() {
-        if (currentQ && currentQ.researchUrl) window.open(currentQ.researchUrl, '_blank');
-    }
+    function openResearch() { if (currentQ && currentQ.researchUrl) window.open(currentQ.researchUrl, '_blank'); }
 
     /* ---------------- Results ---------------- */
+    function buildSummary(results) {
+        const total = results.length;
+        const correct = results.filter(r => r.correct).length;
+        const pct = total ? correct / total : 0;
+        const estScaled = Math.max(100, Math.min(200, Math.round(100 + pct * 100)));
+        const byDomain = {};
+        results.forEach(r => { if (!byDomain[r.color]) byDomain[r.color] = { c: 0, t: 0 }; byDomain[r.color].t++; if (r.correct) byDomain[r.color].c++; });
+        return { total, correct, pct, estScaled, byDomain };
+    }
+
     function showResults() {
         clearInterval(timerInterval);
         state.finished = true;
         saveSession();
-        renderResults();
+        const summary = buildSummary(state.results);
+        if (state.results.length > 0) {
+            pushHistory({ date: Date.now(), scopeLabel: state.scopeLabel, total: summary.total, correct: summary.correct, estScaled: summary.estScaled, byDomain: summary.byDomain });
+        }
+        renderResults(summary);
         showScreen('results-screen');
     }
 
-    function renderResults() {
-        const res = state.results;
-        const total = res.length;
-        const correct = res.filter(r => r.correct).length;
-        const pct = total ? correct / total : 0;
-        const estScaled = Math.max(100, Math.min(200, Math.round(100 + pct * 100)));
-        const passing = estScaled >= PASS_SCORE;
-
+    function renderResults(summary) {
+        const passing = summary.estScaled >= PASS_SCORE;
         const scaledEl = document.getElementById('res-scaled');
-        scaledEl.innerText = estScaled;
+        scaledEl.innerText = summary.estScaled;
         scaledEl.className = 'scaled-score ' + (passing ? 'passing' : 'failing');
 
-        document.getElementById('res-headline').innerText = passing
-            ? '🎉 On track to PASS (estimated)'
-            : '📚 Below the 154 target — keep grinding';
+        document.getElementById('res-title').innerText = '🏁 ' + state.scopeLabel + ' — Complete';
+        document.getElementById('res-headline').innerText = passing ? '🎉 On track to PASS (estimated)' : '📚 Below the 154 target — keep grinding';
+
+        // Compare to best so far (history already includes this run)
+        const h = loadHistory();
+        let extra = '';
+        if (h.length > 1) {
+            const best = Math.max.apply(null, h.map(e => e.estScaled));
+            extra = ' • Best so far: ' + best + (summary.estScaled >= best ? ' 🏅 (new best!)' : '');
+        }
         document.getElementById('res-summary').innerText =
-            `${correct} / ${total} correct (${Math.round(pct * 100)}%). Estimated scaled score ${estScaled} vs. passing ${PASS_SCORE}.`;
+            summary.correct + ' / ' + summary.total + ' correct (' + Math.round(summary.pct * 100) + '%). Estimated scaled score ' + summary.estScaled + ' vs. passing ' + PASS_SCORE + '.' + extra;
 
         // Domain breakdown
-        const groups = {};
-        res.forEach(r => {
-            if (!groups[r.color]) groups[r.color] = { c: 0, t: 0 };
-            groups[r.color].t++;
-            if (r.correct) groups[r.color].c++;
-        });
-        let domHtml = '';
-        let weakest = null, weakestPct = 2;
+        let domHtml = '', weakest = null, weakestPct = 2;
         Object.keys(DOMAIN_LABELS).forEach(color => {
-            const g = groups[color];
+            const g = summary.byDomain[color];
             if (!g) return;
             const p = g.c / g.t;
             if (p < weakestPct) { weakestPct = p; weakest = color; }
             const pctTxt = Math.round(p * 100);
-            domHtml +=
-                '<div class="domain-row">' +
-                    '<div class="domain-row-head">' +
-                        '<span class="domain-dot" style="background:' + color + '"></span>' +
-                        '<strong>' + DOMAIN_LABELS[color] + '</strong>' +
-                        '<span class="domain-stat">' + g.c + '/' + g.t + ' (' + pctTxt + '%)</span>' +
-                    '</div>' +
-                    '<div class="domain-bar"><div class="domain-bar-fill" style="width:' + pctTxt + '%;background:' + color + '"></div></div>' +
-                '</div>';
+            domHtml += '<div class="domain-row"><div class="domain-row-head">' +
+                '<span class="domain-dot" style="background:' + color + '"></span>' +
+                '<strong>' + DOMAIN_LABELS[color] + '</strong>' +
+                '<span class="domain-stat">' + g.c + '/' + g.t + ' (' + pctTxt + '%)</span></div>' +
+                '<div class="domain-bar"><div class="domain-bar-fill" style="width:' + pctTxt + '%;background:' + color + '"></div></div></div>';
         });
         document.getElementById('res-domains').innerHTML = domHtml;
 
         document.getElementById('res-focus').innerHTML = weakest
-            ? '<strong>🎯 Focus area: ' + DOMAIN_LABELS[weakest] + '</strong><br>' + DOMAIN_ADVICE[weakest]
+            ? '<strong>🎯 Focus area: ' + DOMAIN_LABELS[weakest] + '</strong><br>' + DOMAIN_ADVICE[weakest] +
+              '<br><br><em>Tip: use “Practice by domain” on the home screen to drill just this area.</em>'
             : '<strong>Great balance across all domains!</strong> Keep mixing full-length timed runs with targeted review.';
 
-        // Missed-question review
-        const missed = res.filter(r => !r.correct);
+        // Missed list + retry
+        const missed = state.results.filter(r => !r.correct);
+        lastMissedIndices = missed.map(r => r.i);
         document.getElementById('res-missed-count').innerText = missed.length;
+        document.getElementById('btn-retry').style.display = missed.length ? 'inline-block' : 'none';
+        document.getElementById('btn-retry').innerText = '🔁 Retry Missed (' + missed.length + ')';
+
         const reviewEl = document.getElementById('res-review-list');
+        reviewEl.style.display = 'none';
         if (missed.length === 0) {
             reviewEl.innerHTML = '<p style="color:var(--correct); font-weight:600;">Perfect run — nothing missed! 🏆</p>';
         } else {
@@ -2845,8 +2924,7 @@
                     '<p class="review-q">' + q.text + '</p>' +
                     '<p class="review-line"><span class="review-x">Your answer:</span> ' + r.userText + '</p>' +
                     '<p class="review-line"><span class="review-ok">Correct:</span> ' + r.correctText + '</p>' +
-                    '<p class="review-exp">' + q.explanation + '</p>' +
-                '</div>';
+                    '<p class="review-exp">' + q.explanation + '</p></div>';
             }).join('');
         }
     }
@@ -2855,15 +2933,7 @@
         const el = document.getElementById('res-review-list');
         el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'block' : 'none';
     }
-
-    function goHomeNewTest() {
-        clearSession();
-        init();
-    }
-    function clearAllData() {
-        clearSession();
-        init();
-    }
+    function goHome() { clearSession(); init(); }
 
     /* ---------------- Boot ---------------- */
     window.addEventListener('beforeunload', saveSession);
