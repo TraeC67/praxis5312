@@ -1,0 +1,2874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 5312 Gauntlet</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --correct: #10b981;
+            --incorrect: #ef4444;
+            --card-bg: #1e293b;
+            --domain-admin: #8b5cf6;
+            --domain-access: #f59e0b;
+            --domain-info: #ec4899;
+            --domain-teach: #14b8a6;
+            --domain-prof: #f43f5e;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 20px 12px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            position: relative;
+            margin: auto;
+        }
+
+        h1, h2 { margin-top: 0; }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #334155;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .header-left { display: flex; flex-direction: column; gap: 2px; }
+
+        .progress-label { font-size: 0.8rem; color: #94a3b8; }
+
+        .score-board {
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .timer {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #fbbf24;
+        }
+
+        .timer.warning {
+            color: var(--incorrect);
+            animation: pulse 1s infinite;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #334155;
+            border-radius: 99px;
+            overflow: hidden;
+            margin-bottom: 18px;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary), #60a5fa);
+            transition: width 0.3s ease;
+        }
+
+        .domain-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        .options-grid { display: grid; gap: 13px; }
+
+        .option-btn {
+            background-color: #334155;
+            color: white;
+            border: 2px solid transparent;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+            line-height: 1.4;
+        }
+        .option-btn:hover { background-color: #475569; transform: translateY(-2px); }
+        .option-btn.correct { background-color: rgba(16, 185, 129, 0.2); border-color: var(--correct); }
+        .option-btn.incorrect { background-color: rgba(239, 68, 68, 0.2); border-color: var(--incorrect); }
+        .option-btn.selected { background-color: rgba(59, 130, 246, 0.25); border-color: var(--primary); }
+
+        .multi-instruction {
+            background-color: rgba(59, 130, 246, 0.12);
+            border: 1px dashed var(--primary);
+            color: #bfdbfe;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .feedback-area {
+            margin-top: 22px;
+            padding: 20px;
+            border-radius: 12px;
+            display: none;
+            background-color: #0f172a;
+            border-left: 4px solid var(--primary);
+        }
+        .explanation { font-size: 1.02rem; line-height: 1.6; margin-bottom: 15px; }
+
+        .deep-dive-box {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #1e293b;
+            border-radius: 8px;
+            border-left: 4px solid var(--domain-info);
+        }
+
+        .actions { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+
+        .btn {
+            padding: 12px 22px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            font-size: 1rem;
+        }
+        .btn:active { transform: scale(0.97); }
+        .btn-primary { background-color: var(--primary); color: white; }
+        .btn-primary:hover { background-color: var(--primary-hover); }
+        .btn-research { background-color: transparent; border: 2px solid var(--primary); color: var(--primary); }
+        .btn-research:hover { background-color: rgba(59, 130, 246, 0.1); }
+        .btn-ghost { background: transparent; border: 2px solid #475569; color: #cbd5e1; }
+        .btn-ghost:hover { background: #334155; }
+        .btn-exit { background: transparent; border: 2px solid #64748b; color: #cbd5e1; padding: 8px 14px; font-size: 0.85rem; }
+        .btn-exit:hover { background: #334155; }
+
+        /* ---------- Start screen ---------- */
+        .start-screen { display: none; text-align: center; }
+        .start-screen p.tagline { color: #94a3b8; font-size: 1.05rem; line-height: 1.6; }
+        .resume-banner {
+            display: none;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid var(--correct);
+            color: #a7f3d0;
+            padding: 14px;
+            border-radius: 10px;
+            margin: 18px 0;
+            font-weight: 600;
+        }
+        .length-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin: 22px 0 10px;
+        }
+        .length-btn {
+            background: #334155;
+            border: 2px solid transparent;
+            color: white;
+            padding: 18px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .length-btn:hover { border-color: var(--primary); transform: translateY(-2px); }
+        .length-btn small { display: block; font-weight: normal; color: #94a3b8; margin-top: 4px; font-size: 0.78rem; }
+        .toggle-row {
+            display: flex; align-items: center; justify-content: center;
+            gap: 10px; margin: 18px 0; font-size: 0.95rem; color: #cbd5e1;
+        }
+        .toggle-row input { width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer; }
+
+        /* ---------- Results screen ---------- */
+        .results-screen { display: none; }
+        .scaled-score {
+            font-size: 4rem; font-weight: bold; margin: 10px 0; text-align: center;
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+        .passing { color: var(--correct); }
+        .failing { color: #fbbf24; }
+        .res-headline { text-align: center; font-size: 1.3rem; font-weight: bold; margin-bottom: 6px; }
+        .res-summary { text-align: center; color: #cbd5e1; margin-bottom: 22px; }
+
+        .section-title { font-size: 1.1rem; font-weight: bold; margin: 24px 0 12px; color: #e2e8f0; }
+
+        .domain-row { margin-bottom: 14px; }
+        .domain-row-head { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; font-size: 0.95rem; }
+        .domain-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+        .domain-stat { margin-left: auto; color: #94a3b8; font-weight: bold; }
+        .domain-bar { height: 10px; background: #334155; border-radius: 99px; overflow: hidden; }
+        .domain-bar-fill { height: 100%; border-radius: 99px; transition: width 0.5s ease; }
+
+        .focus-box {
+            background: #334155; border-radius: 10px; padding: 16px;
+            margin: 18px 0; line-height: 1.6; border-left: 4px solid var(--domain-info);
+        }
+        .disclaimer { font-size: 0.8rem; color: #64748b; text-align: center; margin-top: 8px; line-height: 1.5; }
+
+        .review-item {
+            background: #0f172a; border-radius: 10px; padding: 16px;
+            margin-bottom: 14px; border-left: 4px solid var(--incorrect);
+        }
+        .review-q { font-weight: 600; margin: 8px 0; line-height: 1.5; }
+        .review-line { margin: 5px 0; font-size: 0.95rem; line-height: 1.5; }
+        .review-x { color: var(--incorrect); font-weight: bold; }
+        .review-ok { color: var(--correct); font-weight: bold; }
+        .review-exp { font-size: 0.9rem; color: #94a3b8; margin-top: 8px; line-height: 1.5; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ================= START SCREEN ================= -->
+    <div id="start-screen" class="start-screen">
+        <h1>🛡️ The 5312 Gauntlet</h1>
+        <p class="tagline">Praxis School Librarian (5312) practice. Single- and multiple-answer questions, instant explanations, USC ISCI concept deep-dives, and a full diagnostic at the end. Target score: <strong>154</strong>.</p>
+
+        <div id="resume-banner" class="resume-banner">
+            <span id="resume-info"></span><br><br>
+            <button class="btn btn-primary" id="btn-resume" onclick="resumeSession()">▶ Resume Where I Left Off</button>
+        </div>
+
+        <h2 style="margin-top: 26px; font-size: 1.1rem;">Start a new test</h2>
+        <div class="length-grid">
+            <button class="length-btn" onclick="startNewTest(10)">Quick<small>10 questions</small></button>
+            <button class="length-btn" onclick="startNewTest(25)">Short<small>25 questions</small></button>
+            <button class="length-btn" onclick="startNewTest(50)">Half<small>50 questions</small></button>
+            <button class="length-btn" onclick="startNewTest('all')">Full Gauntlet<small>all questions</small></button>
+        </div>
+
+        <div class="toggle-row">
+            <input type="checkbox" id="opt-timed" checked>
+            <label for="opt-timed">⏱ Timed mode (75 seconds per question)</label>
+        </div>
+
+        <p class="disclaimer">Your progress saves automatically on this device/browser, so you can close the page and resume anytime. Scores here are a study diagnostic, not an official ETS scaled score.</p>
+    </div>
+
+    <!-- ================= QUIZ SCREEN ================= -->
+    <div id="quiz-screen" style="display:none;">
+        <div class="header">
+            <div class="header-left">
+                <span class="progress-label" id="ui-progress">Question 1 of 1</span>
+                <div class="score-board">Est. Praxis Score: <span id="ui-score">130</span> / 200</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <div class="timer" id="ui-timer">01:15</div>
+                <button class="btn btn-exit" onclick="pauseAndExit()">⏸ Save &amp; Exit</button>
+            </div>
+        </div>
+
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+        <div id="domain-indicator" class="domain-badge" style="background-color: var(--primary);">Domain</div>
+        <div class="question-text" id="ui-question">Loading question...</div>
+
+        <div id="ui-multi-instruction" class="multi-instruction" style="display:none;"></div>
+
+        <div class="options-grid" id="ui-options"></div>
+
+        <button class="btn btn-primary" id="btn-submit" style="display:none; margin-top:18px;" onclick="submitMultiAnswer()">Submit Answer ✓</button>
+
+        <div class="feedback-area" id="ui-feedback">
+            <h3 id="feedback-title" style="margin-top: 0;"></h3>
+            <div class="explanation" id="ui-explanation"></div>
+
+            <div id="deep-dive-box" class="deep-dive-box">
+                <strong>🧠 Concept Deep Dive:</strong>
+                <p id="ui-deepdive" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.5;"></p>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-primary" id="btn-next" onclick="nextQuestion()">Next Question ➔</button>
+                <button class="btn btn-research" onclick="toggleDeepDive()">💡 Explain the Concept</button>
+                <button class="btn btn-research" onclick="openResearch()">🔗 Official Source</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= RESULTS SCREEN ================= -->
+    <div id="results-screen" class="results-screen">
+        <h2 style="text-align:center;">🏁 Test Complete</h2>
+        <div class="scaled-score" id="res-scaled">154</div>
+        <div class="res-headline" id="res-headline"></div>
+        <div class="res-summary" id="res-summary"></div>
+        <p class="disclaimer">Estimated scaled score is a rough study diagnostic (100&ndash;200) based on your percent correct. It is NOT an official Praxis score. Always verify the qualifying score with SCDE and ETS.</p>
+
+        <div class="section-title">📊 Performance by Domain</div>
+        <div id="res-domains"></div>
+
+        <div class="focus-box" id="res-focus"></div>
+
+        <div class="section-title">🔁 Review Missed Questions (<span id="res-missed-count">0</span>)</div>
+        <button class="btn btn-ghost" id="btn-toggle-review" onclick="toggleReview()" style="margin-bottom:14px;">Show / Hide Review</button>
+        <div id="res-review-list" style="display:none;"></div>
+
+        <div class="actions" style="margin-top: 26px;">
+            <button class="btn btn-primary" onclick="goHomeNewTest()">🔄 New Test</button>
+            <button class="btn btn-ghost" onclick="clearAllData()">🗑 Clear Saved Data</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    /* ============================================================
+     * THE QUESTION BANK — fully embedded so this single file works
+     * offline on any computer, iPad, or phone. No server needed.
+     * ============================================================ */
+    const questionBank = [
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "A kindergarten teacher wants to introduce research skills but feels the students are too young for the library's databases. What is the most effective collaborative approach?",
+    "options": [
+      "Print out database articles and have the students read them silently in the classroom.",
+      "Co-plan a guided inquiry lesson where the librarian models a basic database search visually while the teacher helps students record one new fact on a class chart.",
+      "Wait until the students are in third grade to introduce any research concepts.",
+      "Give the teacher a list of age-appropriate websites to use instead of the library resources."
+    ],
+    "correctIndex": 1,
+    "explanation": "Option B represents true instructional collaboration by scaffolding the research process appropriately for early readers.",
+    "deepDive": "ISCI 742 Concept: Co-teaching in early elementary requires heavy scaffolding. Gradual Release of Responsibility (I do, we do, you do) is essential. By modeling the search on a smartboard (I do) and completing a chart together (We do), you meet the AASL standard for inquiry without overwhelming non-readers.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Primary students are struggling to locate picture books about 'trucks' because the catalog relies on complex Library of Congress subject headings. What is the best access-oriented response?",
+    "options": [
+      "Require the K-2 students to memorize the formal subject headings before checking out books.",
+      "Eliminate the catalog entirely for the picture book section and rely on shelf browsing.",
+      "Add local, child-friendly subject headings (like 'trucks' and 'cars') to the MARC records to improve discoverability.",
+      "Move all transportation books behind the circulation desk so the librarian can hand them out."
+    ],
+    "correctIndex": 2,
+    "explanation": "Adding local, age-appropriate metadata improves intellectual access while respecting cataloging standards.",
+    "deepDive": "ISCI 706 Concept: Authority control standardizes catalogs, but local metadata enhancements bridge the gap between formal terminology and user behavior. For K-2 users, discoverability hinges on natural language. Adding local tags ensures the system serves the patron, not the other way around.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "When compiling an end-of-year advocacy report for the principal, which piece of evidence best demonstrates the library's impact on early literacy?",
+    "options": [
+      "The total number of picture books circulated throughout the school year.",
+      "A data comparison showing growth in first-grade exit-ticket scores following a semester of co-taught information literacy lessons.",
+      "Photographs of the kindergarten classes sitting quietly on the reading rug.",
+      "A list of all the new early reader titles purchased with this year's budget."
+    ],
+    "correctIndex": 1,
+    "explanation": "Impact evidence (student learning data) is significantly stronger for advocacy than output evidence (circulation numbers).",
+    "deepDive": "ISCI 720 Concept: Program evaluation must tie back to student outcomes. Circulation numbers show the library is busy, but co-taught lesson data proves the library is actively moving the needle on academic achievement. Principals fund programs that solve instructional problems.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "A free phonics app collects names and usage data from children under 13. What must the media specialist do before installing it on the library's primary tablets?",
+    "options": [
+      "Install it immediately since it supports the curriculum and is free.",
+      "Follow district approval procedures to ensure the app complies with COPPA and local data privacy policies.",
+      "Create accounts using a fake generic library email to bypass the data collection.",
+      "Ask the kindergarteners to sign a consent form before using the app."
+    ],
+    "correctIndex": 1,
+    "explanation": "Educational tools collecting data from minors under 13 must be heavily scrutinized for privacy policy compliance.",
+    "deepDive": "ISCI 761 Concept: The Children's Online Privacy Protection Act (COPPA) places strict limits on data collection for kids under 13. Free apps often monetize user data. The librarian acts as a digital safeguard, ensuring all technology tools pass district data-privacy vetting before they ever reach a student's hands.",
+    "researchUrl": "https://www.ftc.gov/business-guidance/privacy-security/childrens-privacy"
+  },
+  {
+    "domain": "Prof. Dev & Advocacy",
+    "color": "var(--domain-prof)",
+    "text": "During a collection audit, you realize the biography section severely lacks representation of diverse historical figures. What is the most culturally responsive action?",
+    "options": [
+      "Place the few diverse biographies on a separate display cart permanently.",
+      "Wait until the next heritage month to order relevant titles.",
+      "Use professional reviews and selection criteria to systematically integrate high-quality, authentic biographies into the general collection.",
+      "Only purchase diverse biographies if a classroom teacher explicitly requests them."
+    ],
+    "correctIndex": 2,
+    "explanation": "Integrating authentic, diverse materials systematically ensures the collection acts as 'mirrors and windows' for all students year-round.",
+    "deepDive": "ISCI 782 Concept: Social justice and advocacy in the library begin with the collection. Books shouldn't be tokenized or segregated. A culturally responsive audit identifies gaps so the librarian can actively curate a collection where all students see themselves represented seamlessly within the main stacks.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "You are writing a budget proposal to replace outdated science nonfiction. (Select TWO) Which kinds of evidence would BEST support the request?",
+    "options": [
+      "Several books look old on the shelf, and you personally dislike their covers.",
+      "Average publication date, curriculum gaps, circulation data, teacher requests, and documented accuracy concerns.",
+      "A vendor is offering a limited-time discount on a science package.",
+      "Alignment with school improvement goals, state standards, student needs, and equitable access.",
+      "The amount of money left in the budget at the end of the year."
+    ],
+    "correctIndices": [
+      1,
+      3
+    ],
+    "explanation": "B and D combine objective collection data with instructional alignment and equity — the two strongest justifications. A is personal preference, C is timing/opportunity (not need), and E describes leftover funds rather than educational need.",
+    "deepDive": "ISCI 742 Concept: Budgeting is an evidence-based administrative function. The course frames a defensible request as one that ties collection-level data (currency, circulation, accuracy) to the school improvement plan and standards. Notice the test rewards selecting BOTH a data rationale AND an alignment rationale — a single category alone is a weaker proposal.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Which components belong in a district-aligned library policy and procedures manual? (Select THREE)",
+    "options": [
+      "Selection and reconsideration procedures based on objective criteria and curriculum needs.",
+      "A public report listing each student's circulation history.",
+      "Circulation, privacy, acceptable use, and patron-responsibility procedures.",
+      "Guidelines for filtering, passwords, licensing, copyright, fair use, and digital resource use.",
+      "Personal opinions about which authors, genres, or topics should be avoided."
+    ],
+    "correctIndices": [
+      0,
+      2,
+      3
+    ],
+    "explanation": "A, C, and D guide consistent, legal, ethical, and equitable service. B violates student confidentiality (FERPA), and E substitutes personal bias for the objective, policy-based criteria that protect against censorship.",
+    "deepDive": "ISCI 706 Concept: A policy manual is the backbone of defensible collection and access management. The course stresses that written, board-aligned procedures — especially selection/reconsideration and privacy — are what protect the librarian during a challenge. Anything resembling personal preference or a privacy breach is automatically disqualified.",
+    "researchUrl": "https://www.ala.org/tools/challengesupport/selectionpolicytoolkit"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "You are weeding the 600s (technology and applied science). (Select THREE) Which are professionally appropriate reasons to withdraw a title?",
+    "options": [
+      "The information is inaccurate or has been superseded by a newer edition.",
+      "The book is in poor physical condition and is no longer usable.",
+      "The title has not circulated in years and is not needed for the curriculum.",
+      "The author's last name is difficult to shelve alphabetically.",
+      "You personally dislike the cover, although the content is current and well used."
+    ],
+    "correctIndices": [
+      0,
+      1,
+      2
+    ],
+    "explanation": "A, B, and C map directly onto the MUSTIE criteria (Misleading/inaccurate, worn condition, lack of use + irrelevance to curriculum). D and E are convenience and personal preference, which are never valid weeding rationales.",
+    "deepDive": "ISCI 706 Concept: Deselection (weeding) is taught through the CREW method and the MUSTIE acronym. The course frames weeding as objective collection maintenance — currency, condition, and use drive decisions, not aesthetics or shelving convenience. Recognizing the three legitimate MUSTIE-aligned reasons is core to defensible collection management.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "A teacher wants to use a free online tool that collects names and usage data from students under 13. (Select TWO) What should the librarian do BEFORE approving it?",
+    "options": [
+      "Review the tool's privacy policy and data-handling terms.",
+      "Submit the tool through the district's technology approval and vetting process.",
+      "Have students enter fake names so no real data is collected.",
+      "Approve it immediately because it is free and already popular with teachers.",
+      "Assume the vendor is COPPA-compliant without verifying."
+    ],
+    "correctIndices": [
+      0,
+      1
+    ],
+    "explanation": "A and B are the responsible vetting steps that address COPPA and district data-privacy policy. C is deceptive and unworkable at scale, D ignores privacy review, and E assumes compliance instead of confirming it.",
+    "deepDive": "ISCI 761 Concept: The librarian is the school's information-ethics gatekeeper. COPPA restricts data collection from children under 13, so the course teaches a two-step safeguard — read the data terms AND route the tool through formal district vetting — before any minor's data is exposed. 'Free' never bypasses privacy review.",
+    "researchUrl": "https://www.ftc.gov/business-guidance/privacy-security/childrens-privacy"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which strategies reflect Universal Design for Learning (UDL) during a research lesson? (Select TWO)",
+    "options": [
+      "Offer the content in multiple formats — text, audio, and visuals.",
+      "Require every student to produce the identical product in the same format.",
+      "Provide options for how students demonstrate learning while keeping the same goal.",
+      "Excuse struggling students from the learning objective entirely.",
+      "Lecture for the full period to ensure everyone gets the same information."
+    ],
+    "correctIndices": [
+      0,
+      2
+    ],
+    "explanation": "A reflects multiple means of representation and C reflects multiple means of action/expression — both core UDL principles that keep the goal constant while varying the path. B and E are one-size-fits-all, and D lowers expectations rather than removing barriers.",
+    "deepDive": "ISCI 782 Concept: UDL (from CAST) is built on three principles — multiple means of engagement, representation, and action/expression. The course stresses that UDL changes ACCESS, never the standard. The two correct options vary input and output while preserving the objective; the distractors either standardize rigidly or reduce rigor.",
+    "researchUrl": "https://udlguidelines.cast.org/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which elements characterize genuine instructional co-teaching between a librarian and a classroom teacher? (Select THREE)",
+    "options": [
+      "Co-planning standards-based learning objectives.",
+      "Co-teaching the inquiry lesson together.",
+      "The librarian supervising checkout while the teacher grades unrelated papers.",
+      "Co-assessing student work against shared criteria.",
+      "The librarian creating a book list after the unit has already ended."
+    ],
+    "correctIndices": [
+      0,
+      1,
+      3
+    ],
+    "explanation": "A, B, and D are the three pillars of true collaboration — shared planning, shared instruction, and shared assessment. C is parallel supervision (not collaboration), and E is after-the-fact support that has no instructional integration.",
+    "deepDive": "ISCI 782 Concept: Collaboration exists on a continuum from cooperation to coordination to full collaboration. The deepest level — co-plan, co-teach, co-assess — is what the AASL standards and this course define as authentic instructional partnership. The distractors describe a librarian present but not pedagogically integrated.",
+    "researchUrl": "https://aasl.ala.org/standards/frameworks/"
+  },
+  {
+    "domain": "Prof. Dev & Advocacy",
+    "color": "var(--domain-prof)",
+    "text": "Which items most strengthen an annual advocacy report to administrators? (Select TWO)",
+    "options": [
+      "Student-learning impact data tied to co-taught lessons.",
+      "A specific, evidence-based request aligned to district priorities.",
+      "A tally of how many hours the librarian worked this year.",
+      "Photographs proving that library events took place.",
+      "The total number of books reshelved during the year."
+    ],
+    "correctIndices": [
+      0,
+      1
+    ],
+    "explanation": "A provides outcome evidence and B converts that evidence into a targeted ask aligned to leadership goals — together they form a persuasive case. C, D, and E describe effort or activity (outputs), which do not demonstrate impact.",
+    "deepDive": "ISCI 742 Concept: Advocacy is strategic communication. The course teaches that decision-makers fund programs that solve instructional problems, so a strong report pairs impact data with a concrete, priority-aligned request. The wrong options are 'busy-ness' metrics — they show activity, not the achievement administrators are accountable for.",
+    "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "Students need images for a class presentation. (Select TWO) Which sources are lawful to use, with proper attribution?",
+    "options": [
+      "Public domain images.",
+      "Creative Commons-licensed images used within their license terms.",
+      "Any image returned by a general web image search.",
+      "A copyrighted stock photo used without a license or permission.",
+      "Claiming fair use simply because the project is for school."
+    ],
+    "correctIndices": [
+      0,
+      1
+    ],
+    "explanation": "A (public domain) and B (Creative Commons within terms) are lawful reuse pathways. C wrongly assumes all web images are free, D is infringement, and E misstates fair use — educational purpose is only one of four factors and does not automatically authorize any use.",
+    "deepDive": "ISCI 761 Concept: Copyright literacy distinguishes between public domain, openly licensed (Creative Commons), permission-based, and fair-use-justified materials. The course corrects the two most common student/teacher myths — 'online = free' and 'school = automatic fair use.' Lawful reuse requires an actual rights basis plus attribution.",
+    "researchUrl": "https://www.copyright.gov/fair-use/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Students say culturally diverse books are hard to find. (Select TWO) Which practices improve access WITHOUT segregating those materials?",
+    "options": [
+      "Improve catalog metadata and add discoverable, inclusive subject terms.",
+      "Integrate diverse titles throughout the collection and feature them in rotating displays and book talks.",
+      "Move all diverse books to one separate, permanent shelf.",
+      "Only purchase titles that contain the word 'diversity' in the title.",
+      "Tell students the books are there and they simply need to search harder."
+    ],
+    "correctIndices": [
+      0,
+      1
+    ],
+    "explanation": "A improves intellectual access (discoverability) and B improves physical/promotional access while keeping materials integrated. C segregates and can stigmatize, D is an artificially narrow selection strategy, and E ignores the real access barrier.",
+    "deepDive": "ISCI 706 Concept: Inclusive collections function as 'mirrors, windows, and sliding glass doors,' but only if users can FIND the books. The course pairs collection diversity with discoverability — metadata, displays, and book talks — and warns against tokenizing or segregating materials onto a single labeled shelf.",
+    "researchUrl": "https://www.ala.org/advocacy/intfreedom/librarybill"
+  },
+  {
+    "domain": "Prof. Dev & Advocacy",
+    "color": "var(--domain-prof)",
+    "text": "Which legal or policy areas must a school librarian monitor regularly? (Select THREE)",
+    "options": [
+      "FERPA and student data privacy.",
+      "Copyright and fair use.",
+      "CIPA and acceptable-use / internet-filtering requirements.",
+      "The school cafeteria's monthly menu rotation.",
+      "Which furniture vendor offers the deepest seasonal discount."
+    ],
+    "correctIndices": [
+      0,
+      1,
+      2
+    ],
+    "explanation": "A, B, and C are the core legal domains governing school library services, technology, privacy, and access. D and E are operational trivia unrelated to the librarian's professional legal responsibilities.",
+    "deepDive": "ISCI 742 Concept: Professional leadership includes ongoing legal and policy literacy. The course identifies copyright/fair use, FERPA, and CIPA as the recurring federal frameworks a librarian must track because they shape filtering, privacy, and instructional-use decisions every day. The distractors are deliberately mundane to test whether you can separate professional obligations from incidental tasks.",
+    "researchUrl": "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-B/part-54/subpart-F/section-54.520"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "Your principal wants to know whether the library schedule and services are meeting the needs of students and teachers. Which action is the best first step before recommending major changes?",
+    "options": [
+      "Replace the schedule immediately with open access because flexible scheduling is always best.",
+      "Conduct a needs assessment using circulation data, teacher input, curriculum maps, student access patterns, and observations.",
+      "Order high-interest books so students will want to visit more often.",
+      "Create a social media account to advertise the library program."
+    ],
+    "correctIndex": 1,
+    "explanation": "B is best because program administration decisions should be grounded in multiple data sources and connected to the learning community. A may eventually be appropriate, but changing the schedule without evidence and stakeholder input can create resistance and miss the real barrier. C and D can support a program, but they do not diagnose needs or provide a basis for a sustainable recommendation.",
+    "deepDive": "This question mirrors the data-driven program management emphasized in ISCI 742, where school library administration begins with systematic needs assessment rather than intuition. The course frames the librarian as a decision-maker who triangulates circulation analytics, stakeholder voice, and curriculum data before allocating resources, exactly the diagnostic posture rewarded here.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "Which evidence would most strongly show that the school library program contributed to student learning?",
+    "options": [
+      "The total number of books shelved during the year.",
+      "The total number of technology tickets submitted for staff.",
+      "The number of co-taught inquiry lessons aligned to standards, paired with pre- and post-lesson evidence of student growth.",
+      "The number of bulletin board displays created each quarter."
+    ],
+    "correctIndex": 2,
+    "explanation": "C links the librarian's work to instruction, standards, collaboration, and measurable student learning. A, B, and D describe workload or activity, but they do not show learning impact. For advocacy and evaluation, impact evidence is stronger than a list of tasks completed.",
+    "deepDive": "ISCI 742 distinguishes between 'inputs/outputs' (tasks done) and 'outcomes' (learning gained), the same distinction tested here. The course trains administrators to build evidence chains linking library instruction to standards-based growth so the program can survive budget scrutiny with impact data rather than activity counts.",
+    "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "A school librarian is forming a library advisory committee. Which membership plan best supports a responsive school library program?",
+    "options": [
+      "Only school librarians from other schools because they understand the work best.",
+      "The principal, classroom teachers from multiple grade levels, students, families, support staff, and a community or public library partner when appropriate.",
+      "Only school board members because they approve policies.",
+      "Only the students who check out the most books."
+    ],
+    "correctIndex": 1,
+    "explanation": "B includes the learning community and creates a broader view of needs, barriers, and opportunities. A, C, and D narrow the perspective too much. An advisory committee should help the library serve the entire school, not only the people already most connected to it.",
+    "deepDive": "ISCI 742 treats the advisory committee as a governance and stakeholder-engagement structure that distributes ownership of the program across the school community. Broad, representative membership is taught as the mechanism that surfaces barriers the librarian alone cannot see and builds the political capital needed for advocacy.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "Which goal is written in the strongest SMART format for a school library program?",
+    "options": [
+      "Students will read more books this year.",
+      "By May, fifth-grade students will increase successful use of the state-supported research databases from 30 percent to 70 percent after three co-taught lessons, measured by database analytics and an exit-ticket rubric.",
+      "The library will become more attractive and welcoming.",
+      "The librarian will buy better technology for everyone."
+    ],
+    "correctIndex": 1,
+    "explanation": "B is specific, measurable, achievable, relevant, and time-bound. It identifies a group, a target, an intervention, a timeline, and evidence. A, C, and D are too broad or not clearly measurable.",
+    "deepDive": "ISCI 742 uses the SMART framework as the backbone of program planning and evaluation, requiring a baseline, target, timeline, and measurement instrument. Goal B embodies the course's expectation that objectives be operationalized into data you can later report to administrators.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "During inventory, many items are marked lost in the catalog, but staff find several of those items on shelves and in classroom areas. What is the best administrative response?",
+    "options": [
+      "Delete all lost items immediately to clean up the catalog.",
+      "Reconcile the catalog through a shelf audit, update item statuses, identify workflow problems, and adjust procedures or training.",
+      "Suspend all student checkout until every item is found.",
+      "Assume students caused the problem and limit borrowing privileges."
+    ],
+    "correctIndex": 1,
+    "explanation": "B treats inventory as a data-quality and management process. It corrects records and looks for causes such as missed scans, classroom loans, or inconsistent procedures. A could remove items that are still owned; C and D reduce access without addressing the actual issue.",
+    "deepDive": "ISCI 742 frames inventory as continuous quality control of the catalog as a management database, not a one-time count. The course teaches root-cause analysis of workflow breakdowns (missed scans, untracked classroom loans) so procedures, not access, get corrected.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "A parent volunteer helps at the circulation desk. Which training topic is most essential before the volunteer begins?",
+    "options": [
+      "How to decide which books are too controversial for students.",
+      "Confidentiality, circulation procedures, boundaries, and when to refer questions to the librarian.",
+      "How to post school event photographs online.",
+      "How to create full catalog records independently."
+    ],
+    "correctIndex": 1,
+    "explanation": "B protects student privacy and keeps volunteer work within appropriate limits. Volunteers may see student names, book choices, and account records, so confidentiality matters. A, C, and D involve decisions or access that should be handled by trained staff under district policy.",
+    "deepDive": "ISCI 742 emphasizes that managing personnel, including volunteers, means safeguarding the confidentiality of borrower records, a duty that intersects with FERPA and the profession's privacy ethics. Training volunteers on boundaries and referral protects both the student and the program's legal standing.",
+    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "A fixed elementary library schedule leaves little time for research projects. Which response is the strongest advocacy approach?",
+    "options": [
+      "Refuse all fixed classes until the schedule changes.",
+      "Collect evidence, explain how blended or flexible access supports instruction, and propose a pilot schedule that preserves planning needs.",
+      "Allow teachers to use the library without the librarian so more classes can fit.",
+      "Limit library time to checkout only."
+    ],
+    "correctIndex": 1,
+    "explanation": "B is collaborative, evidence-based, and realistic. It acknowledges school constraints while advocating for stronger instructional access. A is adversarial, C removes the librarian's instructional role, and D narrows the program to circulation rather than teaching and learning.",
+    "deepDive": "ISCI 742 teaches advocacy as evidence-based negotiation within organizational constraints, not confrontation. Proposing a pilot with measurable outcomes reflects the course's change-management model, where the librarian builds the case for flexible scheduling incrementally.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "After a family literacy night, which evidence gives the most useful evaluation of the event?",
+    "options": [
+      "Photos proving the event happened.",
+      "Attendance, family feedback, follow-up circulation or holds, and evidence tied to the event's stated goals.",
+      "Compliments from two staff members.",
+      "The number of hours the librarian stayed after school."
+    ],
+    "correctIndex": 1,
+    "explanation": "B combines participation, perception, behavior after the event, and goal alignment. A, C, and D may be useful for storytelling or documentation, but they do not provide enough evidence to evaluate effectiveness.",
+    "deepDive": "ISCI 742 frames program evaluation as multi-layered: participation, perception, behavior change, and goal attainment. Tying the family event back to its stated objectives reflects the course's logic-model approach to demonstrating community-engagement impact.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "A school library mission statement should primarily align with which of the following?",
+    "options": [
+      "The librarian's favorite services and personal teaching style.",
+      "The school and district mission, learner needs, curriculum goals, and professional school library standards.",
+      "The newest vendor catalog.",
+      "Only the mission of the local public library."
+    ],
+    "correctIndex": 1,
+    "explanation": "B is correct because the school library exists to advance the school's instructional mission and the needs of learners. A, C, and D may influence ideas, but they cannot drive the mission statement by themselves.",
+    "deepDive": "ISCI 742 positions the library mission as a derivative of the parent organization's strategic plan, ensuring the program is seen as central rather than peripheral. Anchoring the mission to district goals and AASL standards is the course's prescription for organizational alignment and survival.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "Staff members ask the media specialist to personally fix all malfunctioning devices across the school. What is the best professional response?",
+    "options": [
+      "Refuse to help with technology issues because they are never part of library work.",
+      "Use the district IT request process, document and triage requests as directed, communicate expectations, and protect time for instruction and library services.",
+      "Repair all devices personally, even if it cancels instruction.",
+      "Stop teaching library classes until every device is repaired."
+    ],
+    "correctIndex": 1,
+    "explanation": "B balances service, accountability, and role clarity. Many school librarians support technology access, but district IT systems and boundaries matter. A ignores the service role, while C and D sacrifice instructional responsibilities.",
+    "deepDive": "ISCI 742 addresses role definition and time management when the librarian is also tasked as a technology contact. The course teaches using formal request/triage systems to make workload visible and to protect the instructional mission from scope creep.",
+    "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "Data show that multilingual learners visit the library less often than other student groups. Which response best reflects equitable program administration?",
+    "options": [
+      "Assume these students do not enjoy reading.",
+      "Consult students, families, ESOL teachers, and classroom teachers; review scheduling, signage, language access, and the collection; then remove identified barriers.",
+      "Buy only bilingual books and consider the issue solved.",
+      "Send overdue notices more frequently."
+    ],
+    "correctIndex": 1,
+    "explanation": "B uses data, stakeholder input, and a barrier-removal mindset. C may be one helpful action but is too narrow. A is an unsupported assumption, and D addresses a symptom that may not be related to access.",
+    "deepDive": "ISCI 742 treats equity gaps as administrative problems to be diagnosed through stakeholder consultation and barrier analysis. The course's data-to-action cycle is mirrored here: usage data signals a problem, but the solution requires investigating scheduling, signage, and language access systematically.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "Which statement is the strongest evidence-based advocacy message to a principal?",
+    "options": [
+      "Libraries are important, and everyone knows students need books.",
+      "After three co-taught source-evaluation lessons, fourth-grade exit-ticket scores increased from 48 percent proficient to 83 percent proficient; next year I recommend expanding this model to all grade levels.",
+      "I work very hard and have many duties.",
+      "Other schools have bigger libraries than ours."
+    ],
+    "correctIndex": 1,
+    "explanation": "B connects library work to student learning and offers a clear next step. A and C may be true but are not strong evidence. D is a comparison, not an impact argument.",
+    "deepDive": "ISCI 742 builds advocacy literacy around quantified impact and a forward-looking ask, the rhetorical structure of option B. The course teaches that decision-makers respond to outcome data plus a specific recommendation, not to effort claims or comparisons.",
+    "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "Which sequence best describes effective school library program planning?",
+    "options": [
+      "Purchase resources, survey users, then decide program goals.",
+      "Identify needs and goals, consult data and stakeholders, set priorities, implement actions, and evaluate results.",
+      "Weed shelves randomly, buy popular titles, and report circulation totals only.",
+      "Copy another school's plan exactly because successful libraries all operate the same way."
+    ],
+    "correctIndex": 1,
+    "explanation": "B is a continuous improvement cycle. It begins with evidence and ends with evaluation. A, C, and D skip important steps or ignore local needs.",
+    "deepDive": "ISCI 742 centers the continuous-improvement planning cycle (assess, plan, implement, evaluate, revise) as the discipline of program management. Option B is essentially that cycle, contrasting with the backwards or context-blind approaches the course warns against.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "The school wants to post library event photos online. Which approach best protects students and the school?",
+    "options": [
+      "Post all photos because school events are public.",
+      "Follow district media-release procedures, check permissions, avoid unnecessary personally identifiable information, and consult administration when unsure.",
+      "Use first names only and assume that is always sufficient.",
+      "Post only photos of honor-roll students."
+    ],
+    "correctIndex": 1,
+    "explanation": "B follows policy and protects student privacy. A and C are risky because consent and context matter. D is inequitable and does not address privacy requirements.",
+    "deepDive": "ISCI 742 ties promotional and public-relations activity to FERPA-driven media-release procedures, ensuring marketing never overrides privacy. The course frames consent verification and data minimization as administrative compliance obligations, not optional courtesies.",
+    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "A principal proposes closing the library for two weeks for inventory. Which alternative best supports access and accountability?",
+    "options": [
+      "Close the library immediately because inventory is more important than access.",
+      "Use a rolling inventory plan, target one section at a time, schedule scanning during low-use periods, and maintain student and teacher access as much as possible.",
+      "Skip inventory permanently because it interferes with instruction.",
+      "Count only teacher resources and ignore the student collection."
+    ],
+    "correctIndex": 1,
+    "explanation": "B balances stewardship of resources with the library's service mission. A overlimits access, while C and D weaken collection accountability.",
+    "deepDive": "ISCI 742 teaches administrators to resolve the tension between accountability tasks and the access mission through process redesign, such as rolling inventory. Option B reflects the course's principle that operational duties should be engineered around continued service, not at its expense.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "Which grant proposal is most likely to be persuasive?",
+    "options": [
+      "A request that says the library needs many new things but gives no evidence.",
+      "A data-supported proposal with a clear need, measurable outcomes, implementation plan, equity rationale, and sustainability strategy.",
+      "A proposal built around one vendor's most expensive package.",
+      "A request for every item the librarian would like to own."
+    ],
+    "correctIndex": 1,
+    "explanation": "B shows planning, evidence, evaluation, and long-term thinking. A, C, and D lack the focus and accountability expected in strong program administration.",
+    "deepDive": "ISCI 742 covers grant writing and budget justification as core administrative competencies, stressing need-evidence-outcome-sustainability as the persuasive structure. Funders reward the accountability and equity framing the course teaches, exactly the elements in option B.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "Student library helpers will assist with shelving and displays. Which management practice is best?",
+    "options": [
+      "Let them learn by trial and error without written expectations.",
+      "Provide clear roles, age-appropriate tasks, confidentiality expectations, supervision, and recognition.",
+      "Allow them to edit catalog records because they know popular books.",
+      "Select only students with the highest grades."
+    ],
+    "correctIndex": 1,
+    "explanation": "B supports safety, consistency, and ethical practice. A is unclear, C gives students inappropriate system authority, and D may exclude students who could benefit from leadership opportunities.",
+    "deepDive": "ISCI 742 applies personnel-management principles, clear roles, supervision, confidentiality, and recognition, even to student workers. The course emphasizes that delegating tasks still requires safeguarding catalog integrity and borrower privacy, which is why students should not edit records.",
+    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "A parent requests a copy of a child's library circulation record. What is the best first response?",
+    "options": [
+      "Email the record immediately to any address the parent provides.",
+      "Follow district and FERPA procedures, verify identity and rights to access, protect confidentiality, and involve administration if needed.",
+      "Deny all parent requests because library records are always completely secret from parents.",
+      "Post the record in the student information system for teacher review."
+    ],
+    "correctIndex": 1,
+    "explanation": "B recognizes both privacy and lawful access procedures. A and D risk unauthorized disclosure. C is too absolute; in schools, parent access rights and district procedures must be considered carefully.",
+    "deepDive": "ISCI 742 examines the nuanced intersection of FERPA's parental-access rights and the library profession's confidentiality ethic. The course teaches identity verification and procedural compliance rather than reflexive disclosure or absolute refusal, the balanced posture of option B.",
+    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "Which item belongs in a comprehensive library program plan?",
+    "options": [
+      "Only a budget spreadsheet.",
+      "Only a list of favorite annual events.",
+      "Mission, goals, needs assessment findings, action steps, timelines, responsibilities, resources, and evaluation measures.",
+      "Only monthly circulation totals."
+    ],
+    "correctIndex": 2,
+    "explanation": "C reflects strategic planning. A, B, and D may be parts of the bigger picture, but none is a complete program plan.",
+    "deepDive": "ISCI 742 defines a strategic plan as an integrated document linking mission to measurable evaluation, not a single artifact like a budget. Option C captures the full planning architecture the course requires students to author for a school library program.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "You are responsible for inventorying library materials and many schoolwide technology items. Which response best supports accurate management without losing instructional time?",
+    "options": [
+      "Ignore all non-library assets because they are not books.",
+      "Complete all inventory alone after school without documenting the extra workload.",
+      "Clarify inventory scope with administration, use the district asset-management process, document time and needs, and request support or a schedule that preserves instruction.",
+      "Let teachers inventory their own items with no shared procedure."
+    ],
+    "correctIndex": 2,
+    "explanation": "C is professional and practical. It keeps accountability while making the workload visible and aligning with district systems. A and D create gaps; B hides the true resource need.",
+    "deepDive": "ISCI 742 teaches that expanded asset-management duties must be negotiated transparently through documentation and district systems so instruction is protected. Making workload visible to administration is the course's strategy for resourcing the program rather than silently absorbing scope creep.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "Which communication plan best promotes library services to a diverse school community?",
+    "options": [
+      "One long email to staff at the beginning of the year.",
+      "Only announcements during morning broadcast.",
+      "Only flyers posted inside the library.",
+      "Multiple accessible channels, including staff meetings, the school website or LMS, family newsletters, student announcements, visuals, and translated or plain-language information when needed."
+    ],
+    "correctIndex": 3,
+    "explanation": "D reaches different audiences in ways they can access and understand. A, B, and C rely on a single channel and may miss students, families, or staff members.",
+    "deepDive": "ISCI 742 frames marketing and communication as a multi-channel, audience-segmented function tied to equity and accessibility. Option D reflects the course's insistence on plain-language and translated outreach so the program reaches every stakeholder group.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "You want to move from isolated library skills lessons to integrated inquiry instruction. What is the best first collaborative move?",
+    "options": [
+      "Cancel all standalone lessons immediately.",
+      "Wait until teachers ask for help.",
+      "Meet with grade-level or department teams, bring the curriculum calendar, identify upcoming units, and offer targeted co-planning support.",
+      "Teach the same research lesson to every grade regardless of curriculum."
+    ],
+    "correctIndex": 2,
+    "explanation": "C makes collaboration easy for teachers and connects library instruction to real curriculum. A is abrupt, B is passive, and D ignores developmental and curricular differences.",
+    "deepDive": "ISCI 742 and the instructional-partnership thread in ISCI 782 both teach that program transformation toward integrated inquiry begins by entering existing curriculum-planning structures. Bringing the curriculum calendar to grade-level teams is the proactive, low-friction collaboration move the courses model.",
+    "researchUrl": "https://aasl.ala.org/standards/frameworks/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "A teacher asks you to purchase high-interest graphic novels that include some mature themes. What is the best basis for the decision?",
+    "options": [
+      "Purchase them because graphic novels are popular.",
+      "Reject them because graphic novels are not serious reading.",
+      "Apply the approved selection policy, professional reviews, age/developmental appropriateness, curriculum connections, and student interests.",
+      "Let the teacher make the final decision without library review."
+    ],
+    "correctIndex": 2,
+    "explanation": "C uses professional selection criteria and balances interest, developmental suitability, and instructional value. A and B are blanket judgments. D removes the librarian's collection-development responsibility.",
+    "deepDive": "ISCI 706 centers collection development on a written selection policy backed by professional reviews and developmental appropriateness, exactly the criteria in option C. The course frames graphic novels as legitimate formats evaluated by the same defensible process as any other material.",
+    "researchUrl": "https://www.ala.org/tools/challengesupport/selectionpolicytoolkit"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "A parent objects to a book a student checked out and asks you to remove it that day. What should you do first?",
+    "options": [
+      "Remove the book immediately to avoid conflict.",
+      "Listen respectfully, explain the approved reconsideration procedure, provide the form, notify appropriate administrators, and keep the book available unless policy says otherwise.",
+      "Argue with the parent about why the book is good.",
+      "Hide the book until the concern goes away."
+    ],
+    "correctIndex": 1,
+    "explanation": "B follows due process and maintains professional neutrality. A and D bypass policy and may become censorship. C escalates the situation and shifts the focus away from an established procedure.",
+    "deepDive": "ISCI 706 teaches the formal reconsideration process as the firewall against censorship, requiring due process before any title is removed. Option B is the textbook application of the ALA Selection and Reconsideration toolkit emphasized in the course.",
+    "researchUrl": "https://www.ala.org/tools/challengesupport/selectionpolicytoolkit"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Which set of factors is most appropriate when deciding whether to weed a nonfiction book?",
+    "options": [
+      "Whether the librarian likes the topic and whether the cover is colorful.",
+      "Whether the book has ever been borrowed by the librarian.",
+      "Whether the book is difficult to shelve.",
+      "Accuracy, currency, physical condition, use, curriculum relevance, duplication, and availability of better resources."
+    ],
+    "correctIndex": 3,
+    "explanation": "D reflects professional weeding criteria. A, B, and C focus on personal preference or convenience rather than collection quality and learner needs.",
+    "deepDive": "ISCI 706 teaches systematic deselection using objective criteria like accuracy, currency, and use rather than personal taste. Option D maps directly onto the CREW/MUSTIE methodology the course uses to keep collections relevant and reliable.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "In the Dewey Decimal Classification system, which broad class is most likely to contain books about natural sciences?",
+    "options": [
+      "200s",
+      "500s",
+      "700s",
+      "900s"
+    ],
+    "correctIndex": 1,
+    "explanation": "B is correct because the 500s are the natural sciences and mathematics. The 200s are religion, the 700s are arts and recreation, and the 900s are history and geography. Even when catalogs do the searching, a school librarian should understand classification patterns.",
+    "deepDive": "ISCI 720 teaches the structure of Dewey Decimal Classification as a knowledge-organization scheme, including the meaning of each main class. Understanding that the 500s house natural sciences reflects the course's expectation that librarians grasp the conceptual logic of classification, not just rely on copy cataloging.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "In a MARC bibliographic record, the 245 field most commonly contains which information?",
+    "options": [
+      "The title statement.",
+      "The barcode number.",
+      "The student borrower's name.",
+      "The shelving location only."
+    ],
+    "correctIndex": 0,
+    "explanation": "A is correct because MARC 245 is the title statement field. Barcodes are item-level data, not the 245 title field. Borrower names should not appear in bibliographic records, and shelving location is handled elsewhere in the catalog record or item record.",
+    "deepDive": "ISCI 720 covers MARC encoding in depth, including the distinction between bibliographic-level fields (like 245 title) and item-level data (barcodes, location). Knowing the 245 holds the title statement is foundational to the metadata literacy the course builds.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Students have difficulty finding materials because catalog subject terms are outdated or inconsistent. What is the best response?",
+    "options": [
+      "Tell students to use only shelf browsing.",
+      "Delete all subject headings to avoid confusion.",
+      "Teach students multiple search terms, review authority records and local headings, update records when appropriate, and use inclusive, discoverable language within cataloging standards.",
+      "Require students to ask the librarian for every search."
+    ],
+    "correctIndex": 2,
+    "explanation": "C improves intellectual access while respecting cataloging practice. A and D make students dependent on chance or staff. B removes a major discovery tool.",
+    "deepDive": "ISCI 720 frames subject analysis and authority control as the levers of intellectual access, with inclusive, current terminology improving discovery. Option C reflects the course's dual aim of maintaining standards-compliant records while teaching users multiple access points.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "A school is considering genrefying part of the fiction collection. Which rationale is strongest?",
+    "options": [
+      "It will make catalog records unnecessary.",
+      "It may improve browsing for users if supported by clear signage, accurate catalog locations, user instruction, and evaluation of access data.",
+      "It will permanently eliminate the need for shelving training.",
+      "It should be done because every school library must use genre shelving."
+    ],
+    "correctIndex": 1,
+    "explanation": "B treats genrefication as a local access decision that must be implemented carefully and evaluated. A and C are false; cataloging and shelving procedures still matter. D is too absolute.",
+    "deepDive": "ISCI 720 treats genrefication as a local classification decision that trades formal call-number order for browsability, requiring updated catalog locations and evaluation. Option B captures the course's insistence that reorganization still depends on accurate metadata and assessment.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Which practice best supports 24/7 access to library resources?",
+    "options": [
+      "Keeping database passwords on a paper sign behind the circulation desk.",
+      "Limiting the catalog to computers inside the library.",
+      "Providing a web-based catalog, database links, login instructions, help guides, and remote-access support through district-approved systems.",
+      "Checking out fewer books so students must return to the library more often."
+    ],
+    "correctIndex": 2,
+    "explanation": "C expands access beyond the physical library while protecting accounts through approved systems. A and B limit access, and D creates barriers.",
+    "deepDive": "ISCI 706 addresses building hybrid print/digital collections that extend access beyond the building's hours and walls. Option C reflects the course's model of remote discovery through web catalogs and secure authentication as a core equity strategy.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Which circulation policy best promotes equitable access?",
+    "options": [
+      "Students with any overdue item may not borrow anything for the rest of the year.",
+      "Only students with signed permission slips may use the library.",
+      "Students may borrow only books at their tested reading level.",
+      "Policies encourage responsibility while providing reasonable renewals, problem-solving for lost items, privacy, and continued access to reading materials whenever possible."
+    ],
+    "correctIndex": 3,
+    "explanation": "D balances stewardship and access. A, B, and C create unnecessary barriers and can limit students who most need library resources. Reading level data can inform guidance, but it should not be used to restrict choice rigidly.",
+    "deepDive": "ISCI 706 frames circulation policy as an access-and-equity instrument, warning that punitive rules disproportionately harm the students who most need the library. Option D embodies the course's principle that policy should remove barriers while still teaching responsibility.",
+    "researchUrl": "https://www.ala.org/advocacy/intfreedom/librarybill"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Which acquisition process is most defensible?",
+    "options": [
+      "Buy only from one vendor's promotional list.",
+      "Use professional reviews, curriculum alignment, student and staff input, collection data, diversity needs, and budget priorities.",
+      "Buy only books the librarian has personally read.",
+      "Buy only titles that have no possibility of being challenged."
+    ],
+    "correctIndex": 1,
+    "explanation": "B uses multiple professional criteria. A and C are too narrow. D undermines intellectual freedom and can produce an incomplete collection.",
+    "deepDive": "ISCI 706 builds acquisition around a defensible, multi-criteria selection policy that draws on reviews, curriculum, and diversity needs. Option D's anticipatory self-censorship is precisely the practice the course identifies as a threat to intellectual freedom.",
+    "researchUrl": "https://www.ala.org/tools/challengesupport/selectionpolicytoolkit"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Before purchasing e-books, which factor is most important to review?",
+    "options": [
+      "Whether the cover images look good in a display.",
+      "Whether the vendor says students like e-books.",
+      "Licensing terms, access model, privacy, accessibility features, platform compatibility, and cost over time.",
+      "Whether the titles can be shelved alphabetically."
+    ],
+    "correctIndex": 2,
+    "explanation": "C is essential because digital resources may have one-user or simultaneous-use limits, platform requirements, privacy terms, and accessibility implications. A and B are secondary, and D applies to print organization rather than digital access.",
+    "deepDive": "ISCI 706 teaches that digital acquisition is governed by licensing models (one-user vs. simultaneous), privacy terms, and accessibility, not ownership. Option C reflects the course's emphasis on total-cost and rights analysis unique to e-resource collection management.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Which approach best supports an inclusive collection audit?",
+    "options": [
+      "Analyze representation, formats, reading levels, language access, curriculum needs, student interests, circulation, and gaps across the collection.",
+      "Count only the number of new books purchased this year.",
+      "Ask only the highest-circulating students what they like.",
+      "Assume a collection is inclusive if it contains one book about each major holiday."
+    ],
+    "correctIndex": 0,
+    "explanation": "A examines both who is represented and how well the collection meets real learner needs. B, C, and D are too shallow and can miss gaps, stereotypes, or inaccessible formats.",
+    "deepDive": "ISCI 706 teaches diversity audits as structured collection analysis examining representation, format, and gaps against community needs. Option A is the comprehensive, data-driven audit the course contrasts with tokenistic 'one book per holiday' thinking.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "What is the best practice after scanning a collection section during inventory?",
+    "options": [
+      "Immediately delete every item not scanned.",
+      "Review exception reports, search for missing items, correct locations or statuses, resolve duplicates, and document final decisions.",
+      "Ignore discrepancies because they will correct themselves.",
+      "Mark all items as available regardless of whether they were found."
+    ],
+    "correctIndex": 1,
+    "explanation": "B recognizes inventory as a verification process. A and D can make the catalog inaccurate, while C leaves problems unresolved.",
+    "deepDive": "ISCI 720 treats inventory as a reconciliation of the catalog database against the physical collection, where exception reports drive investigation. Option B reflects the course's data-integrity discipline: verify, correct, and document rather than delete prematurely.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Which library layout choice best supports equitable physical access?",
+    "options": [
+      "Narrow aisles to fit more shelves.",
+      "High shelves in all areas so more books can be stored.",
+      "Furniture that cannot be moved so the space always looks the same.",
+      "Clear pathways, accessible seating, visible signage, flexible zones, safe sight lines, and materials placed within reasonable reach."
+    ],
+    "correctIndex": 3,
+    "explanation": "D supports access for users with varied physical, developmental, and learning needs. A, B, and C prioritize storage or appearance over usability.",
+    "deepDive": "ISCI 706 connects facilities planning to universal access, prioritizing reach, sight lines, and flexible zones over maximizing storage. Option D applies the course's understanding that physical organization is itself an access decision for users with diverse needs.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "What is the main purpose of authority control in a library catalog?",
+    "options": [
+      "To make names, subjects, and titles consistent so users can retrieve related resources reliably.",
+      "To prevent students from searching independently.",
+      "To remove all local notes from records.",
+      "To hide controversial materials."
+    ],
+    "correctIndex": 0,
+    "explanation": "A is correct because authority control improves discovery by standardizing access points. B, C, and D misunderstand the purpose of cataloging standards.",
+    "deepDive": "ISCI 720 makes authority control a centerpiece, teaching that standardized access points collocate works by the same author or subject for reliable retrieval. Option A states the core purpose the course drills: consistency enables discovery.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "A librarian adds clear genre labels and local subject terms to records while keeping standard bibliographic data. What is the likely benefit?",
+    "options": [
+      "The catalog will no longer need item records.",
+      "Users may discover materials more easily through terms that match local browsing and searching needs.",
+      "The library can stop teaching search strategies.",
+      "All cataloging errors will be eliminated."
+    ],
+    "correctIndex": 1,
+    "explanation": "B describes improved discoverability. Local enhancements can help users, but they do not replace item records, instruction, or quality control.",
+    "deepDive": "ISCI 720 teaches that local enhancements (genre labels, vernacular subject terms) layer onto, rather than replace, standard metadata to improve discoverability. Option B reflects the course's balance between national standards and user-centered local access points.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Several classes are beginning a research unit and need access to the same topic area. What should the librarian do to maximize access?",
+    "options": [
+      "Let the first class take all materials for the entire unit.",
+      "Close the section so resources do not get misplaced.",
+      "Coordinate schedules, create topic carts or resource lists, use holds or shorter loan periods when needed, and include digital resources.",
+      "Tell teachers to use only websites."
+    ],
+    "correctIndex": 2,
+    "explanation": "C uses management strategies to distribute access fairly across classes. A creates inequity, B blocks use, and D ignores available print and curated resources.",
+    "deepDive": "ISCI 706 addresses resource sharing and access management under high-demand conditions, using reserves, loan-period adjustments, and curated lists. Option C is the course's equitable-distribution toolkit for spreading a finite collection across competing classes.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Which method best promotes new resources to teachers and students?",
+    "options": [
+      "Put new books on a cart in the workroom and hope people notice.",
+      "Use targeted book talks, displays, staff newsletters, LMS modules, curriculum connections, and short demonstrations at meetings.",
+      "Keep new books behind the desk until you can read all of them.",
+      "Promote only books from one publisher."
+    ],
+    "correctIndex": 1,
+    "explanation": "B meets users where they are and connects resources to needs. A is passive, C delays access, and D narrows the collection unfairly.",
+    "deepDive": "ISCI 706 treats promotion as the final step of collection management, ensuring acquired materials actually circulate through targeted, curriculum-connected marketing. Option B reflects the course's active-dissemination model rather than passive availability.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Database usage is low. What should the librarian do before canceling the subscription?",
+    "options": [
+      "Cancel it immediately because low usage proves it has no value.",
+      "Keep it forever because all databases are equally useful.",
+      "Analyze usage reports, review authentication barriers, survey teachers and students, provide instruction, and compare the database to curriculum needs.",
+      "Hide the database link so students use books instead."
+    ],
+    "correctIndex": 2,
+    "explanation": "C investigates whether the issue is value, awareness, training, access, or alignment. A and B are unsupported extremes, and D reduces access.",
+    "deepDive": "ISCI 706 teaches evidence-based collection decisions using usage statistics interpreted in context, since low use may signal access or awareness barriers rather than low value. Option C is the course's diagnostic process before any cancellation.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Which statement about publication date is most accurate for collection evaluation?",
+    "options": [
+      "All books older than five years should be removed.",
+      "Currency matters more in fast-changing areas such as science, medicine, technology, law, and current social issues than it does for many classic literary works.",
+      "Publication date never matters if the book circulates.",
+      "Older books are always more reliable than newer books."
+    ],
+    "correctIndex": 1,
+    "explanation": "B applies professional judgment by topic. A is too rigid, C ignores accuracy, and D is not necessarily true.",
+    "deepDive": "ISCI 706 teaches that currency standards are subject-dependent, with STEM and law demanding recency while literature ages well. Option B reflects the professional judgment the course substitutes for rigid age-based weeding rules.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "In collection maintenance, what does the weeding acronym MUSTIE help identify?",
+    "options": [
+      "Items that may be misleading, ugly, superseded, trivial, irrelevant, or available elsewhere.",
+      "Items that must be kept because they are old.",
+      "Materials that should be displayed during testing season.",
+      "Materials selected only by student vote."
+    ],
+    "correctIndex": 0,
+    "explanation": "A correctly summarizes MUSTIE as a memory aid for weeding concerns. It is not a command to discard automatically, but it supports professional review. B, C, and D are unrelated.",
+    "deepDive": "ISCI 706 introduces MUSTIE (Misleading, Ugly, Superseded, Trivial, Irrelevant, Elsewhere) as the standard CREW deselection heuristic. Option A reproduces the course's mnemonic for triggering, but not automating, professional weeding review.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Why are accurate barcodes and item records important?",
+    "options": [
+      "They make the books more attractive.",
+      "They replace the need for a catalog.",
+      "They support circulation, ownership tracking, location, inventory, loss reports, and collection analysis.",
+      "They prevent all overdue items."
+    ],
+    "correctIndex": 2,
+    "explanation": "C explains how item-level data supports access and accountability. A and D are not true, and B confuses item management with bibliographic discovery.",
+    "deepDive": "ISCI 720 distinguishes item-level records (the physical copy's identity and status) from bibliographic records (the intellectual work), with barcodes enabling circulation and inventory analytics. Option C reflects the course's model of the item record as the backbone of operational accountability.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Students report that they cannot easily find culturally diverse books. What is the best access-oriented response?",
+    "options": [
+      "Place all diverse books on one permanent shelf separated from the rest of the collection.",
+      "Improve catalog metadata, signage, displays, book talks, reading lists, and instruction while keeping diverse materials integrated across the whole collection.",
+      "Tell students the books are there and they should search harder.",
+      "Buy only books that explicitly mention diversity in the title."
+    ],
+    "correctIndex": 1,
+    "explanation": "B improves discoverability without isolating or tokenizing materials. A can unintentionally segregate resources. C ignores access barriers, and D is an overly narrow collection strategy.",
+    "deepDive": "ISCI 720 and ISCI 706 jointly teach that discoverability of diverse materials is a metadata and promotion problem, not a reason to segregate the shelf. Option B improves access points and visibility while keeping the collection integrated, the course's anti-tokenism stance.",
+    "researchUrl": "https://www.ala.org/advocacy/intfreedom/librarybill"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "A student wants to cite a viral social media post as proof of a scientific claim. Which instruction is most appropriate?",
+    "options": [
+      "Allow it because viral posts are popular sources.",
+      "Reject all social media sources without discussion.",
+      "Teach the student to stop, investigate the source, find better coverage, trace the claim to its original evidence, and compare it with authoritative sources.",
+      "Tell the student to cite Wikipedia instead."
+    ],
+    "correctIndex": 2,
+    "explanation": "C teaches an evaluation process rather than a simple yes or no. A confuses popularity with credibility. B misses an opportunity to teach context, and D substitutes one source without evaluating the claim.",
+    "deepDive": "ISCI 761 teaches source-evaluation as a transferable process, embodying SIFT-style moves (stop, investigate, find better coverage, trace claims). Option C reflects the course's emphasis on teaching evaluative reasoning rather than blanket rules about source types.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "Which statement best explains a key advantage of many school library databases over a general web search?",
+    "options": [
+      "Databases contain only sources that agree with the librarian.",
+      "Databases often provide curated, age-appropriate, searchable content with citation tools, reading supports, and more stable source information.",
+      "Databases never require evaluation.",
+      "Databases are useful only for teachers, not students."
+    ],
+    "correctIndex": 1,
+    "explanation": "B identifies common strengths of databases. C is wrong because all sources still require evaluation. A and D misrepresent the purpose of databases.",
+    "deepDive": "ISCI 761 examines the architecture of subscription databases, curated, citable, and stable, as reference tools that complement open-web searching. Option B reflects the course's comparative analysis of information sources and their fitness for student research.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "Which item is the best example of a primary source for a history project on the Civil War?",
+    "options": [
+      "A soldier's diary written during the war.",
+      "A 2024 textbook chapter summarizing the war.",
+      "A modern encyclopedia article about the war.",
+      "A documentary produced 150 years later."
+    ],
+    "correctIndex": 0,
+    "explanation": "A is a firsthand source from the time being studied. B, C, and D may be useful secondary sources, but they interpret or summarize events after the fact.",
+    "deepDive": "ISCI 761 teaches the primary/secondary source distinction as central to information evaluation and historical inquiry. A contemporaneous diary is the firsthand evidence the course defines as a primary source, versus later interpretive works.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "A student wants sources about coral bleaching caused by climate change but does not want tourism articles. Which search string is strongest?",
+    "options": [
+      "coral or vacation or beach",
+      "\"coral bleaching\" AND \"climate change\" NOT tourism",
+      "climate stuff",
+      "all coral information"
+    ],
+    "correctIndex": 1,
+    "explanation": "B uses phrase searching and Boolean operators to narrow results. A broadens to unrelated concepts, C is vague, and D is not a search strategy.",
+    "deepDive": "ISCI 761 builds search expertise around Boolean logic and phrase searching to control precision and recall. Option B demonstrates AND/NOT operators plus exact phrases, the query-construction skill the course expects librarians to model and teach.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "Which statement best reflects the Children's Internet Protection Act (CIPA) responsibilities for many schools and libraries receiving certain federal discounts?",
+    "options": [
+      "Schools must block every website that includes user comments.",
+      "Schools may not teach students about internet safety.",
+      "Schools must have an internet safety policy and technology protection measures that address required categories of harmful online content and safety concerns.",
+      "CIPA applies only to printed books."
+    ],
+    "correctIndex": 2,
+    "explanation": "C captures the broad CIPA requirement in school library practice. A overstates filtering, B is the opposite of digital citizenship instruction, and D is incorrect because CIPA concerns internet access.",
+    "deepDive": "ISCI 761 covers the legal landscape of information access, including CIPA's conditions for E-rate funding: an internet safety policy plus technology protection measures. Option C states the statute accurately, distinguishing required safeguards from the over-blocking myth the course corrects.",
+    "researchUrl": "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-B/part-54/subpart-F/section-54.520"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "A free educational app collects names, photos, and usage data from children under 13. What should the librarian do before using it with students?",
+    "options": [
+      "Use it immediately because it is free.",
+      "Create student accounts with personal emails to save time.",
+      "Ask students to enter fake information and ignore the privacy policy.",
+      "Follow district approval procedures, review privacy and data terms, involve administrators or technology staff, and address parent consent requirements when applicable."
+    ],
+    "correctIndex": 3,
+    "explanation": "D reflects responsible technology adoption. Free tools can still collect student data. A, B, and C create privacy and compliance risks.",
+    "deepDive": "ISCI 761 addresses student-data privacy law, including COPPA's parental-consent rules for under-13 data collection. Option D applies the course's vetting protocol: review terms, involve administration, and secure consent before adoption.",
+    "researchUrl": "https://www.ftc.gov/business-guidance/privacy-security/childrens-privacy"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "A teacher asks students to post a spreadsheet with classmates' grades as part of a data-analysis project. What should the librarian recommend?",
+    "options": [
+      "Post the data because it is for schoolwork.",
+      "Use anonymized or sample data and avoid sharing personally identifiable student information.",
+      "Post only students' first names and grades.",
+      "Ask students to promise not to screenshot the spreadsheet."
+    ],
+    "correctIndex": 1,
+    "explanation": "B protects student privacy while preserving the learning objective. A, C, and D do not adequately protect personally identifiable student information.",
+    "deepDive": "ISCI 761 teaches data minimization and de-identification as practical applications of FERPA's protection of personally identifiable information. Option B preserves the analytical learning goal while stripping the PII the course flags as a disclosure risk.",
+    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "Which list contains the four factors of fair use?",
+    "options": [
+      "Popularity, price, publisher, and reading level.",
+      "Author, title, place, and date.",
+      "Purpose and character of the use; nature of the copyrighted work; amount and substantiality used; effect on the potential market.",
+      "Format, font, file size, and storage location."
+    ],
+    "correctIndex": 2,
+    "explanation": "C is the standard four-factor fair use analysis. The other choices list citation, purchasing, or technical details rather than fair use factors.",
+    "deepDive": "ISCI 761 teaches the four-factor fair use analysis from Section 107 as the framework educators use to evaluate copying and reuse. Option C lists exactly those statutory factors, the analytic tool the course requires for defensible use decisions.",
+    "researchUrl": "https://www.copyright.gov/fair-use/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "A Creative Commons BY-NC license generally allows which use?",
+    "options": [
+      "Use the work for any purpose without naming the creator.",
+      "Use the work noncommercially with attribution, following the license terms.",
+      "Sell the work as part of a commercial product without permission.",
+      "Claim the creator endorses the school project."
+    ],
+    "correctIndex": 1,
+    "explanation": "B is correct because BY requires attribution and NC limits use to noncommercial purposes. A omits attribution, C violates the noncommercial term, and D misuses the creator's identity.",
+    "deepDive": "ISCI 761 covers Creative Commons as a layer atop copyright, teaching that BY mandates attribution and NC restricts to noncommercial use. Option B decodes the license correctly, reflecting the course's emphasis on reading and honoring license terms.",
+    "researchUrl": "https://www.copyright.gov/fair-use/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "A student changes a few words from an article and includes no citation. What should the librarian teach?",
+    "options": [
+      "This is acceptable because the words are not exactly the same.",
+      "This is acceptable if the article was found online.",
+      "This is plagiarism because the student used another person's ideas and structure without proper paraphrasing and citation.",
+      "This is copyright infringement only if the student earns money."
+    ],
+    "correctIndex": 2,
+    "explanation": "C distinguishes true paraphrasing from patchwriting. Changing a few words without credit is not enough. A, B, and D misunderstand plagiarism and ethical use.",
+    "deepDive": "ISCI 761 teaches academic integrity and the difference between genuine paraphrase and patchwriting, where swapping a few words still borrows ideas and structure. Option C reflects the course's framing of plagiarism as an ethics-of-attribution issue distinct from copyright.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "How should a school library provide student access to subscription database passwords?",
+    "options": [
+      "Use district-approved authentication or a secure access method rather than posting passwords publicly.",
+      "Post passwords on a public social media account.",
+      "Share the password with anyone in the community, whether enrolled or not.",
+      "Avoid all home access because passwords are inconvenient."
+    ],
+    "correctIndex": 0,
+    "explanation": "A balances access and licensing obligations. B and C can violate license agreements. D undermines equitable access to digital resources.",
+    "deepDive": "ISCI 761 teaches that authentication methods must honor licensing terms while enabling equitable remote access. Option A reflects the course's balance between contractual obligations to vendors and the access mission, ruling out public password posting.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "Which practice best models responsible use of generative AI in student research?",
+    "options": [
+      "Let AI write the final paper with no review.",
+      "Use AI to avoid reading sources.",
+      "Enter student names, grades, and private information into any AI tool to personalize help.",
+      "Use district-approved tools, protect student data, verify AI output against reliable sources, disclose or cite AI assistance as required, and keep student thinking central."
+    ],
+    "correctIndex": 3,
+    "explanation": "D reflects information literacy, privacy, and academic integrity. A and B replace learning, and C creates privacy risks. AI can be a tool, but it cannot replace source evaluation or original student work.",
+    "deepDive": "ISCI 761 extends information-literacy and ethics frameworks to generative AI, stressing verification, data privacy, and transparent disclosure. Option D integrates all three, modeling the course's stance that AI is a tool subordinate to student reasoning and source evaluation.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "Which feature should be prioritized when selecting a video for instruction so students with hearing differences and students in noisy environments can access it?",
+    "options": [
+      "Accurate captions or a transcript.",
+      "A longer running time.",
+      "A celebrity narrator.",
+      "Autoplay with no controls."
+    ],
+    "correctIndex": 0,
+    "explanation": "A improves accessibility for many learners. B, C, and D do not address access and may even reduce usability.",
+    "deepDive": "ISCI 761 applies accessibility and universal-design principles to media selection, where captions serve both disabled users and situational needs. Option A reflects the course's understanding that accessible media features expand access for the whole user population.",
+    "researchUrl": "https://udlguidelines.cast.org/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "Which strategy is strongest for checking an online claim about a current event?",
+    "options": [
+      "Read only the headline and comments.",
+      "Trust the first result because search engines rank the truth first.",
+      "Use lateral reading, check the source's reputation, compare multiple credible sources, and trace the claim to original evidence.",
+      "Use only sources that confirm what the student already believes."
+    ],
+    "correctIndex": 2,
+    "explanation": "C teaches students to leave the page, verify context, and triangulate evidence. A, B, and D are common evaluation mistakes.",
+    "deepDive": "ISCI 761 teaches lateral reading, the fact-checker move of leaving a page to verify its source, as superior to on-page evaluation. Option C combines lateral reading with triangulation, countering the confirmation-bias and ranking-trust errors the course names.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "Students will publish podcasts on the school website. Which guidance best protects safety and privacy?",
+    "options": [
+      "Require students to include full names and class schedules for authenticity.",
+      "Use district permissions, avoid unnecessary personal information, review scripts for privacy concerns, and follow copyright rules for music and media.",
+      "Let students publish anything if it is school-related.",
+      "Avoid all publishing because online sharing is always unsafe."
+    ],
+    "correctIndex": 1,
+    "explanation": "B supports authentic publishing while managing privacy, safety, and copyright. A and C create risks, and D eliminates a useful learning opportunity instead of teaching safe practice.",
+    "deepDive": "ISCI 761 frames student publishing as an exercise in privacy protection and copyright compliance, not avoidance. Option B reflects the course's risk-management approach: permissions, data minimization, and licensed media enable safe authentic creation.",
+    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "Which information is usually needed for a complete citation for a database article?",
+    "options": [
+      "Only the database password.",
+      "Only the color of the database logo.",
+      "Only the first paragraph of the article.",
+      "Author, article title, publication title, date, and a persistent link, DOI, or database information as required by the citation style."
+    ],
+    "correctIndex": 3,
+    "explanation": "D identifies the elements that allow readers to locate the source. A, B, and C do not create a useful citation.",
+    "deepDive": "ISCI 761 teaches citation as a retrieval-enabling description of a source, requiring author, title, publication, date, and a stable locator. Option D lists the elements the course ties to both academic integrity and the ability of readers to find the original.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "A teacher wants to show an entire feature film as a reward after testing. What should the librarian explain?",
+    "options": [
+      "Any film can be shown at school for any reason.",
+      "A full film may be shown without separate permission only when legal requirements are met, such as a lawful copy used in face-to-face teaching and directly related to instruction; entertainment use may require additional rights.",
+      "Movies may never be shown in schools.",
+      "Streaming from a personal account automatically gives public performance rights."
+    ],
+    "correctIndex": 1,
+    "explanation": "B reflects the instructional purpose requirement for common classroom exemptions and the need to respect public performance rights. A and D are overbroad, and C is too absolute.",
+    "deepDive": "ISCI 761 covers the face-to-face teaching exemption and public performance rights, teaching that the instructional-purpose test, not school location, governs lawful film use. Option B reflects the course's nuanced reading that entertainment screenings may require separate licensing.",
+    "researchUrl": "https://www.copyright.gov/fair-use/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "A vendor asks for student birthdates, browsing histories, and demographic data for a reading app. What is the best librarian response?",
+    "options": [
+      "Approve the vendor because more data always improves personalization.",
+      "Let the vendor decide what data are appropriate.",
+      "Use district vendor-review procedures, apply data minimization, evaluate privacy and security terms, and involve technology or administration before approval.",
+      "Ask students to sign the contract themselves."
+    ],
+    "correctIndex": 2,
+    "explanation": "C is the safest and most professional approach. Student data should be limited, protected, and reviewed through district processes. A, B, and D ignore privacy responsibilities.",
+    "deepDive": "ISCI 761 teaches vendor vetting and data-minimization as the librarian's gatekeeping role over student data privacy under FERPA and COPPA. Option C applies the course's procedural safeguard, district review before approval, rather than trusting vendor self-regulation.",
+    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "A student with dyslexia needs to use a long article for research. Which support best improves access while maintaining the learning goal?",
+    "options": [
+      "Provide an accessible text version, text-to-speech, audiobook support, chunking, or other approved reading supports.",
+      "Remove the research task entirely.",
+      "Tell the student to choose an easier topic.",
+      "Require the student to read without supports so the task is fair."
+    ],
+    "correctIndex": 0,
+    "explanation": "A removes access barriers without lowering the research objective. B and C may unnecessarily reduce expectations, and D confuses sameness with equity.",
+    "deepDive": "ISCI 761 distinguishes accommodation (changing access) from modification (changing the goal), aligned with Section 504's mandate. Option A supplies assistive supports that preserve the research objective, the access-not-rigor principle the course teaches.",
+    "researchUrl": "https://www.ed.gov/laws-and-policy/civil-rights-laws/disability-discrimination/section-504"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "Which criteria are most important when selecting an open educational resource (OER)?",
+    "options": [
+      "Whether it is the first free result online.",
+      "Whether it has colorful graphics only.",
+      "Whether it is long enough to fill the class period.",
+      "Accuracy, standards alignment, accessibility, bias, currency, usability, and license terms."
+    ],
+    "correctIndex": 3,
+    "explanation": "D treats OER as instructional material that requires review. A, B, and C are superficial and do not ensure quality or legal use.",
+    "deepDive": "ISCI 761 evaluates OER with the same rigor as any information source, accuracy, bias, currency, accessibility, and license terms. Option D reflects the course's stance that 'free' does not exempt a resource from quality and legal vetting.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "What is the strongest way to support families using digital library resources from home?",
+    "options": [
+      "Assume students remember all logins from class.",
+      "Provide clear home-access instructions, single sign-on or approved login paths, short help guides, translated or plain-language support when needed, and alternatives for limited connectivity.",
+      "Require families to call the librarian after hours for every password.",
+      "Limit digital resources to the school building only."
+    ],
+    "correctIndex": 1,
+    "explanation": "B addresses practical access barriers. A, C, and D make access harder, especially for families with language, schedule, device, or internet constraints.",
+    "deepDive": "ISCI 761 treats equitable remote access as a design problem, addressing login friction, language, and connectivity barriers proactively. Option B reflects the course's user-centered approach to extending digital services into homes with varied resources.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "A student asks how to bypass the school internet filter. What is the best instructional response?",
+    "options": [
+      "Show the student a workaround so research can continue.",
+      "Ignore the question because filtering is not related to information literacy.",
+      "Discuss the acceptable use policy, digital citizenship, safe and ethical access, and appropriate steps for requesting access to a mistakenly blocked educational resource.",
+      "Remove the student from all computer use for the semester."
+    ],
+    "correctIndex": 2,
+    "explanation": "C teaches ethical behavior and provides a legitimate path for educational access. A models misuse, B misses instruction, and D is disproportionate without context.",
+    "deepDive": "ISCI 761 connects CIPA-mandated filtering to digital-citizenship instruction, teaching the legitimate request process for over-blocked educational content. Option C turns a circumvention request into a teachable moment about acceptable use, the course's pedagogical reframing.",
+    "researchUrl": "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-B/part-54/subpart-F/section-54.520"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "A student quietly checks out a book about a sensitive personal topic. Another student asks what the book is about. What should the librarian do?",
+    "options": [
+      "Explain the topic because students are curious.",
+      "Protect the student's privacy and redirect the conversation without revealing the student's reading choice.",
+      "Ask the student to announce why the book was chosen.",
+      "Move all sensitive books behind the desk."
+    ],
+    "correctIndex": 1,
+    "explanation": "B models confidentiality and respect. A and C disclose private reading information. D restricts access and may stigmatize legitimate information needs.",
+    "deepDive": "ISCI 761 grounds the profession's confidentiality ethic in the principle that the freedom to read requires privacy of reading choices. Option B operationalizes that ethic, protecting the student's information privacy as the course's reference-ethics module prescribes.",
+    "researchUrl": "https://www.ala.org/advocacy/intfreedom/librarybill"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "A student says, \"I need everything about sharks.\" What is the librarian's best next question?",
+    "options": [
+      "Do you want the thickest book?",
+      "Do you want only websites?",
+      "What is your assignment, audience, and specific question or angle about sharks?",
+      "Can you finish this by tomorrow?"
+    ],
+    "correctIndex": 2,
+    "explanation": "C helps define the information need before searching. A and B jump to format, and D addresses time but not the research focus.",
+    "deepDive": "ISCI 761 makes the reference interview central, teaching open-ended questions that clarify the real information need behind a vague request. Option C is the textbook reference-interview move, narrowing scope before any searching begins.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which scenario best represents true instructional collaboration between a classroom teacher and a school librarian?",
+    "options": [
+      "The teacher drops students off while the librarian gives a generic checkout lesson.",
+      "The teacher and librarian co-plan standards-based objectives, co-teach inquiry lessons, and co-assess student products.",
+      "The librarian makes a book list after the unit is over.",
+      "The teacher sends students to the library only when they finish other work early."
+    ],
+    "correctIndex": 1,
+    "explanation": "B includes shared planning, instruction, and assessment. A, C, and D may involve the library, but they do not show integrated collaborative teaching.",
+    "deepDive": "ISCI 782 defines instructional partnership along a continuum from coordination to true collaboration, where co-planning, co-teaching, and co-assessment all occur. Option B sits at the deepest level of that continuum, the integrated practice the course advocates.",
+    "researchUrl": "https://aasl.ala.org/standards/frameworks/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which instructional objective is most measurable?",
+    "options": [
+      "Students will understand good websites.",
+      "Students will learn about research.",
+      "Students will use three source-evaluation criteria to justify their choice of one website on an exit ticket.",
+      "Students will appreciate the library."
+    ],
+    "correctIndex": 2,
+    "explanation": "C names an observable action, criteria, product, and assessment. A, B, and D use vague verbs that are difficult to measure directly.",
+    "deepDive": "ISCI 782 teaches objective-writing with observable, measurable verbs tied to evidence, rejecting vague verbs like 'understand' or 'appreciate.' Option C specifies action, criteria, and assessment, the well-formed objective structure the course requires.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "During a database lesson, which formative assessment would be most useful?",
+    "options": [
+      "A quick search log or exit ticket showing students' keywords, filters, and one selected source with a brief reason.",
+      "A final grade assigned three weeks later.",
+      "The number of students who smiled during the lesson.",
+      "A worksheet collected but never reviewed."
+    ],
+    "correctIndex": 0,
+    "explanation": "A gives immediate evidence of student thinking and allows the librarian to reteach misconceptions. B is summative and delayed. C is not evidence of skill, and D does not inform instruction if it is not reviewed.",
+    "deepDive": "ISCI 782 distinguishes formative assessment (real-time evidence that informs instruction) from summative measures, prioritizing quick checks like exit tickets. Option A yields actionable data the librarian can use to reteach immediately, the formative cycle the course models.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which lesson design best reflects Universal Design for Learning (UDL)?",
+    "options": [
+      "All students must read the same article silently and write the same paragraph in the same format.",
+      "Students who struggle are excused from the learning goal.",
+      "The librarian lectures for the entire class period.",
+      "Students access content through text, audio, and visuals; choose from approved product options; and receive supports that help them meet the same learning goal."
+    ],
+    "correctIndex": 3,
+    "explanation": "D offers multiple means of engagement, representation, and action/expression while maintaining the goal. A is one-size-fits-all, B lowers expectations, and C limits active learning.",
+    "deepDive": "ISCI 782 teaches the three UDL principles, multiple means of engagement, representation, and action/expression, as proactive design that keeps the goal constant. Option D embodies all three, the CAST framework the course uses to plan inclusive instruction.",
+    "researchUrl": "https://udlguidelines.cast.org/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "A student has a Section 504 plan that provides extended time and access to text-to-speech. How should the librarian respond during a research lesson?",
+    "options": [
+      "Ignore the plan because the lesson is in the library, not the classroom.",
+      "Provide the listed accommodations while maintaining the instructional objective.",
+      "Give the student a lower grade-level task automatically.",
+      "Ask the student to waive the accommodations for this activity."
+    ],
+    "correctIndex": 1,
+    "explanation": "B is correct because accommodations support access without changing the learning target. A violates the student's plan, C may lower expectations unnecessarily, and D is inappropriate.",
+    "deepDive": "ISCI 782 teaches that 504 accommodations are legally binding in every instructional setting, including the library, and provide access without altering the standard. Option B reflects the course's compliance expectation and the access-versus-modification distinction.",
+    "researchUrl": "https://www.ed.gov/laws-and-policy/civil-rights-laws/disability-discrimination/section-504"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "A student with an IEP will participate in a digital storytelling project. What should the librarian do first?",
+    "options": [
+      "Create a separate project with no connection to the class objective.",
+      "Assume the classroom teacher will handle all accommodations.",
+      "Collaborate with the teacher and special education staff to provide required accommodations or modifications and accessible materials.",
+      "Remove the technology component for the student."
+    ],
+    "correctIndex": 2,
+    "explanation": "C supports inclusion and legal compliance. A and D may isolate the student or lower access. B ignores the librarian's role in providing instruction within the library setting.",
+    "deepDive": "ISCI 782 positions the librarian as a co-implementer of IEP accommodations through collaboration with special-education staff, not a bystander. Option C reflects the course's inclusion model where accessible materials are co-planned to keep the student in the shared objective.",
+    "researchUrl": "https://www.ed.gov/laws-and-policy/civil-rights-laws/disability-discrimination/section-504"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "A student says they hate reading but enjoys basketball and gaming. Which response best supports reading motivation?",
+    "options": [
+      "Tell the student to read a classic novel because it is good for them.",
+      "Require the student to select only books at a specific reading level.",
+      "Explain that graphic novels and audiobooks do not count as real reading.",
+      "Offer choice-based readers' advisory using the student's interests, multiple formats, and a nonjudgmental approach."
+    ],
+    "correctIndex": 3,
+    "explanation": "D builds on interests and choice, which can increase motivation. A, B, and C create barriers or shame rather than supporting lifelong reading.",
+    "deepDive": "ISCI 782 grounds readers' advisory in motivation research, where choice, interest, and format diversity drive engagement. Option D applies the course's nonjudgmental, interest-based approach that treats graphic novels and audiobooks as legitimate reading.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which practice best supports culturally responsive literature instruction?",
+    "options": [
+      "Feature diverse books only during one heritage month.",
+      "Integrate books that serve as mirrors, windows, and sliding glass doors throughout the year, and avoid tokenism or stereotypes.",
+      "Avoid books about unfamiliar cultures to prevent difficult conversations.",
+      "Select only books that match the librarian's background."
+    ],
+    "correctIndex": 1,
+    "explanation": "B provides ongoing, respectful representation and helps students see themselves and others in the collection. A is too limited, C avoids important learning, and D narrows representation.",
+    "deepDive": "ISCI 782 uses Bishop's 'mirrors, windows, and sliding glass doors' as the framework for culturally responsive literature woven through the whole year. Option B reflects the course's rejection of tokenism in favor of sustained, authentic representation.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which research question is strongest for an inquiry project?",
+    "options": [
+      "How has water quality in our local river changed over the last twenty years, and what factors may explain the change?",
+      "What is water?",
+      "Is pollution bad?",
+      "How many rivers are in the United States?"
+    ],
+    "correctIndex": 0,
+    "explanation": "A is focused, researchable, and invites analysis. B and D are mostly factual, while C is too broad and leads to a simple yes/no response.",
+    "deepDive": "ISCI 782 teaches inquiry-question design that is open, analytical, and researchable, rather than factual or yes/no. Option A invites investigation of change and causation, the higher-order question type the course's inquiry models (like Stripling) prize.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which note-taking strategy best prevents plagiarism and supports synthesis?",
+    "options": [
+      "Copy paragraphs into a document and change words later.",
+      "Use only direct quotations for every fact.",
+      "Read, close or look away from the source, write the idea in your own words, record citation information, and combine ideas from multiple sources.",
+      "Take notes without source labels to save time."
+    ],
+    "correctIndex": 2,
+    "explanation": "C encourages genuine paraphrasing, attribution, and synthesis. A often leads to patchwriting. B overuses quotes, and D makes citation and source tracking difficult.",
+    "deepDive": "ISCI 782 teaches note-taking strategies that prevent patchwriting by forcing genuine paraphrase and source tracking, supporting synthesis across sources. Option C is the look-away-and-rephrase technique the course pairs with citation discipline.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "A class is analyzing photographs from a historical protest. Which question best builds visual literacy?",
+    "options": [
+      "Is the picture pretty?",
+      "Who created the image, for what purpose, what details are emphasized or omitted, and how does the context affect meaning?",
+      "Can we print it in color?",
+      "How many people are in the picture only?"
+    ],
+    "correctIndex": 1,
+    "explanation": "B asks students to examine creator, purpose, evidence, framing, and context. A and C focus on appearance or format, and D is too limited.",
+    "deepDive": "ISCI 782 develops visual and media literacy by interrogating authorship, purpose, framing, and omission. Option B is the critical-viewing question set the course teaches for reading images as constructed, perspective-laden texts.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which activity best teaches media literacy with advertisements?",
+    "options": [
+      "Students identify target audience, persuasive techniques, evidence, emotional appeals, and missing viewpoints in several ads.",
+      "Students copy the slogan from one ad.",
+      "Students rank ads by which product they want most.",
+      "Students avoid ads because they are not informational texts."
+    ],
+    "correctIndex": 0,
+    "explanation": "A develops critical analysis of media messages. B and C are superficial, and D misses the fact that ads are important texts for media literacy.",
+    "deepDive": "ISCI 782 treats advertisements as rich media-literacy texts for analyzing audience, persuasion, and bias. Option A applies the course's deconstruction framework, examining technique and omission rather than consuming the message uncritically.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which criteria should be included in a rubric for a digital storytelling project?",
+    "options": [
+      "Only the number of animations used.",
+      "Only whether the video is longer than five minutes.",
+      "Only whether the student used the newest app.",
+      "Content accuracy, story structure, audience awareness, source attribution, ethical media use, and purposeful technical choices."
+    ],
+    "correctIndex": 3,
+    "explanation": "D assesses both learning and communication quality. A, B, and C overemphasize superficial technology features rather than the instructional objectives.",
+    "deepDive": "ISCI 782 teaches rubric design that assesses substantive learning, content, structure, attribution, over superficial tech features. Option D keeps the rubric aligned to instructional objectives, the criterion-referenced assessment the course requires.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "What is the strongest lesson closure for a source-evaluation lesson?",
+    "options": [
+      "The librarian says, \"Good job,\" and dismisses students.",
+      "Students line up as soon as the bell rings.",
+      "Students explain which evaluation strategy they used, apply it to one source, and identify a next step for research.",
+      "Students put away laptops without discussing learning."
+    ],
+    "correctIndex": 2,
+    "explanation": "C checks understanding and supports transfer. A, B, and D end the lesson administratively but do not consolidate learning.",
+    "deepDive": "ISCI 782 teaches lesson closure as a consolidation phase where students articulate and transfer learning, not just pack up. Option C reflects the course's structure for closure that surfaces evidence of understanding and a next step.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which behavior-management approach is most appropriate for library instruction?",
+    "options": [
+      "Assume students know expectations because they have been in libraries before.",
+      "Teach clear routines, model expectations, reinforce positive behavior, use consistent responses, and design engaging tasks.",
+      "Use only punishment after behavior problems occur.",
+      "Avoid group work because it can be noisy."
+    ],
+    "correctIndex": 1,
+    "explanation": "B combines prevention, teaching, and consistency. A leaves expectations implicit, C is reactive, and D removes useful collaborative learning opportunities.",
+    "deepDive": "ISCI 782 teaches proactive classroom management, explicitly taught routines, modeling, and engaging tasks, as prevention rather than reaction. Option B reflects the course's positive-behavior-support orientation for the library learning environment.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which lesson format is most developmentally appropriate for many kindergarten and first-grade library classes?",
+    "options": [
+      "A short read-aloud, modeling, guided practice, movement or talk, and choice-based checkout.",
+      "A 45-minute lecture about cataloging rules.",
+      "Independent database searching with no modeling.",
+      "A silent worksheet for the entire class period."
+    ],
+    "correctIndex": 0,
+    "explanation": "A matches young learners' developmental needs through modeling, engagement, and active practice. B, C, and D are less appropriate for early elementary learners without significant scaffolding.",
+    "deepDive": "ISCI 782 grounds lesson design in developmental appropriateness, with early-elementary learners needing short, active, multimodal segments. Option A reflects the course's developmentally calibrated structure of read-aloud, modeling, movement, and choice.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "A teacher and librarian divide the class into groups: one station practices database searching with the librarian, another analyzes print sources with the teacher, and a third practices citation with a checklist. What co-teaching model is being used?",
+    "options": [
+      "One teach, one observe only.",
+      "Station teaching.",
+      "No collaboration.",
+      "Homework review."
+    ],
+    "correctIndex": 1,
+    "explanation": "B is station teaching because students rotate through instructional stations led or supported by educators. A would have one educator primarily observing. C is incorrect because the lesson is jointly structured, and D does not describe the model.",
+    "deepDive": "ISCI 782 catalogs the co-teaching models (one teach-one observe, parallel, station, team), and station teaching is defined by rotation through educator-supported centers. Option B matches that definition, demonstrating the course's vocabulary for structuring collaboration.",
+    "researchUrl": "https://aasl.ala.org/standards/frameworks/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Third-grade students are using a database for the first time. Which instructional sequence is best?",
+    "options": [
+      "Give students the login and let them search without guidance.",
+      "Tell students databases are better than websites and move on.",
+      "Model a search, think aloud about keywords and filters, guide practice in pairs, provide a checklist, and then release students to try independently.",
+      "Require students to memorize every database feature before searching."
+    ],
+    "correctIndex": 2,
+    "explanation": "C uses gradual release and scaffolding. A and B provide too little support, while D focuses on memorization rather than purposeful use.",
+    "deepDive": "ISCI 782 builds instruction on the gradual-release-of-responsibility model (I do, we do, you do) with think-alouds and scaffolds. Option C sequences modeling, guided practice, and independent release exactly as the course's scaffolding framework prescribes.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which sequence best supports a high school research project?",
+    "options": [
+      "Develop a research question, conduct preliminary searching, evaluate sources, take organized notes, synthesize evidence, cite sources, and revise the final product.",
+      "Choose a topic, copy information, and add a bibliography at the end.",
+      "Write the final paper before searching.",
+      "Use only one source to save time."
+    ],
+    "correctIndex": 0,
+    "explanation": "A follows an inquiry process that includes questioning, searching, evaluation, synthesis, citation, and revision. B, C, and D short-circuit research and increase the risk of weak evidence or plagiarism.",
+    "deepDive": "ISCI 782 teaches structured inquiry models (such as Stripling's or the Big6) that move from question through synthesis to revision. Option A mirrors that full research process, contrasting with the topic-copy-cite shortcut the course identifies as plagiarism-prone.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "When designing a lesson, how should the librarian use standards?",
+    "options": [
+      "Use only library checkout procedures as standards.",
+      "Ignore classroom standards because the lesson is in the library.",
+      "Use standards only after the lesson is finished.",
+      "Align AASL learner competencies with content-area standards and measurable objectives."
+    ],
+    "correctIndex": 3,
+    "explanation": "D integrates library skills with classroom learning. A, B, and C treat standards as disconnected from instruction.",
+    "deepDive": "ISCI 782 teaches dual-standards alignment, mapping AASL learner competencies onto content-area standards to integrate library instruction into the curriculum. Option D reflects the course's backward-design approach where standards drive measurable objectives.",
+    "researchUrl": "https://aasl.ala.org/standards/frameworks/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which assessment best measures students' ability to evaluate sources?",
+    "options": [
+      "A participation grade for being quiet in the library.",
+      "A rubric requiring students to justify source choices using authority, accuracy, purpose, relevance, and evidence.",
+      "A score based only on the number of pages printed.",
+      "A grade for how quickly students log in."
+    ],
+    "correctIndex": 1,
+    "explanation": "B directly measures the target skill. A, C, and D assess behavior, quantity, or efficiency rather than source evaluation.",
+    "deepDive": "ISCI 782 teaches alignment between objective and assessment, so a source-evaluation skill must be measured by a rubric that demands justification. Option B is the criterion-referenced, construct-valid assessment the course requires over behavior or efficiency proxies.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Why is student choice important in inquiry and reading instruction?",
+    "options": [
+      "It means students do not need learning goals.",
+      "It eliminates the need for teacher guidance.",
+      "It can increase motivation and relevance while still operating within clear objectives and criteria.",
+      "It guarantees every student will choose the most difficult resource."
+    ],
+    "correctIndex": 2,
+    "explanation": "C balances autonomy with structure. A and B remove necessary instructional guidance, and D makes an unrealistic claim.",
+    "deepDive": "ISCI 782 draws on motivation theory (autonomy supports engagement) while insisting choice operates inside clear objectives and criteria. Option C captures the course's balance of learner agency with instructional structure.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which activity best activates prior knowledge before a unit on ecosystems?",
+    "options": [
+      "A K-W-L chart, concept map, or quickwrite about what students already know and wonder.",
+      "A final exam.",
+      "A silent checkout period with no discussion.",
+      "A lecture on citation rules only."
+    ],
+    "correctIndex": 0,
+    "explanation": "A helps the teacher and librarian see students' starting points and interests. B is summative, and C and D do not surface prior knowledge about the topic.",
+    "deepDive": "ISCI 782 uses prior-knowledge activation (K-W-L, concept maps) as a constructivist entry point that anchors new learning and surfaces misconceptions. Option A reflects the course's emphasis on diagnosing what students already know before instruction begins.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which phrase best describes gradual release of responsibility?",
+    "options": [
+      "Students do all work before seeing a model.",
+      "Teachers do all work for students.",
+      "The librarian gives the same lecture every week.",
+      "I do, we do, you do."
+    ],
+    "correctIndex": 3,
+    "explanation": "D summarizes modeling, guided practice, and independent application. A, B, and C do not show a scaffolded transfer of responsibility.",
+    "deepDive": "ISCI 782 names 'I do, we do, you do' as the shorthand for the gradual-release model that shifts cognitive load from teacher to student. Option D is that exact framework, foundational to how the course structures scaffolded skill instruction.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which assignment is the most authentic learning task?",
+    "options": [
+      "Copy definitions of media literacy from a textbook.",
+      "Create a public service announcement for a real school audience using evaluated sources and a clear message.",
+      "Complete a word search of library terms.",
+      "Alphabetize a list of authors with no connection to a larger goal."
+    ],
+    "correctIndex": 1,
+    "explanation": "B has a real audience, purpose, source use, and communication goal. A, C, and D may practice isolated skills but are less authentic.",
+    "deepDive": "ISCI 782 promotes authentic assessment, tasks with real audiences and purposes that demand transfer of skills. Option B's audience-driven PSA exemplifies the course's authentic-performance design over decontextualized drills.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which strategy best supports multilingual learners during an information-literacy lesson?",
+    "options": [
+      "Use visuals, model vocabulary, provide bilingual or translated supports when available, allow appropriate use of home language, and collaborate with ESOL staff.",
+      "Require English-only searching at all times.",
+      "Avoid research projects with multilingual learners.",
+      "Give the same text to every student without scaffolds."
+    ],
+    "correctIndex": 0,
+    "explanation": "A supports language development and access while keeping the learning goal. B, C, and D create barriers.",
+    "deepDive": "ISCI 782 incorporates sheltered-instruction and translanguaging strategies, visuals, vocabulary modeling, and home-language use, to support multilingual learners. Option A reflects the course's asset-based stance and partnership with ESOL staff.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "The planned database demonstration fails because the internet goes down. What should the librarian do?",
+    "options": [
+      "Cancel the lesson and give up on the objective.",
+      "Blame students for not being prepared.",
+      "Use a backup plan such as screenshots, printed source examples, offline evaluation practice, or a revised activity that still addresses the learning goal.",
+      "Have students play unrelated games."
+    ],
+    "correctIndex": 2,
+    "explanation": "C preserves the objective through flexible instruction. A and D abandon the learning goal, while B is inappropriate and unproductive.",
+    "deepDive": "ISCI 782 teaches instructional flexibility and contingency planning, separating the learning objective from any single tool. Option C reflects the course's principle that a prepared educator preserves the goal through a low-tech backup when technology fails.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which book-talk plan best supports wide reading?",
+    "options": [
+      "Present only the librarian's favorite genre.",
+      "Present only books at one reading level.",
+      "Present only print novels and exclude audiobooks, graphic novels, and nonfiction.",
+      "Include varied genres, formats, reading levels, cultures, identities, interests, and pathways for students to place holds or check out."
+    ],
+    "correctIndex": 3,
+    "explanation": "D recognizes varied readers and improves immediate access. A, B, and C narrow choices unnecessarily.",
+    "deepDive": "ISCI 782 frames book talks as reading-promotion tools that must reflect the diversity of readers in genre, format, and identity. Option D maximizes the 'something for everyone' reach and links promotion to immediate access, the course's wide-reading goal.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "In a fixed elementary schedule, how can the librarian make recurring lessons more instructionally meaningful?",
+    "options": [
+      "Teach the same isolated library rule every week.",
+      "Connect lessons to grade-level curriculum, build skills developmentally, and coordinate with classroom teachers when possible.",
+      "Use all class periods only for silent checkout.",
+      "Avoid standards because fixed classes are short."
+    ],
+    "correctIndex": 1,
+    "explanation": "B turns limited time into purposeful instruction. A, C, and D limit the library's instructional role.",
+    "deepDive": "ISCI 782 teaches that even fixed schedules can host curriculum-connected, developmentally sequenced instruction rather than isolated skills. Option B reflects the course's strategy for elevating recurring elementary classes into a coherent, standards-aligned scope.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "A teacher says there is no time to collaborate. What is the librarian's best response?",
+    "options": [
+      "Offer a brief co-planning template, suggest an embedded mini-lesson tied to the teacher's current unit, and show how it supports required standards.",
+      "Stop offering collaboration to that teacher.",
+      "Tell the teacher collaboration is mandatory and must happen immediately.",
+      "Teach a generic lesson without asking what students are studying."
+    ],
+    "correctIndex": 0,
+    "explanation": "A lowers the barrier to collaboration and shows value. B gives up, C may damage relationships, and D misses the teacher's actual instructional needs.",
+    "deepDive": "ISCI 782 addresses barriers to collaboration by teaching low-investment entry points, templates and embedded mini-lessons, that demonstrate value before asking for more time. Option A is the course's relationship-building strategy for reluctant partners.",
+    "researchUrl": "https://aasl.ala.org/standards/frameworks/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which lesson best addresses bias in search results and algorithms?",
+    "options": [
+      "Tell students search engines are neutral.",
+      "Tell students to use the first result only.",
+      "Have students compare search results, discuss ranking and personalization, use databases and varied search terms, and evaluate whose voices are included or missing.",
+      "Avoid online searching entirely."
+    ],
+    "correctIndex": 2,
+    "explanation": "C teaches students that search tools are designed systems that require critical evaluation. A and B are inaccurate, and D avoids rather than teaches the skill.",
+    "deepDive": "ISCI 782 and ISCI 761 jointly teach algorithmic literacy, the understanding that search engines rank and personalize via designed systems that can amplify bias. Option C has students interrogate ranking and representation, the critical-evaluation move the courses model.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Before publishing student-created videos online, what should the librarian verify?",
+    "options": [
+      "Only that the videos are entertaining.",
+      "Media permissions, privacy protections, copyright or license status of music/images, accessibility features, and district publication guidelines.",
+      "Only that the files are short enough.",
+      "Only that students used the same video-editing app."
+    ],
+    "correctIndex": 1,
+    "explanation": "B addresses the major safety, legal, ethical, and accessibility issues in publishing student work. A, C, and D focus on superficial features.",
+    "deepDive": "ISCI 782 frames publishing student work as a convergence of copyright, privacy, accessibility, and policy compliance. Option B reflects the course's pre-publication checklist that protects students legally and ethically while modeling responsible media creation.",
+    "researchUrl": "https://www.copyright.gov/fair-use/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "How should a librarian use children's and young adult book awards in reader guidance?",
+    "options": [
+      "Recommend only award winners to every student.",
+      "Avoid award books because students choose only popular titles.",
+      "Treat awards as the only measure of book quality.",
+      "Use award lists as one tool among many, considering award criteria, student interests, reading needs, representation, and curriculum connections."
+    ],
+    "correctIndex": 3,
+    "explanation": "D uses awards professionally without treating them as the only pathway to reading. A and C are too narrow, and B ignores a useful tool.",
+    "deepDive": "ISCI 782 teaches readers' advisory that weighs award lists alongside student interest, reading need, and representation rather than as the sole quality metric. Option D reflects the course's balanced, reader-centered use of award tools.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Students are creating presentations with images from the web. What should the librarian teach?",
+    "options": [
+      "Use original, public domain, Creative Commons, licensed, or fair-use-justified media; provide attribution; and respect copyright and license terms.",
+      "Any image found online is free for school use.",
+      "Attribution alone makes every use legal.",
+      "Students should avoid all images."
+    ],
+    "correctIndex": 0,
+    "explanation": "A provides lawful and ethical choices. B and C are common misconceptions, and D removes a legitimate communication tool instead of teaching responsible use.",
+    "deepDive": "ISCI 782 teaches the ethics of media reuse, that lawful image use requires public domain, CC license, permission, or a fair-use justification, plus attribution. Option A corrects the widespread 'online means free' and 'attribution equals permission' misconceptions the course targets.",
+    "researchUrl": "https://www.copyright.gov/fair-use/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "Which student reflection best demonstrates metacognition in research?",
+    "options": [
+      "I finished because the bell rang.",
+      "I used the first article because it was short.",
+      "My first search terms were too broad, so I added a phrase and date filter; next I need a source with a different viewpoint.",
+      "Research is boring."
+    ],
+    "correctIndex": 2,
+    "explanation": "C shows awareness of strategy, adjustment, and next steps. A, B, and D do not reflect on how learning happened or how to improve.",
+    "deepDive": "ISCI 782 cultivates metacognition, students monitoring and adjusting their own research strategies, as a hallmark of self-directed inquiry. Option C shows strategy awareness, adaptation, and planning the next move, the reflective thinking the course's inquiry models develop.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Professional Development",
+    "color": "var(--domain-prof)",
+    "text": "Which plan best supports professional development for teachers on library databases?",
+    "options": [
+      "Send a long list of links and assume teachers will explore them.",
+      "Use teacher needs data, align examples to current units, model a short strategy, provide practice time, and offer follow-up coaching.",
+      "Require every teacher to attend the same two-hour lecture regardless of need.",
+      "Focus only on vendor features and not on instruction."
+    ],
+    "correctIndex": 1,
+    "explanation": "B is job-embedded, relevant, and supportive. A is passive, C is one-size-fits-all, and D overlooks the goal of improving instruction and student learning.",
+    "deepDive": "ISCI 742 positions the librarian as a professional-development leader who designs job-embedded, needs-based PD with modeling and follow-up coaching. Option B reflects the course's adult-learning principles over one-shot, one-size-fits-all sessions.",
+    "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf"
+  },
+  {
+    "domain": "Professional Development",
+    "color": "var(--domain-prof)",
+    "text": "Which action best demonstrates school leadership by the librarian?",
+    "options": [
+      "Working only behind the circulation desk.",
+      "Waiting for administrators to define all library goals.",
+      "Serving on the curriculum committee to embed information literacy, reading, and ethical technology use into schoolwide instruction.",
+      "Avoiding committees to protect library time."
+    ],
+    "correctIndex": 2,
+    "explanation": "C positions the librarian as an instructional leader. A, B, and D are passive or isolated approaches that limit the library's influence.",
+    "deepDive": "ISCI 742 develops the librarian as a schoolwide instructional leader who shapes curriculum from within governance structures. Option C, serving on the curriculum committee, is the proactive leadership posture the course contrasts with desk-bound isolation.",
+    "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf"
+  },
+  {
+    "domain": "Professional Development",
+    "color": "var(--domain-prof)",
+    "text": "Which message would be most effective in an annual advocacy report to district leaders?",
+    "options": [
+      "The library was busy this year.",
+      "Students like the library.",
+      "The librarian completed many tasks.",
+      "A concise report showing goals, impact data, student and teacher evidence, equity needs, alignment to district priorities, and a clear request for support."
+    ],
+    "correctIndex": 3,
+    "explanation": "D gives decision-makers evidence and a specific action. A, B, and C are too general to support policy, staffing, scheduling, or funding decisions.",
+    "deepDive": "ISCI 742 teaches advocacy reporting that ties impact data to district priorities and ends with a concrete ask. Option D reflects the course's data-informed communication model designed to influence staffing, funding, and policy decisions.",
+    "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf"
+  },
+  {
+    "domain": "Professional Development",
+    "color": "var(--domain-prof)",
+    "text": "Which activity best supports the librarian's ongoing professional growth?",
+    "options": [
+      "Participating in professional organizations, webinars, conferences, district PLCs, current reading, and reflective application to local practice.",
+      "Relying only on what was learned in graduate school.",
+      "Avoiding professional networks to save time.",
+      "Reading only vendor advertisements."
+    ],
+    "correctIndex": 0,
+    "explanation": "A promotes continuous learning and adaptation. B, C, and D are too limited for a field shaped by changing standards, technology, law, and student needs.",
+    "deepDive": "ISCI 742 frames professional growth as a career-long obligation through associations, PLCs, and reflective practice in a field of shifting standards and law. Option A reflects the course's expectation of continuous, networked learning beyond the MLIS degree.",
+    "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf"
+  },
+  {
+    "domain": "Professional Development",
+    "color": "var(--domain-prof)",
+    "text": "A teacher asks for a student's reading history because the teacher heard a parent challenged a book. What is the best response?",
+    "options": [
+      "Share the record because teachers work at the school.",
+      "Protect the student's privacy and follow district policy, sharing records only when there is a legitimate educational interest and proper authorization.",
+      "Post the record in the teacher workroom.",
+      "Ask another student what the child checked out."
+    ],
+    "correctIndex": 1,
+    "explanation": "B reflects ethical practice and privacy. A assumes access that may not be justified. C and D are clear breaches of confidentiality.",
+    "deepDive": "ISCI 742 ties professional ethics to FERPA's 'legitimate educational interest' standard, which staff employment alone does not satisfy. Option B reflects the course's insistence on authorized, need-based disclosure of confidential reading records.",
+    "researchUrl": "https://studentprivacy.ed.gov/resources/family-educational-rights-and-privacy-act-regulations"
+  },
+  {
+    "domain": "Professional Development",
+    "color": "var(--domain-prof)",
+    "text": "A book challenge becomes a topic at a public meeting. How should the librarian respond as a professional leader?",
+    "options": [
+      "Debate the parent publicly about the book's value.",
+      "Remove the book before the meeting to calm everyone down.",
+      "Remain professional, explain the approved reconsideration process, refer to selection criteria and policy, and support due process with administrators.",
+      "Refuse to discuss policy with anyone."
+    ],
+    "correctIndex": 2,
+    "explanation": "C protects the process and models professionalism. A personalizes the conflict, B bypasses policy, and D fails to communicate with stakeholders.",
+    "deepDive": "ISCI 742 teaches leadership during book challenges as defending process, not personalities, by grounding responses in selection policy and due process. Option C reflects the course's professional-conduct model drawn from the ALA reconsideration toolkit.",
+    "researchUrl": "https://www.ala.org/tools/challengesupport/selectionpolicytoolkit"
+  },
+  {
+    "domain": "Professional Development",
+    "color": "var(--domain-prof)",
+    "text": "Which set of legal and policy areas should a school librarian monitor regularly?",
+    "options": [
+      "Copyright, fair use, FERPA, CIPA, accessibility, student data privacy, intellectual freedom, and relevant state, district, and board policies.",
+      "Only cataloging rules.",
+      "Only school dress code.",
+      "Only vendor discount policies."
+    ],
+    "correctIndex": 0,
+    "explanation": "A covers major areas that affect school library services, technology, privacy, access, and instruction. B, C, and D are incomplete.",
+    "deepDive": "ISCI 742 maps the legal landscape, copyright, FERPA, CIPA, accessibility, and intellectual freedom, that the librarian must monitor as a policy professional. Option A is the comprehensive compliance portfolio the course holds the school librarian responsible for tracking.",
+    "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf"
+  },
+  {
+    "domain": "Professional Development",
+    "color": "var(--domain-prof)",
+    "text": "Which coaching approach is strongest for helping a teacher integrate a new digital tool?",
+    "options": [
+      "Demonstrate every feature of the tool with no connection to the teacher's lesson.",
+      "Co-plan a lesson around the learning objective, model or co-teach the tool in context, and reflect on student evidence afterward.",
+      "Send the teacher a manual and offer no follow-up.",
+      "Tell the teacher to replace the whole unit with the tool."
+    ],
+    "correctIndex": 1,
+    "explanation": "B keeps technology secondary to learning and includes follow-up reflection. A and C are tool-centered and less likely to change practice. D is unrealistic and may not meet curriculum goals.",
+    "deepDive": "ISCI 742 teaches instructional coaching that keeps pedagogy ahead of tools, co-planning, in-context modeling, and reflection on student evidence. Option B reflects the course's coaching cycle, which subordinates technology to the learning objective.",
+    "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf"
+  },
+  {
+    "domain": "Professional Development",
+    "color": "var(--domain-prof)",
+    "text": "Which partnership best extends equitable reading access?",
+    "options": [
+      "A contest that allows only top readers to visit the public library.",
+      "A partnership that requires families to share private student data with no consent process.",
+      "A one-time donation with no connection to school needs.",
+      "A public library collaboration that promotes summer reading, library card access, family resources, and privacy-conscious communication."
+    ],
+    "correctIndex": 3,
+    "explanation": "D expands access beyond the school while respecting privacy. A is inequitable, B is risky, and C may be helpful but is less strategic.",
+    "deepDive": "ISCI 742 frames community partnerships, especially with public libraries, as strategic extensions of equitable access that must still honor privacy. Option D reflects the course's model of mutually beneficial, privacy-conscious collaboration for summer learning loss and card access.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Professional Development",
+    "color": "var(--domain-prof)",
+    "text": "Data show that many students lack reliable internet at home. Which advocacy action is strongest?",
+    "options": [
+      "Use the data to recommend hotspots or device lending, after-hours access, offline options, community partnerships, and district-level support.",
+      "Assign fewer digital tasks without telling anyone why.",
+      "Assume families will solve the issue independently.",
+      "Stop teaching digital literacy."
+    ],
+    "correctIndex": 0,
+    "explanation": "A turns equity data into solutions and advocacy. B may reduce harm temporarily but does not address the barrier. C and D ignore the librarian's role in equitable access.",
+    "deepDive": "ISCI 742 teaches data-driven equity advocacy, translating the digital divide into concrete proposals like hotspot lending and district-level action. Option A reflects the course's leadership model of converting equity data into systemic solutions.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Professional Development",
+    "color": "var(--domain-prof)",
+    "text": "What should an annual library report include to be useful to different stakeholders?",
+    "options": [
+      "Only raw circulation numbers.",
+      "Only photographs from events.",
+      "Goals, evidence of student learning, collection and usage data, collaboration highlights, equity needs, stories of impact, challenges, and next steps.",
+      "Only a list of books purchased."
+    ],
+    "correctIndex": 2,
+    "explanation": "C tells a complete impact story and supports decision-making. A, B, and D each provide only one narrow type of evidence.",
+    "deepDive": "ISCI 742 teaches the annual report as a strategic communication that blends quantitative data with impact narrative for varied stakeholders. Option C reflects the course's comprehensive reporting model linking goals, evidence, equity, and next steps.",
+    "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf"
+  },
+  {
+    "domain": "Professional Development",
+    "color": "var(--domain-prof)",
+    "text": "Which reflection practice best improves the librarian's instruction over time?",
+    "options": [
+      "Rely only on personal feelings after a lesson.",
+      "Review student work, formative assessment data, teacher feedback, and professional standards to revise future lessons.",
+      "Repeat the same lesson every year because it is already prepared.",
+      "Ask only the highest-achieving students for feedback."
+    ],
+    "correctIndex": 1,
+    "explanation": "B uses multiple evidence sources to improve practice. A, C, and D provide incomplete or biased feedback.",
+    "deepDive": "ISCI 742 teaches reflective practice grounded in multiple evidence sources, student work, assessment data, and standards, rather than gut feeling. Option B reflects the course's evidence-based continuous-improvement cycle for refining instruction.",
+    "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf"
+  },
+  {
+    "domain": "Professional Development",
+    "color": "var(--domain-prof)",
+    "text": "Which action best supports intellectual freedom leadership in a school?",
+    "options": [
+      "Avoid buying books on complex topics.",
+      "Remove materials whenever one person objects.",
+      "Let staff make individual rules about which students may borrow which books.",
+      "Train staff on selection and reconsideration policies, students' right to access information, privacy, and respectful communication with families."
+    ],
+    "correctIndex": 3,
+    "explanation": "D builds shared understanding and consistent practice. A, B, and C restrict access or create arbitrary decisions outside policy.",
+    "deepDive": "ISCI 742 casts intellectual-freedom leadership as building shared, policy-based understanding across staff, rooted in the Library Bill of Rights and students' right to read. Option D reflects the course's emphasis on training and consistent practice over ad hoc restriction.",
+    "researchUrl": "https://www.ala.org/advocacy/intfreedom/librarybill"
+  },
+  {
+    "domain": "Professional Development",
+    "color": "var(--domain-prof)",
+    "text": "You take this practice quiz and score lowest in Organization and Access. What is the best professional growth response?",
+    "options": [
+      "Ignore the results and study only the domains you already know.",
+      "Assume you cannot improve because you have not taken every core class yet.",
+      "Create a targeted study plan using the official test framework, review cataloging, selection, access, and collection management concepts, practice similar scenarios, and ask a mentor or professor for feedback.",
+      "Memorize answer letters from this quiz."
+    ],
+    "correctIndex": 2,
+    "explanation": "C uses diagnostic data to guide professional learning. A wastes the diagnostic, B is unnecessarily discouraging, and D does not build understanding or transfer to new questions.",
+    "deepDive": "ISCI 742 models reflective, data-driven professional growth, using diagnostic results to build a targeted study plan and seek mentor feedback. Option C applies that same self-assessment cycle to your own Praxis 5312 preparation, turning weakness into a focused learning goal.",
+    "researchUrl": "https://www.ets.org/s/praxis/pdf/5312.pdf"
+  },
+  {
+    "domain": "Program Administration",
+    "color": "var(--domain-admin)",
+    "text": "A principal asks you to assess whether the library program meets student and teacher needs. (Select THREE) Which data sources best inform a needs assessment?",
+    "options": [
+      "Circulation and database-usage statistics.",
+      "Teacher input, curriculum maps, and stakeholder surveys.",
+      "The librarian's personal preference for certain genres.",
+      "Student access patterns and direct observation.",
+      "The number of social media followers the library has."
+    ],
+    "correctIndices": [
+      0,
+      1,
+      3
+    ],
+    "explanation": "A, B, and D triangulate behavioral data, stakeholder voice, and direct observation, the foundation of a valid needs assessment. C is personal bias, and E is a vanity metric unrelated to instructional need.",
+    "deepDive": "ISCI 742 teaches needs assessment as the diagnostic first step of program management, requiring multiple converging data sources rather than any single measure. The three correct options reflect the course's insistence on triangulating usage data, stakeholder input, and direct observation before recommending change.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Information Access",
+    "color": "var(--domain-info)",
+    "text": "A student is evaluating an unfamiliar website for a research project. (Select TWO) Which actions best establish the site's credibility?",
+    "options": [
+      "Use lateral reading to see what other reputable sources say about the site.",
+      "Investigate the author's or organization's authority and purpose.",
+      "Trust the site because it appears first in the search results.",
+      "Accept the information because the page design looks professional.",
+      "Assume it is reliable because it displays many advertisements."
+    ],
+    "correctIndices": [
+      0,
+      1
+    ],
+    "explanation": "A (lateral reading) and B (authority and purpose) are evidence-based evaluation moves. C confuses ranking with truth, and D and E mistake surface features for credibility.",
+    "deepDive": "ISCI 761 teaches source evaluation through fact-checker strategies, especially lateral reading and authority analysis, over on-page cues like design or ranking. The two correct options reflect the course's emphasis on leaving the page to verify rather than trusting appearance.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Teaching and Learning",
+    "color": "var(--domain-teach)",
+    "text": "During an information-literacy lesson, which are strong examples of formative assessment? (Select TWO)",
+    "options": [
+      "An exit ticket showing each student's keywords and one chosen source.",
+      "A quick thumbs-up / thumbs-down check followed by targeted reteaching.",
+      "A final grade entered three weeks after the unit ends.",
+      "Counting how many students looked engaged.",
+      "A worksheet collected but never reviewed."
+    ],
+    "correctIndices": [
+      0,
+      1
+    ],
+    "explanation": "A and B give immediate, actionable evidence of student thinking that lets you adjust instruction in the moment. C is summative and delayed, D is not real evidence, and E provides no feedback loop.",
+    "deepDive": "ISCI 782 distinguishes formative assessment (real-time evidence that informs instruction) from summative measures, prioritizing quick checks that drive reteaching. The two correct options embody the course's formative cycle, where data is gathered and acted on during the lesson.",
+    "researchUrl": "https://standards.aasl.org/framework/"
+  },
+  {
+    "domain": "Organization and Access",
+    "color": "var(--domain-access)",
+    "text": "Before purchasing an e-book package, which factors are most important to review? (Select THREE)",
+    "options": [
+      "Licensing terms and the access model (one-user vs. simultaneous use).",
+      "Platform compatibility and accessibility features.",
+      "Privacy terms and how student data is handled.",
+      "Whether the cover images look attractive in a display.",
+      "Whether the titles can be shelved alphabetically."
+    ],
+    "correctIndices": [
+      0,
+      1,
+      2
+    ],
+    "explanation": "A, B, and C are the licensing, usability, and privacy considerations unique to digital acquisition. D and E apply to print display and physical organization, not e-book access.",
+    "deepDive": "ISCI 706 teaches that digital acquisition is governed by licensing models, platform accessibility, and privacy terms rather than ownership. The three correct options reflect the course's total-cost-and-rights analysis for e-resources, which has no print-shelving equivalent.",
+    "researchUrl": "https://ed.sc.gov/instruction/standards-learning/educational-technology/school-librarians/standards-for-school-library-resource-collections/"
+  },
+  {
+    "domain": "Professional Development",
+    "color": "var(--domain-prof)",
+    "text": "Which features make professional development for teachers most effective? (Select TWO)",
+    "options": [
+      "It is job-embedded and aligned to teachers' current units.",
+      "It includes modeling, practice time, and follow-up coaching.",
+      "Every teacher attends the same lecture regardless of need.",
+      "It focuses only on a vendor's product features.",
+      "It is delivered as a long list of links for teachers to explore alone."
+    ],
+    "correctIndices": [
+      0,
+      1
+    ],
+    "explanation": "A and B reflect adult-learning best practices, relevance plus modeling and follow-up support. C ignores differentiated need, D centers tools over instruction, and E is passive with no support.",
+    "deepDive": "ISCI 742 positions the librarian as a professional-development leader who designs job-embedded, needs-based PD with modeling and follow-up coaching. The two correct options reflect the course's adult-learning principles over one-shot, one-size-fits-all sessions.",
+    "researchUrl": "https://www.ala.org/sites/default/files/aasl/content/aasleducation/ALA_AASL_CAEP_School_Librarian_Preparation_Standards_2019_Final.pdf"
+  }
+];
+
+    /* ---------------- Config & state ---------------- */
+    const STORAGE_KEY = 'praxis5312_session_v2';
+    const TIME_PER_Q = 75;
+    const PASS_SCORE = 154;
+
+    const DOMAIN_LABELS = {
+        'var(--domain-admin)':  'Program Administration',
+        'var(--domain-access)': 'Organization & Access',
+        'var(--domain-info)':   'Information Access',
+        'var(--domain-teach)':  'Teaching & Learning',
+        'var(--domain-prof)':   'Prof. Dev & Advocacy'
+    };
+    const DOMAIN_ADVICE = {
+        'var(--domain-admin)':  'Review needs assessment, budgeting, policy, scheduling, evaluation, and evidence-based advocacy.',
+        'var(--domain-access)': 'Drill selection, weeding (MUSTIE), cataloging/MARC, Dewey classification, and equitable access.',
+        'var(--domain-info)':   'Focus on copyright/fair use, FERPA, CIPA, COPPA, privacy, citation, and source evaluation.',
+        'var(--domain-teach)':  'Practice co-teaching models, UDL, inquiry design, formative assessment, and reading motivation.',
+        'var(--domain-prof)':   'Study leadership, PD design, intellectual freedom, and legal/policy monitoring.'
+    };
+
+    let state = null;          // the saved/active session
+    let currentQ = null;
+    let isAnswered = false;
+    let selectedAnswers = [];
+    let timerInterval = null;
+    let timeLeft = TIME_PER_Q;
+
+    /* ---------------- Storage helpers ---------------- */
+    function loadSaved() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+    }
+    function saveSession() {
+        if (!state) return;
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+    }
+    function clearSession() {
+        try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+        state = null;
+    }
+
+    /* ---------------- Utilities ---------------- */
+    function shuffle(a) {
+        const r = a.slice();
+        for (let i = r.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [r[i], r[j]] = [r[j], r[i]];
+        }
+        return r;
+    }
+    function showScreen(id) {
+        ['start-screen', 'quiz-screen', 'results-screen'].forEach(s => {
+            document.getElementById(s).style.display = (s === id) ? 'block' : 'none';
+        });
+        window.scrollTo(0, 0);
+    }
+
+    /* ---------------- Init / home ---------------- */
+    function init() {
+        const saved = loadSaved();
+        const banner = document.getElementById('resume-banner');
+        if (saved && saved.order && !saved.finished && saved.results.length < saved.order.length) {
+            banner.style.display = 'block';
+            document.getElementById('resume-info').innerText =
+                `📌 Saved test in progress: ${saved.results.length} of ${saved.order.length} answered.`;
+        } else {
+            banner.style.display = 'none';
+        }
+        showScreen('start-screen');
+    }
+
+    function startNewTest(length) {
+        const timed = document.getElementById('opt-timed').checked;
+        const allIdx = shuffle(questionBank.map((_, i) => i));
+        const order = (length === 'all') ? allIdx : allIdx.slice(0, Math.min(length, allIdx.length));
+        state = { order, results: [], timed, scaled: 130, startedAt: Date.now(), finished: false };
+        saveSession();
+        showScreen('quiz-screen');
+        loadCurrent();
+    }
+
+    function resumeSession() {
+        state = loadSaved();
+        if (!state) { init(); return; }
+        showScreen('quiz-screen');
+        loadCurrent();
+    }
+
+    /* ---------------- Question flow ---------------- */
+    function loadCurrent() {
+        isAnswered = false;
+        selectedAnswers = [];
+        const pos = state.results.length;
+
+        if (pos >= state.order.length) { showResults(); return; }
+
+        currentQ = questionBank[state.order[pos]];
+        const isMulti = Array.isArray(currentQ.correctIndices);
+
+        document.getElementById('ui-feedback').style.display = 'none';
+        document.getElementById('deep-dive-box').style.display = 'none';
+        document.getElementById('ui-options').innerHTML = '';
+        document.getElementById('btn-submit').style.display = 'none';
+        document.getElementById('ui-multi-instruction').style.display = 'none';
+
+        document.getElementById('ui-progress').innerText = `Question ${pos + 1} of ${state.order.length}`;
+        document.getElementById('ui-score').innerText = state.scaled;
+        document.getElementById('domain-indicator').innerText = currentQ.domain;
+        document.getElementById('domain-indicator').style.backgroundColor = currentQ.color;
+        document.getElementById('ui-question').innerText = currentQ.text;
+        document.getElementById('progress-fill').style.width = (pos / state.order.length * 100) + '%';
+
+        currentQ.options.forEach((opt, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            if (isMulti) { btn.onclick = () => toggleSelection(index, btn); }
+            else { btn.onclick = () => selectAnswer(index, btn); }
+            document.getElementById('ui-options').appendChild(btn);
+        });
+
+        if (isMulti) {
+            const count = currentQ.correctIndices.length;
+            const word = count === 2 ? 'TWO' : count === 3 ? 'THREE' : String(count);
+            const instr = document.getElementById('ui-multi-instruction');
+            instr.innerText = `📌 Multiple Answer — Select ${word}. You must pick every correct choice and no incorrect ones to earn the point (no partial credit, just like the real exam).`;
+            instr.style.display = 'block';
+            document.getElementById('btn-submit').style.display = 'inline-block';
+        }
+
+        startTimer();
+    }
+
+    function recordResult(correct, userText) {
+        const pos = state.results.length;
+        const correctText = Array.isArray(currentQ.correctIndices)
+            ? currentQ.correctIndices.map(i => currentQ.options[i]).join('  •  ')
+            : currentQ.options[currentQ.correctIndex];
+        state.results.push({
+            i: state.order[pos],
+            color: currentQ.color,
+            domain: currentQ.domain,
+            correct: correct,
+            userText: userText,
+            correctText: correctText
+        });
+        state.scaled = correct ? Math.min(200, state.scaled + 6) : Math.max(100, state.scaled - 3);
+        document.getElementById('ui-score').innerText = state.scaled;
+        saveSession();
+    }
+
+    /* ----- Single-select ----- */
+    function selectAnswer(selectedIndex, btnElement) {
+        if (isAnswered) return;
+        isAnswered = true;
+        clearInterval(timerInterval);
+
+        const buttons = document.querySelectorAll('.option-btn');
+        const isCorrect = selectedIndex === currentQ.correctIndex;
+        buttons[currentQ.correctIndex].classList.add('correct');
+        if (!isCorrect) btnElement.classList.add('incorrect');
+
+        recordResult(isCorrect, currentQ.options[selectedIndex]);
+        revealFeedback(isCorrect);
+    }
+
+    /* ----- Multi-select ----- */
+    function toggleSelection(index, btnElement) {
+        if (isAnswered) return;
+        const pos = selectedAnswers.indexOf(index);
+        if (pos === -1) { selectedAnswers.push(index); btnElement.classList.add('selected'); }
+        else { selectedAnswers.splice(pos, 1); btnElement.classList.remove('selected'); }
+    }
+
+    function submitMultiAnswer() {
+        if (isAnswered) return;
+        if (selectedAnswers.length === 0) {
+            document.getElementById('ui-multi-instruction').innerText = '⚠️ Select at least one answer before submitting.';
+            return;
+        }
+        isAnswered = true;
+        clearInterval(timerInterval);
+
+        const buttons = document.querySelectorAll('.option-btn');
+        const correctSet = currentQ.correctIndices;
+        buttons.forEach((btn, index) => {
+            btn.classList.remove('selected');
+            if (correctSet.includes(index)) btn.classList.add('correct');
+            else if (selectedAnswers.includes(index)) btn.classList.add('incorrect');
+        });
+
+        const allCorrect = correctSet.length === selectedAnswers.length &&
+            correctSet.every(i => selectedAnswers.includes(i));
+        const userText = selectedAnswers.map(i => currentQ.options[i]).join('  •  ');
+
+        document.getElementById('btn-submit').style.display = 'none';
+        document.getElementById('ui-multi-instruction').style.display = 'none';
+        recordResult(allCorrect, userText);
+        revealFeedback(allCorrect);
+    }
+
+    function revealFeedback(correct) {
+        const t = document.getElementById('feedback-title');
+        if (correct) { t.innerText = '✅ Correct!'; t.style.color = 'var(--correct)'; }
+        else { t.innerText = '❌ Incorrect — green = correct, red = your pick'; t.style.color = 'var(--incorrect)'; }
+        document.getElementById('ui-explanation').innerHTML = currentQ.explanation;
+        document.getElementById('ui-feedback').style.display = 'block';
+        document.getElementById('progress-fill').style.width = (state.results.length / state.order.length * 100) + '%';
+    }
+
+    function nextQuestion() { loadCurrent(); }
+
+    /* ---------------- Timer ---------------- */
+    function startTimer() {
+        clearInterval(timerInterval);
+        const tEl = document.getElementById('ui-timer');
+        if (!state.timed) { tEl.style.display = 'none'; return; }
+        tEl.style.display = 'block';
+        timeLeft = TIME_PER_Q;
+        tEl.classList.remove('warning');
+        updateTimerDisplay();
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            updateTimerDisplay();
+            if (timeLeft <= 15) tEl.classList.add('warning');
+            if (timeLeft <= 0) { clearInterval(timerInterval); timeOut(); }
+        }, 1000);
+    }
+    function updateTimerDisplay() {
+        const m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+        document.getElementById('ui-timer').innerText = `0${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+    function timeOut() {
+        if (isAnswered) return;
+        isAnswered = true;
+        const buttons = document.querySelectorAll('.option-btn');
+        if (Array.isArray(currentQ.correctIndices)) currentQ.correctIndices.forEach(i => buttons[i].classList.add('correct'));
+        else buttons[currentQ.correctIndex].classList.add('correct');
+        document.getElementById('btn-submit').style.display = 'none';
+        document.getElementById('ui-multi-instruction').style.display = 'none';
+        recordResult(false, '(time expired — no answer)');
+        const t = document.getElementById('feedback-title');
+        t.innerText = "⏰ Time's Up!";
+        t.style.color = 'var(--incorrect)';
+        document.getElementById('ui-explanation').innerHTML = currentQ.explanation;
+        document.getElementById('ui-feedback').style.display = 'block';
+    }
+
+    /* ---------------- Pause ---------------- */
+    function pauseAndExit() {
+        clearInterval(timerInterval);
+        saveSession();
+        init();
+    }
+
+    /* ---------------- Deep dive / source ---------------- */
+    function toggleDeepDive() {
+        const box = document.getElementById('deep-dive-box');
+        const txt = document.getElementById('ui-deepdive');
+        if (box.style.display === 'none' || box.style.display === '') {
+            txt.innerText = currentQ.deepDive || 'No deeper concept breakdown available for this question.';
+            box.style.display = 'block';
+        } else {
+            box.style.display = 'none';
+        }
+    }
+    function openResearch() {
+        if (currentQ && currentQ.researchUrl) window.open(currentQ.researchUrl, '_blank');
+    }
+
+    /* ---------------- Results ---------------- */
+    function showResults() {
+        clearInterval(timerInterval);
+        state.finished = true;
+        saveSession();
+        renderResults();
+        showScreen('results-screen');
+    }
+
+    function renderResults() {
+        const res = state.results;
+        const total = res.length;
+        const correct = res.filter(r => r.correct).length;
+        const pct = total ? correct / total : 0;
+        const estScaled = Math.max(100, Math.min(200, Math.round(100 + pct * 100)));
+        const passing = estScaled >= PASS_SCORE;
+
+        const scaledEl = document.getElementById('res-scaled');
+        scaledEl.innerText = estScaled;
+        scaledEl.className = 'scaled-score ' + (passing ? 'passing' : 'failing');
+
+        document.getElementById('res-headline').innerText = passing
+            ? '🎉 On track to PASS (estimated)'
+            : '📚 Below the 154 target — keep grinding';
+        document.getElementById('res-summary').innerText =
+            `${correct} / ${total} correct (${Math.round(pct * 100)}%). Estimated scaled score ${estScaled} vs. passing ${PASS_SCORE}.`;
+
+        // Domain breakdown
+        const groups = {};
+        res.forEach(r => {
+            if (!groups[r.color]) groups[r.color] = { c: 0, t: 0 };
+            groups[r.color].t++;
+            if (r.correct) groups[r.color].c++;
+        });
+        let domHtml = '';
+        let weakest = null, weakestPct = 2;
+        Object.keys(DOMAIN_LABELS).forEach(color => {
+            const g = groups[color];
+            if (!g) return;
+            const p = g.c / g.t;
+            if (p < weakestPct) { weakestPct = p; weakest = color; }
+            const pctTxt = Math.round(p * 100);
+            domHtml +=
+                '<div class="domain-row">' +
+                    '<div class="domain-row-head">' +
+                        '<span class="domain-dot" style="background:' + color + '"></span>' +
+                        '<strong>' + DOMAIN_LABELS[color] + '</strong>' +
+                        '<span class="domain-stat">' + g.c + '/' + g.t + ' (' + pctTxt + '%)</span>' +
+                    '</div>' +
+                    '<div class="domain-bar"><div class="domain-bar-fill" style="width:' + pctTxt + '%;background:' + color + '"></div></div>' +
+                '</div>';
+        });
+        document.getElementById('res-domains').innerHTML = domHtml;
+
+        document.getElementById('res-focus').innerHTML = weakest
+            ? '<strong>🎯 Focus area: ' + DOMAIN_LABELS[weakest] + '</strong><br>' + DOMAIN_ADVICE[weakest]
+            : '<strong>Great balance across all domains!</strong> Keep mixing full-length timed runs with targeted review.';
+
+        // Missed-question review
+        const missed = res.filter(r => !r.correct);
+        document.getElementById('res-missed-count').innerText = missed.length;
+        const reviewEl = document.getElementById('res-review-list');
+        if (missed.length === 0) {
+            reviewEl.innerHTML = '<p style="color:var(--correct); font-weight:600;">Perfect run — nothing missed! 🏆</p>';
+        } else {
+            reviewEl.innerHTML = missed.map(r => {
+                const q = questionBank[r.i];
+                return '<div class="review-item">' +
+                    '<span class="domain-badge" style="background:' + r.color + '; font-size:0.7rem;">' + DOMAIN_LABELS[r.color] + '</span>' +
+                    '<p class="review-q">' + q.text + '</p>' +
+                    '<p class="review-line"><span class="review-x">Your answer:</span> ' + r.userText + '</p>' +
+                    '<p class="review-line"><span class="review-ok">Correct:</span> ' + r.correctText + '</p>' +
+                    '<p class="review-exp">' + q.explanation + '</p>' +
+                '</div>';
+            }).join('');
+        }
+    }
+
+    function toggleReview() {
+        const el = document.getElementById('res-review-list');
+        el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'block' : 'none';
+    }
+
+    function goHomeNewTest() {
+        clearSession();
+        init();
+    }
+    function clearAllData() {
+        clearSession();
+        init();
+    }
+
+    /* ---------------- Boot ---------------- */
+    window.addEventListener('beforeunload', saveSession);
+    init();
+</script>
+
+</body>
+</html>
