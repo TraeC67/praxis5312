@@ -211,6 +211,10 @@
             <div class="trend-wrap"><div class="trend-target"></div><div id="stats-trend" class="trend-row"></div></div>
             <div class="trend-caption">Estimated score per completed test (most recent on the right). Dashed line = 154 pass target.</div>
             <div id="stats-domains"></div>
+            <div style="margin-top:14px;">
+                <button class="btn btn-ghost" id="btn-history-toggle" onclick="toggleHistoryPanel()" style="font-size:0.85rem; padding:8px 14px;">📋 View Past Quizzes</button>
+            </div>
+            <div id="history-detail" style="display:none; margin-top:14px; max-height:420px; overflow-y:auto;"></div>
             <button class="btn-link" onclick="clearHistory()">Clear progress history</button>
         </div>
 
@@ -5848,6 +5852,70 @@
                 '<span class="mini-track"><span class="mini-fill" style="width:' + p + '%;background:' + c + '"></span></span>' +
                 '<span class="mini-pct">' + p + '%</span></div>';
         }).join('');
+
+        // reset the past-quizzes panel each time we render the home screen
+        document.getElementById('btn-history-toggle').innerText = '📋 View Past Quizzes (' + h.length + ')';
+        document.getElementById('history-detail').style.display = 'none';
+    }
+
+    const DOMAIN_ABBR = {
+        'var(--domain-admin)': 'Admin', 'var(--domain-access)': 'Access', 'var(--domain-info)': 'Info',
+        'var(--domain-teach)': 'Teach', 'var(--domain-prof)': 'Prof'
+    };
+
+    function toggleHistoryPanel() {
+        const el = document.getElementById('history-detail');
+        const btn = document.getElementById('btn-history-toggle');
+        if (el.style.display === 'none' || el.style.display === '') {
+            renderHistoryDetail();
+            el.style.display = 'block';
+            btn.innerText = '📋 Hide Past Quizzes';
+        } else {
+            el.style.display = 'none';
+            btn.innerText = '📋 View Past Quizzes (' + loadHistory().length + ')';
+        }
+    }
+
+    function renderHistoryDetail() {
+        const h = loadHistory();
+        const el = document.getElementById('history-detail');
+        if (!h.length) { el.innerHTML = '<p style="color:#94a3b8;">No past quizzes yet.</p>'; return; }
+        el.innerHTML = h.map((e, idx) => ({ e, idx })).reverse().map(({ e, idx }) => {
+            const d = new Date(e.date);
+            const dateStr = (d.getMonth() + 1) + '/' + d.getDate() + '/' + String(d.getFullYear()).slice(2) + ' ' +
+                d.getHours() + ':' + String(d.getMinutes()).padStart(2, '0');
+            const pct = Math.round((e.correct / e.total) * 100);
+            const pass = e.estScaled >= PASS_SCORE;
+            const col = pass ? 'var(--correct)' : '#fbbf24';
+            const chips = Object.keys(DOMAIN_LABELS).map(c => {
+                const g = e.byDomain && e.byDomain[c];
+                if (!g) return '';
+                const p = Math.round(g.c / g.t * 100);
+                return '<span title="' + DOMAIN_LABELS[c] + '" style="font-size:0.72rem;color:#cbd5e1;background:#1e293b;padding:2px 8px;border-radius:99px;border-left:3px solid ' + c + ';">' + DOMAIN_ABBR[c] + ' ' + p + '%</span>';
+            }).join('');
+            const retry = (e.missedTexts && e.missedTexts.length)
+                ? '<button class="btn-link" style="margin-top:8px;" onclick="retryHistoryMissed(' + idx + ')">🔁 Retry ' + e.missedTexts.length + ' missed from this quiz</button>'
+                : '';
+            return '<div style="background:#0f172a;border-radius:10px;padding:12px 14px;margin-bottom:10px;border-left:4px solid ' + col + ';">' +
+                '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;flex-wrap:wrap;">' +
+                    '<div><strong>' + e.scopeLabel + '</strong><br><span style="color:#94a3b8;font-size:0.8rem;">' + dateStr + '</span></div>' +
+                    '<div style="text-align:right;"><span style="font-size:1.3rem;font-weight:bold;color:' + col + ';">' + e.estScaled + '</span>' +
+                    '<br><span style="color:#94a3b8;font-size:0.8rem;">' + e.correct + '/' + e.total + ' · ' + pct + '%</span></div>' +
+                '</div>' +
+                '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">' + chips + '</div>' + retry +
+            '</div>';
+        }).join('');
+    }
+
+    function retryHistoryMissed(idx) {
+        const e = loadHistory()[idx];
+        if (!e || !e.missedTexts || !e.missedTexts.length) return;
+        const wanted = new Set(e.missedTexts);
+        const indices = questionBank.map((_, i) => i).filter(i => wanted.has(questionBank[i].text));
+        if (!indices.length) return;
+        lastMissedIndices = indices.slice();
+        document.getElementById('opt-study').checked = false;
+        buildSession(indices, 'Retry missed');
     }
 
     /* ---------------- Session builders ---------------- */
@@ -6130,7 +6198,7 @@
         state.finished = true;
         saveSession();
         const summary = buildSummary(state.results);
-        if (state.results.length > 0) pushHistory({ date: Date.now(), scopeLabel: state.scopeLabel, total: summary.total, correct: summary.correct, estScaled: summary.estScaled, byDomain: summary.byDomain });
+        if (state.results.length > 0) pushHistory({ date: Date.now(), scopeLabel: state.scopeLabel, total: summary.total, correct: summary.correct, estScaled: summary.estScaled, byDomain: summary.byDomain, missedTexts: state.results.filter(r => !r.correct).map(r => questionBank[r.i].text) });
         renderResults(summary);
         showScreen('results-screen');
     }
