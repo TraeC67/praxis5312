@@ -304,6 +304,7 @@
         <div id="res-review-list" style="display:none;"></div>
 
         <div class="actions" style="margin-top: 26px;">
+            <button class="btn btn-primary" id="btn-drill" style="display:none;" onclick="startWeakestDrill()">🎯 Drill Weakest Domain</button>
             <button class="btn btn-primary" id="btn-retry" style="display:none;" onclick="startMissedRetry()">🔁 Retry Missed</button>
             <button class="btn btn-ghost" onclick="goHome()">🏠 Home</button>
         </div>
@@ -5308,6 +5309,7 @@
     let timerInterval = null;
     let timeLeft = TIME_PER_Q;
     let lastMissedIndices = [];
+    let lastWeakestColor = null;
 
     /* ---------------- Storage ---------------- */
     function loadSaved() { try { const r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : null; } catch (e) { return null; } }
@@ -5463,6 +5465,11 @@
         if (!lastMissedIndices.length) return;
         document.getElementById('opt-study').checked = false;
         buildSession(lastMissedIndices.slice(), 'Retry missed');
+    }
+    function startWeakestDrill() {
+        if (!lastWeakestColor) return;
+        document.getElementById('opt-study').checked = false; // scored exam drill
+        startScoped(lastWeakestColor);
     }
     function resumeSession() { state = loadSaved(); if (!state) { init(); return; } showScreen('quiz-screen'); loadCurrent(); }
 
@@ -5724,6 +5731,11 @@
         document.getElementById('res-focus').innerHTML = weakest
             ? '<strong>🔬 Ethnographer&rsquo;s Field Notes</strong><br><br><em>Weakest domain this sprint: ' + DOMAIN_LABELS[weakest] + ' (' + Math.round(weakestPct * 100) + '%).</em><br><br>' + FIELD_NOTES[weakest] + '<br><br>Field action: use &ldquo;Practice by domain&rdquo; on the home screen to drill ' + DOMAIN_LABELS[weakest] + ' until the deficit closes.'
             : '<strong>🔬 Ethnographer&rsquo;s Field Notes</strong><br><br>Observation: the subject demonstrates consistent, accurate professional instincts across all observed domains — no instructional or administrative deficits noted in this sprint. Recommendation: keep mixing full-length timed runs with targeted review to hold the line.';
+
+        lastWeakestColor = weakest;
+        const drillBtn = document.getElementById('btn-drill');
+        if (weakest) { drillBtn.style.display = 'inline-block'; drillBtn.innerText = '🎯 Drill ' + DOMAIN_LABELS[weakest]; }
+        else { drillBtn.style.display = 'none'; }
 
         const missed = state.results.filter(r => !r.correct);
         lastMissedIndices = missed.map(r => r.i);
