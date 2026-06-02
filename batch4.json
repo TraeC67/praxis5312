@@ -1,0 +1,377 @@
+[
+    {
+        "domain": "Teaching and Learning",
+        "color": "var(--domain-teach)",
+        "text": "During a fifth-grade narrative-writing unit, a teacher asks you to pull mentor texts that represent the single most distinguished example of WRITING by a United States author, judged on literary craft alone and not on artwork or audio. She wants the seal that certifies the text itself. Which award should anchor your mentor-text display?",
+        "options": [
+            "The John Newbery Medal",
+            "The Randolph Caldecott Medal",
+            "The Theodor Seuss Geisel Award",
+            "The Odyssey Award"
+        ],
+        "correctIndex": 0,
+        "explanation": "The Newbery Medal honors the author of the most distinguished contribution to American literature for children, judged on the literary quality of the text. The Caldecott honors a picture book's illustrator (artwork, not writing); the Geisel rewards beginning-reader texts specifically; and the Odyssey recognizes audiobook production. Only the Newbery certifies the craft of the writing itself.",
+        "deepDive": "Through an ISCI 761 youth-literature lens, anchoring a mentor-text set to the Newbery tells teachers you curate by evaluative criteria rather than popularity, protecting both instructional time and the materials budget from flashy but pedagogically thin titles. The recurring field-note pattern is that teachers conflate Newbery (text) with Caldecott (art); correcting it positions the librarian as the curriculum's literary authority and deepens the co-teaching partnership.",
+        "researchUrl": "https://www.ala.org/awards/books-media/john-newbery-medal-2"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "A kindergarten teacher believes the gold Caldecott seal means the book has the best story. While auditing your picture-book section, how should you explain what the Caldecott Medal actually certifies and who receives it?",
+        "options": [
+            "It honors the author for the best-written picture-book story",
+            "It honors the artist for the most distinguished American picture book, and goes to the illustrator even when someone else wrote the text",
+            "It honors the publisher for the best-designed book of the year",
+            "It honors the narrator of the best picture-book audiobook"
+        ],
+        "correctIndex": 1,
+        "explanation": "The Caldecott Medal is awarded to the artist of the most distinguished American picture book for children, and it goes to the illustrator whether or not that person also wrote the text. It is an illustration award, not a text award (Newbery), a publisher citation (Batchelder), or an audiobook award (Odyssey).",
+        "deepDive": "From the ISCI 742 collection-development frame, mislabeling the Caldecott as a 'best story' seal distorts how titles are promoted, displayed, and pulled for reader's advisory, quietly skewing circulation data the librarian later uses to justify budget requests. The field consequence is that accurate seal literacy among staff keeps display real estate, the highest-value square footage in the building, aligned to what each award actually measures.",
+        "researchUrl": "https://www.ala.org/awards/books-media/randolph-caldecott-medal-1"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "A colleague insists a brilliant young adult novel cannot earn a major ALA youth medal because its author is a citizen of Ireland, not the United States. You want to recommend the award that rewards literary excellence in YA literature with no nationality requirement, asking only that the book was published in the U.S. in English the prior year. Which award fits?",
+        "options": [
+            "The Margaret A. Edwards Award",
+            "The John Newbery Medal",
+            "The Michael L. Printz Award",
+            "An Alex Award"
+        ],
+        "correctIndex": 2,
+        "explanation": "The Printz Award recognizes literary excellence in young adult literature and carries no citizenship or residency restriction; it requires only U.S. publication in English in the preceding year. The Newbery, by contrast, is restricted to U.S. citizens or residents. The Edwards is a lifetime-achievement award, and the Alex Awards go to adult books with teen appeal.",
+        "deepDive": "Examined through ISCI 761, the Printz versus Newbery citizenship distinction is exactly the kind of policy nuance that shapes an equitable, globally aware YA collection rather than an inadvertently nationalistic one. The administrative payoff is defensible selection: when a parent or department head questions a title's pedigree, the librarian can cite the precise eligibility rules instead of relying on reputation alone.",
+        "researchUrl": "https://www.ala.org/awards/books-media/michael-l-printz-award"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "While auditing your collection for representation, you want to surface titles recognized for outstanding literary or artistic merit created by African American authors and illustrators that reflect the African American experience. Which award seal should you filter by?",
+        "options": [
+            "The Carter G. Woodson Book Award",
+            "The John Newbery Medal",
+            "The Jane Addams Children's Book Award",
+            "The Coretta Scott King Book Awards"
+        ],
+        "correctIndex": 3,
+        "explanation": "The Coretta Scott King Book Awards specifically honor outstanding African American authors and illustrators whose work reflects the African American experience. The Newbery rewards general literary merit without regard to a creator's identity; the Jane Addams Award rewards themes of peace and social justice; and the Carter G. Woodson Award rewards accurate, sensitive depiction of ethnic groups for the social studies curriculum, not the creator's own background.",
+        "deepDive": "Within the ISCI 742 equity-audit framework, filtering by the Coretta Scott King seal lets a media specialist move from a vague intention to diversify toward a measurable, defensible benchmark of own-voices representation. The field note is that an audit grounded in a named award withstands scrutiny in a way that a subjective 'this feels diverse' claim never will, which matters when equity spending is challenged.",
+        "researchUrl": "https://www.ala.org/awards/books-media/coretta-scott-king-book-awards"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "A bilingual family asks for award-winning books by a Latina author whose illustrations and story celebrate and affirm the Latino cultural experience. Which award most precisely targets a Latino or Latina writer and illustrator honored for portraying that cultural experience?",
+        "options": [
+            "The Pura Belpré Award",
+            "The Coretta Scott King Book Awards",
+            "The Sydney Taylor Book Award",
+            "The Asian/Pacific American Award for Literature"
+        ],
+        "correctIndex": 0,
+        "explanation": "The Pura Belpré Award, co-administered by ALSC and REFORMA, honors a Latino or Latina writer and illustrator whose work best portrays, affirms, and celebrates the Latino cultural experience. The Coretta Scott King Award centers the African American experience, the Sydney Taylor Award the Jewish experience, and the Asian/Pacific American Award the Asian/Pacific American experience.",
+        "deepDive": "Seen through ISCI 706 information-services practice, matching a family's request to the Belpré rather than a generic 'multicultural' label demonstrates the precision that distinguishes professional reader's advisory from guesswork. The real-world consequence is trust: a Spanish-speaking family that sees its culture named and affirmed in the collection is far more likely to return and to view the library as theirs.",
+        "researchUrl": "https://www.ala.org/awards/books-media/pura-belpre-award"
+    },
+    {
+        "domain": "Teaching and Learning",
+        "color": "var(--domain-teach)",
+        "text": "A first-grade teacher wants the most distinguished book for children who are just beginning to read independently, with carefully controlled vocabulary that supports decoding, not a sophisticated read-aloud picture book. Which award is designed for exactly this band of emergent readers?",
+        "options": [
+            "The Randolph Caldecott Medal",
+            "The Theodor Seuss Geisel Award",
+            "The Robert F. Sibert Informational Book Medal",
+            "The John Newbery Medal"
+        ],
+        "correctIndex": 1,
+        "explanation": "The Geisel Award honors the most distinguished American book for beginning readers, judged in part on its support for emergent decoding and independent reading. The Caldecott rewards picture-book illustration regardless of reading level, the Sibert rewards informational books, and the Newbery rewards literary text typically aimed at older, more fluent readers.",
+        "deepDive": "Through the ISCI 761 lens on developmentally appropriate materials, steering an early-literacy teacher to the Geisel rather than a Caldecott read-aloud aligns the collection with the actual decoding stage of K-2 learners, the population this media specialist serves daily. The instructional consequence is direct: a striving first grader handed a true beginning-reader book experiences success and stamina, whereas a text-dense Newbery title would reinforce frustration.",
+        "researchUrl": "https://www.ala.org/awards/books-media/theodor-seuss-geisel-award"
+    },
+    {
+        "domain": "Teaching and Learning",
+        "color": "var(--domain-teach)",
+        "text": "A science teacher planning a unit on informational-text standards asks you for the title recognized as the most distinguished work of nonfiction for children published in the United States. Which seal points to that specific distinction?",
+        "options": [
+            "The Randolph Caldecott Medal",
+            "The John Newbery Medal",
+            "The Robert F. Sibert Informational Book Medal",
+            "The Jane Addams Children's Book Award"
+        ],
+        "correctIndex": 2,
+        "explanation": "The Sibert Medal is awarded annually to the most distinguished informational (nonfiction) book for children. The Newbery may go to fiction or nonfiction but rewards general literary contribution rather than informational excellence specifically; the Caldecott is an illustration award; and the Jane Addams Award rewards peace and social-justice themes.",
+        "deepDive": "From an ISCI 782 instructional-collaboration standpoint, recommending Sibert titles ties the collection directly to the nonfiction and evidence-based reading demands of current content standards, making the librarian a curriculum partner rather than a book warehouse. The administrative payoff is that co-planned, award-vetted informational text gives the science teacher rigor she can defend and gives the library measurable curricular impact.",
+        "researchUrl": "https://www.ala.org/awards/books-media/robert-f-sibert-informational-book-medal"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "A teacher shares a moving novel originally written and published in Japanese, later translated into English and released in the United States. Which award recognizes such a book, and notably honors the U.S. publisher rather than the author?",
+        "options": [
+            "The Sydney Taylor Book Award",
+            "The Michael L. Printz Award",
+            "The John Newbery Medal",
+            "The Mildred L. Batchelder Award"
+        ],
+        "correctIndex": 3,
+        "explanation": "The Batchelder Award is a citation given to a U.S. publisher for the most outstanding children's book first published in another country in a language other than English and subsequently translated and published in the United States. Its distinguishing feature is that it honors the publisher to encourage international exchange. The Printz and Newbery honor authors of English-language works, and the Sydney Taylor centers the Jewish experience.",
+        "deepDive": "Within ISCI 742 collection development, recognizing the Batchelder reframes the librarian's relationship with publishers and vendors as a lever for building a globally representative collection, not merely a purchasing transaction. The field consequence is that seeking out Batchelder titles counteracts the structural under-translation of world children's literature in U.S. markets, widening the cultural windows available on a finite budget.",
+        "researchUrl": "https://www.ala.org/awards/books-media/mildred-l-batchelder-award"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "Auditing for inclusive representation, you want titles recognized for an authentic, artistic expression of the disability experience for children and teens. Which award seal targets that criterion?",
+        "options": [
+            "The Schneider Family Book Award",
+            "The Robert F. Sibert Informational Book Medal",
+            "The Coretta Scott King Book Awards",
+            "The Theodor Seuss Geisel Award"
+        ],
+        "correctIndex": 0,
+        "explanation": "The Schneider Family Book Award honors books that embody an artistic expression of the disability experience for child and adolescent audiences, across age categories. The Sibert rewards informational books, the Coretta Scott King the African American experience, and the Geisel beginning-reader texts.",
+        "deepDive": "Through the ISCI 761 inclusive-collection lens, the Schneider seal helps a media specialist ensure that students with disabilities encounter mirrors of their own lived experience rather than only deficit-framed or absent representation. The equity consequence is concrete: a collection vetted against Schneider criteria supports the affective and identity needs that drive whether these readers see the library as a place that includes them.",
+        "researchUrl": "https://www.ala.org/awards/books-media/schneider-family-book-award"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "You are building out representation for LGBTQ youth and want titles of exceptional merit relating to the LGBTQ experience for children and teens, recognized through the children's and young adult literature award named for Mike Morgan and Larry Romans. Which award is this?",
+        "options": [
+            "The Michael L. Printz Award",
+            "The Stonewall Book Award",
+            "The Jane Addams Children's Book Award",
+            "The Schneider Family Book Award"
+        ],
+        "correctIndex": 1,
+        "explanation": "The Stonewall Book Awards, including the Mike Morgan and Larry Romans Children's and Young Adult Literature Award, recognize English-language works of exceptional merit relating to the LGBTQ experience. The Printz rewards general YA literary merit, the Jane Addams Award peace and social justice, and the Schneider Award the disability experience.",
+        "deepDive": "From an ISCI 742 perspective, using the Stonewall seal as a selection benchmark gives the librarian an authoritative, professionally vetted basis for an LGBTQ collection, which is invaluable when titles are challenged. The administrative field note is that reconsideration defenses grounded in a recognized award and a board-approved selection policy hold up far better than ad hoc justifications under community pressure.",
+        "researchUrl": "https://www.ala.org/awards/books-media/stonewall-book-awards-mike-morgan-larry-romans-childrens-young-adult-literature"
+    },
+    {
+        "domain": "Teaching and Learning",
+        "color": "var(--domain-teach)",
+        "text": "A teacher serving striving readers and multilingual learners wants a title recognized specifically for excellence in audiobook PRODUCTION for children or young adults, an award given to the producer. Which award should you point her to?",
+        "options": [
+            "An Alex Award",
+            "The Michael L. Printz Award",
+            "The Odyssey Award",
+            "The John Newbery Medal"
+        ],
+        "correctIndex": 2,
+        "explanation": "The Odyssey Award, co-administered by ALSC and YALSA, honors the producer of the best audiobook produced for children and/or young adults in English in the United States. The Printz, Alex, and Newbery awards all evaluate print works rather than audio production.",
+        "deepDive": "Through the ISCI 706 lens on formats and access, recommending Odyssey-recognized audiobooks treats audio not as a lesser substitute but as a designed format that can unlock comprehension for striving and multilingual readers. The instructional consequence is universal-design-for-learning in practice: matching format to learner need expands who can access the same rich text, which directly informs how the library allocates its media budget.",
+        "researchUrl": "https://www.ala.org/awards/books-media/odyssey-award-excellence-audiobook-production"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "A high-school librarian wants to bridge the adult collection to teen readers using the annual list of ten books that were written and published for adults but hold special appeal for young adults ages 12 to 18. Which award provides this list?",
+        "options": [
+            "The Odyssey Award",
+            "The Michael L. Printz Award",
+            "The Margaret A. Edwards Award",
+            "The Alex Awards"
+        ],
+        "correctIndex": 3,
+        "explanation": "The Alex Awards, administered by YALSA, name ten books written for adults that have special appeal to young adults ages 12 to 18. The Printz honors books written for teens; the Edwards is a lifetime-achievement award for a YA author; and the Odyssey recognizes audiobook production.",
+        "deepDive": "Within ISCI 742 collection development, the Alex list is a strategic bridge that lets a librarian extend older teens into the adult collection without abandoning quality control or appropriateness judgment. The real-world payoff is retention of maturing readers who have outgrown the YA shelf, sustaining circulation among the very patrons most likely to drift away from the library entirely.",
+        "researchUrl": "https://www.ala.org/yalsa/alex-awards"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "You want to honor an author for a lifetime body of work that has made a significant and lasting contribution to YOUNG ADULT literature, an award sponsored in partnership with School Library Journal. Which award recognizes this career-spanning YA achievement?",
+        "options": [
+            "The Margaret A. Edwards Award",
+            "The Michael L. Printz Award",
+            "The Children's Literature Legacy Award",
+            "An Alex Award"
+        ],
+        "correctIndex": 0,
+        "explanation": "The Margaret A. Edwards Award honors an author and a specific body of work for a significant and lasting contribution to young adult literature. The Printz recognizes a single book's literary merit; the Children's Literature Legacy Award honors lifetime contribution to CHILDREN's literature; and the Alex Awards name adult titles with teen appeal.",
+        "deepDive": "Through ISCI 761, distinguishing the Edwards (career, YA) from the Printz (single title, YA) sharpens how a librarian builds and explains author study units and backlist purchasing. The administrative consequence is collection depth: an Edwards honoree signals a whole canon worth acquiring, justifying spending on backlist rather than chasing only the newest single-title winners.",
+        "researchUrl": "https://www.ala.org/yalsa/edwards-award"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "You want to recognize an author or illustrator whose books, published over many years, have made a substantial and lasting contribution to CHILDREN's literature, an award formerly known as the Laura Ingalls Wilder Medal. Which award is this?",
+        "options": [
+            "The Margaret A. Edwards Award",
+            "The Children's Literature Legacy Award",
+            "The John Newbery Medal",
+            "The Randolph Caldecott Medal"
+        ],
+        "correctIndex": 1,
+        "explanation": "The Children's Literature Legacy Award, administered by ALSC and renamed in 2018 from the Laura Ingalls Wilder Award, honors an author or illustrator for a body of work that has made a substantial and lasting contribution to children's literature. The Edwards Award is the parallel lifetime honor for young adult literature; the Newbery and Caldecott recognize single titles from the preceding year.",
+        "deepDive": "From an ISCI 742 standpoint, the 2018 renaming from Wilder to Legacy is itself a field-note in collection ethics: the profession reconsidered an honor named for an author whose work contained racist depictions, modeling how naming and selection are value-laden acts. The consequence for practice is that a librarian must read awards as living, contested constructs rather than neutral stamps, which shapes how lifetime-achievement backlists are curated and contextualized.",
+        "researchUrl": "https://www.ala.org/awards/books-media/childrens-literature-legacy-award"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "A family requests award-winning books that authentically portray the Jewish experience for children and teens. Which award, administered by the Association of Jewish Libraries rather than ALA, targets exactly this?",
+        "options": [
+            "The John Newbery Medal",
+            "The Mildred L. Batchelder Award",
+            "The Sydney Taylor Book Award",
+            "The Coretta Scott King Book Awards"
+        ],
+        "correctIndex": 2,
+        "explanation": "The Sydney Taylor Book Award, given by the Association of Jewish Libraries, honors books that authentically portray the Jewish experience for children and teens. The Batchelder recognizes translated works (to a U.S. publisher), the Newbery rewards general American children's literature, and the Coretta Scott King centers the African American experience.",
+        "deepDive": "Through the ISCI 706 lens, knowing that the Sydney Taylor is an affiliate award outside ALA's own medals reminds the librarian that authoritative selection sources extend well beyond a single organization. The practical consequence is a wider, more credible net for representation: a collection that draws on affiliate awards captures communities that ALA's flagship medals may underrepresent in any given year.",
+        "researchUrl": "https://jewishlibraries.org/sydney_taylor_book_award/"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "You are sourcing books that reflect Asian/Pacific American experiences and cultures, created by Asian/Pacific American authors and illustrators, recognized by an award administered by APALA. Which award is this?",
+        "options": [
+            "The Michael L. Printz Award",
+            "The Pura Belpré Award",
+            "The Sydney Taylor Book Award",
+            "The Asian/Pacific American Award for Literature"
+        ],
+        "correctIndex": 3,
+        "explanation": "The Asian/Pacific American Award for Literature, administered by the Asian/Pacific American Librarians Association (APALA), honors works that reflect Asian/Pacific American experiences and cultures by creators of that heritage. The Belpré centers the Latino experience, the Sydney Taylor the Jewish experience, and the Printz general YA literary merit.",
+        "deepDive": "Within ISCI 742, drawing on the APALA award guards against the flattening of distinct Asian and Pacific cultures into a single 'diverse' shelf, pushing the librarian toward specificity in representation. The equity consequence is that students from these communities encounter their particular cultures named and affirmed, rather than an undifferentiated pan-ethnic blur that erases difference.",
+        "researchUrl": "https://www.apalaweb.org/awards/literature-awards/"
+    },
+    {
+        "domain": "Teaching and Learning",
+        "color": "var(--domain-teach)",
+        "text": "A social studies teacher wants a trade book chosen above all for its accurate and sensitive depiction of an ethnic or racial group in the United States, suitable for the social studies curriculum. She cares about factual and cultural integrity, not the author's identity. Which award, given by the National Council for the Social Studies, signals this fit?",
+        "options": [
+            "The Carter G. Woodson Book Award",
+            "The Coretta Scott King Book Awards",
+            "The Robert F. Sibert Informational Book Medal",
+            "The John Newbery Medal"
+        ],
+        "correctIndex": 0,
+        "explanation": "The Carter G. Woodson Book Award, given by the National Council for the Social Studies (NCSS), recognizes social-science books that depict ethnicity in the United States sensitively and accurately for young readers. The Coretta Scott King Award is keyed to African American creators' identity; the Sibert rewards general informational distinction; and the Newbery rewards literary merit. Only the Woodson centers curricular accuracy for social studies.",
+        "deepDive": "From the ISCI 782 collaboration frame, the Woodson Award is the bridge between the library and the social studies department because it is the rare youth award judged by social-studies educators against curricular accuracy rather than literary or identity criteria. The instructional consequence is that co-selecting Woodson titles inoculates a unit against the inaccurate or stereotyped trade books that quietly undermine standards-aligned content.",
+        "researchUrl": "https://www.socialstudies.org/awards/carter-g-woodson-book-awards"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "You want to spotlight a children's book recognized specifically for effectively promoting the causes of peace, social justice, world community, and equality. Which award, given by the Jane Addams Peace Association, targets these themes?",
+        "options": [
+            "The Stonewall Book Award",
+            "The Jane Addams Children's Book Award",
+            "The Coretta Scott King Book Awards",
+            "The John Newbery Medal"
+        ],
+        "correctIndex": 1,
+        "explanation": "The Jane Addams Children's Book Award, given by the Jane Addams Peace Association, honors books that effectively promote peace, social justice, world community, and the equality of all people. The Stonewall centers the LGBTQ experience, the Coretta Scott King the African American experience, and the Newbery general literary merit; only the Jane Addams Award is keyed to peace and social-justice themes.",
+        "deepDive": "Through ISCI 761, the Jane Addams Award is thematic rather than identity- or craft-based, which lets a librarian build curated text sets around character education, SEL, and civic themes the curriculum increasingly demands. The administrative payoff is cross-curricular leverage: a theme-vetted title can anchor a counselor's lesson, a class meeting, and a reading unit at once, multiplying the return on a single purchase.",
+        "researchUrl": "https://janeaddamschildrensbookaward.org/"
+    },
+    {
+        "domain": "Teaching and Learning",
+        "color": "var(--domain-teach)",
+        "text": "A wordless picture book is generating buzz, and a teacher asks whether it could win the Newbery Medal. What is the most accurate guidance you can give?",
+        "options": [
+            "Wordless books are eligible only for the Geisel Award",
+            "It is a strong Newbery contender because wordless books still tell a story",
+            "It is ineligible for the Newbery because that medal judges the literary quality of the text; a wordless book's distinction lies in illustration, the Caldecott's domain",
+            "Wordless books can win only the Sibert Medal"
+        ],
+        "correctIndex": 2,
+        "explanation": "The Newbery evaluates the literary quality of the text, so a book with no text has nothing for the committee to judge under Newbery criteria; its distinction is illustrative and therefore in the Caldecott's domain. The Geisel concerns beginning-reader texts and the Sibert concerns informational books, neither of which is defined by the wordless format.",
+        "deepDive": "From an ISCI 761 vantage, the wordless edge case crystallizes the text-versus-illustration boundary that separates the Newbery from the Caldecott, a distinction librarians must teach explicitly to collaborating staff. The instructional consequence is that understanding visual literacy as a distinct, assessable mode legitimizes wordless and graphic formats as rigorous texts rather than dismissing them as 'easy,' which expands the genres a teacher will accept into a reading unit.",
+        "researchUrl": "https://www.ala.org/awards/books-media/john-newbery-medal-2"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "A new staff member asks how the Coretta Scott King Book Awards are actually structured. Which statement most accurately describes them?",
+        "options": [
+            "They are a lifetime-achievement award given only once in a creator's career",
+            "They give a single award to the best book regardless of the creator's background",
+            "They are administered by REFORMA to honor Latino creators",
+            "They give separate awards to an African American author and an African American illustrator and include the John Steptoe New Talent Award for emerging creators"
+        ],
+        "correctIndex": 3,
+        "explanation": "The Coretta Scott King Book Awards recognize an outstanding African American author and an outstanding African American illustrator with separate awards, and the program includes the John Steptoe New Talent Award for emerging creators. They are administered through ALA's EMIERT (not REFORMA, which co-administers the Belpré), are identity-specific (not background-neutral), and are annual title awards rather than a one-time lifetime honor.",
+        "deepDive": "Through ISCI 742, knowing the internal structure of the Coretta Scott King program, including the New Talent award, lets a librarian intentionally seed the collection with debut own-voices creators rather than only established names. The equity consequence is a pipeline effect: purchasing New Talent honorees supports emerging African American authors and illustrators at the fragile early stage when library adoption most influences whether their careers continue.",
+        "researchUrl": "https://www.ala.org/awards/books-media/coretta-scott-king-book-awards"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "A picture book first published in Spanish in Mexico is translated into English and released by a U.S. publisher; it warmly depicts a Mexican family. A colleague says it should automatically receive the Pura Belpré Award. Why might the Batchelder Award be the more precise recognition, and what is the key distinction?",
+        "options": [
+            "The Batchelder honors a U.S. publisher for a notable book first published abroad in another language and then translated; the Belpré rewards a Latino/Latina CREATOR, not the publisher, and is not contingent on translation",
+            "The Batchelder and Belpré are interchangeable awards",
+            "The Belpré can be given only to translated works",
+            "The Batchelder honors the translator personally rather than the publisher"
+        ],
+        "correctIndex": 0,
+        "explanation": "The Batchelder is a citation to a U.S. publisher for a book originating abroad in another language and translated into English, so a Spanish-to-English title from Mexico fits its purpose directly. The Belpré, by contrast, honors a Latino or Latina creator's portrayal of the Latino cultural experience and is awarded to that creator regardless of translation; eligibility hinges on the creator's identity and the work's content, not on a translation pathway.",
+        "deepDive": "Within ISCI 742, untangling the Batchelder (publisher, translation pathway) from the Belpré (Latino creator, cultural content) prevents a librarian from mis-cataloging or mis-promoting a title and from assuming a translated story automatically qualifies as own-voices. The field consequence is descriptive integrity: accurate attribution of why a book is honored keeps the collection's representation claims honest when reported to administrators or grant funders.",
+        "researchUrl": "https://www.ala.org/awards/books-media/mildred-l-batchelder-award"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "Two titles are flying off your teen shelf. Title A was written and published for an adult audience but has strong teen appeal; Title B was written for teens and is praised for its literary merit. Which awards correspond, respectively?",
+        "options": [
+            "Title A: the Printz Award; Title B: an Alex Award",
+            "Title A: an Alex Award; Title B: the Michael L. Printz Award",
+            "Both qualify for the Margaret A. Edwards Award",
+            "Both qualify for the Odyssey Award"
+        ],
+        "correctIndex": 1,
+        "explanation": "The Alex Awards recognize adult books with special appeal to young adults, which matches Title A; the Printz recognizes literary excellence in books written for teens, which matches Title B. The Edwards is a lifetime-achievement award and the Odyssey recognizes audiobook production, so neither fits these single-title, print scenarios.",
+        "deepDive": "From an ISCI 761 perspective, the Alex-versus-Printz distinction maps the two directions teen reading flows: outward into the adult collection and inward toward purpose-built YA literary fiction. The administrative consequence is balanced acquisition, because a librarian who understands both lanes can defend buying adult titles for the teen area and high-merit YA in the same budget cycle without the choices appearing arbitrary.",
+        "researchUrl": "https://www.ala.org/awards/books-media/michael-l-printz-award"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "A teacher hands you a celebrated novel by a Vietnamese American author affirming the Vietnamese American immigrant experience and asks you to pull 'the Pura Belpré winners like it.' What is the most accurate redirection?",
+        "options": [
+            "You should look to the Sydney Taylor Book Award instead",
+            "The Belpré covers all immigrant experiences, so it applies here",
+            "The Belpré specifically honors the Latino cultural experience; the precise award for this title is the Asian/Pacific American Award for Literature",
+            "You should look to the Stonewall Book Award instead"
+        ],
+        "correctIndex": 2,
+        "explanation": "The Pura Belpré Award is specific to the Latino cultural experience and to Latino/Latina creators, so it does not apply to a Vietnamese American story; the precise recognition is the Asian/Pacific American Award for Literature. The Sydney Taylor centers the Jewish experience and the Stonewall the LGBTQ experience, neither of which fits.",
+        "deepDive": "Through ISCI 742, this scenario flags the common error of collapsing distinct identity awards into a generic 'diversity' bin, which erases the specificity that gives these awards their value. The equity consequence is precision in representation: matching each community to its own award ensures a collection audit reports authentic coverage rather than overstating diversity by lumping unrelated cultures together.",
+        "researchUrl": "https://www.apalaweb.org/awards/literature-awards/"
+    },
+    {
+        "domain": "Teaching and Learning",
+        "color": "var(--domain-teach)",
+        "text": "A new informational book about Indigenous nations is excellent on two fronts. One award would honor it as the most distinguished informational book for children; another would honor it for accurately and sensitively depicting an ethnic group for the social studies curriculum. Which pairing correctly names those two awards?",
+        "options": [
+            "The Printz Award and the Odyssey Award",
+            "The Newbery Medal and the Caldecott Medal",
+            "The Geisel Award and an Alex Award",
+            "The Robert F. Sibert Medal (most distinguished informational book) and the Carter G. Woodson Award (accurate, sensitive ethnic depiction for social studies)"
+        ],
+        "correctIndex": 3,
+        "explanation": "The Sibert Medal recognizes the most distinguished informational book for children based on overall nonfiction excellence, while the Carter G. Woodson Award (NCSS) recognizes accurate and sensitive depiction of an ethnic group for the social studies curriculum. The Newbery/Caldecott, Geisel/Alex, and Printz/Odyssey pairings do not match either of these specific criteria.",
+        "deepDive": "From an ISCI 782 standpoint, recognizing that a single nonfiction title can be vetted by two different lenses, library-defined informational distinction (Sibert) and educator-defined curricular accuracy (Woodson), gives the librarian a richer vocabulary for co-planning with content teachers. The instructional consequence is that pairing both seals lets a media specialist argue a book is simultaneously well-crafted and curriculum-safe, the two questions a social studies teacher most needs answered before adopting a text.",
+        "researchUrl": "https://www.ala.org/awards/books-media/robert-f-sibert-informational-book-medal"
+    },
+    {
+        "domain": "Collection Development",
+        "color": "var(--domain-access)",
+        "text": "You are conducting your annual diversity-and-equity collection audit and need one authoritative award seal to verify authentic representation of each of these four communities: the Latino cultural experience, the Jewish experience, the disability experience, and the LGBTQ experience. Which set correctly maps to those four needs in order?",
+        "options": [
+            "Pura Belpré, Sydney Taylor, Schneider Family, Stonewall",
+            "Coretta Scott King, Batchelder, Geisel, Alex",
+            "Newbery, Caldecott, Printz, Sibert",
+            "Carter G. Woodson, Jane Addams, Odyssey, Margaret A. Edwards"
+        ],
+        "correctIndex": 0,
+        "explanation": "The Pura Belpré maps to the Latino cultural experience, the Sydney Taylor to the Jewish experience, the Schneider Family to the disability experience, and the Stonewall to the LGBTQ experience. The other sets mix general-merit, format, lifetime-achievement, and thematic awards that do not align one-to-one with these four identity communities.",
+        "deepDive": "Within the ISCI 742 capstone framework, a crosswalk of identity-specific award seals converts a fuzzy equity goal into an auditable instrument the librarian can present to administrators and grant funders as evidence of intentional, defensible collection building. The administrative consequence is funding leverage: a gap analysis that names the precise awards underrepresented on the shelves is far more persuasive in a budget or grant proposal than a general plea to 'diversify the collection.'",
+        "researchUrl": "https://www.ala.org/awards/books-media/pura-belpre-award"
+    }
+]
